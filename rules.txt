@@ -9,18 +9,12 @@ Event to test with /var/ossec/bin/ossec-logtest
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"Se salió de un proceso."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\admin$","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"5501-WKSTN1-4020-stdout","AccessMask":"0x100081","AccessList":"%%1541 %%4416 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4416: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
 -->
 <!-- LATERAL MOVEMENT -->
-<rule id="100200" level="10">
-   <if_sid>60103</if_sid>
-   <field name="win.system.eventID">5145</field>
-   <field name="win.eventdata.RelativeTargetName">\.*PSEXECSVC\.*</field>
-   <description>Mitre ATT&CK T1077, Windows Admin Shares, Lateral Movement</description>
-   <options>no_full_log</options>
- </rule>
+
 <rule id="100201" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">5145</field>
    <field name="win.eventdataeventdata.ShareName">\.*(d\$)|(admin\$)|(c\$)|(C\$)|(ipc\$)|(IPC\$)\.*</field>
-   <description>Mitre ATT&CK T1077, Lateral movement, Target Host</description>
+   <description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares</description>
    <options>no_full_log</options>
 </rule>
 <rule id="100201" level="10">
