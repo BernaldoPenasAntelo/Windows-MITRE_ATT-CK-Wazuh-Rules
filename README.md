@@ -4,6 +4,11 @@ This is a set of rules that i was developing for wazuh HIDS based on MITRE ATT&C
 I add rules as i develop them for my own needs.
 Use under your own risk.
 
+
+The idea is to work with two files:
+
+-The first one *rules_regular_events.txt* consist on rules that one can obtain just with regular windows events 
+
 ### Note that in many cases you must enable the event in wazuh agent config
 >  <localfile>
 >    <location>Security</location>
@@ -13,4 +18,6 @@ Use under your own risk.
 >      EventID != 4670 and EventID != 4690 and EventID != 4703 and EventID != 4907]</query>
 >  </localfile>
 
+
+-The second one *rules_sysmon_events.txt* consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
