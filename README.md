@@ -7,7 +7,7 @@ Use under your own risk.
 
 The idea is to work with two files:
 
-1. The first one *rules_regular_events.txt* consist on rules that one can obtain just with regular windows events 
+1. The first one **rules_regular_events.txt** consist on rules that one can obtain just with regular windows events 
 
 ### Note that in many cases you must enable the event in wazuh agent config
 >  <localfile>
@@ -19,5 +19,5 @@ The idea is to work with two files:
 >  </localfile>
 
 
-2. The second one *rules_sysmon_events.txt* consist on rules based on sysmon events, to use them you must first install and configure sysmon.
+2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
