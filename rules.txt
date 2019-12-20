@@ -17,7 +17,7 @@ Event to test with /var/ossec/bin/ossec-logtest
    <description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares</description>
    <options>no_full_log</options>
 </rule>
-<rule id="100201" level="10">
+<rule id="100202" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">5142</field>
    <field name="win.eventdataeventdata.ShareName">\.*(d\$)|(admin\$)|(c\$)|(C\$)|(ipc\$)|(IPC\$)\.*</field>
