@@ -66,4 +66,20 @@ Event to test with /var/ossec/bin/ossec-logtest
    <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, SeDebugPrivilege Enabled</description>
    <options>no_full_log</options>
 </rule>
+
+<!--
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"0","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"5315","processID":"480","threadID":"395","channel":"Security","computer":"PC02.example.corp","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-18","SubjectUserName":"PC02$","SubjectDomainName":"EXAMPLE", "SubjectLogonId":"0x3e7","TargetUserSid":2S-1-5-21-3583694148-1414552638-2922671848-1000","TargetUserName":"IEUser", "TargetDomainName":"PC02", "TargetLogonId":"0x45120", "LogonType":"10", "LogonProcessName":"User32","AuthenticationPackageName":"Negotiate", "WorkstationName":"PC02", "LogonGuid":"{00000000-0000-0000-0000-000000000000}", "TransmittedServices":"-", "LmPackageName":"-", "KeyLength":"0", "ProcessId":"0x658""ProcessName":"C:\Windows\System32\winlogon.exe", "IpAddress":"127.0.0.1", "IpPort":"49164" }}}
+
+-->
+<!-- COMMAND AND CONTROL -->
+
+<rule id="100240" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">10</field>
+   <field name="win.eventdata.IpAddress">127.0.0.1</field>
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+   <options>no_full_log</options>
+</rule>
 </group>
