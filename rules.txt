@@ -35,6 +35,10 @@ Event to test with /var/ossec/bin/ossec-logtest
 </rule>
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\Windows\System32\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"-","subjectDomainName":"-","subjectLogonId":"0x0","TargetUserSid":"S-1-5-7","TargetUserName":"ANONYMOUS LOGON","TargetDomainName":"NT AUTHORITY","TargetLogonId":"0x1d12916","LogonType":"3","LogonProcessName":"NtLmSsp","AuthenticationPackageName":"NTLM","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"NTLM V1","KeyLength":"128","ProcessId":"0x0","ProcessName":"-","IpAddress":"127.0.0.1","IpPort":"59336","ImpersonationLevel":"%%1833"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4703","version":"0","level":"0","task":"13317","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"11983","processID":"4","threadID":"248","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x342ba","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x342ba","ProcessName":"C:\Users\IEUser\Desktop\x64\mimikatz.exe","ProcessId":"0x8fc","EnabledPrivilegeList":"SeDebugPrivilege","DisabledPrivilegeList":"-"}}}
 -->
 <!-- PRIVILEGE ESCALATION -->
 
@@ -43,6 +47,23 @@ Event to test with /var/ossec/bin/ossec-logtest
    <field name="win.system.eventID">4624</field>
    <field name="win.eventdata.LogonType">9</field>
    <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, UAC Token Duplication</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100221" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">3</field>
+   <field name="win.eventdata.TargetUserName">ANONYMOUS LOGON</field>
+   <field name="win.eventdata.TargetUserSid">S-1-5-7</field>
+   <field name="win.eventdata.IpAddress">127.0.0.1</field>
+   <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, Juicy Potatoe</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100222" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4703</field>
+   <field name="win.eventdata.EnabledPrivilegeList">SeDebugPrivilege</field>
+   <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, SeDebugPrivilege Enabled</description>
    <options>no_full_log</options>
 </rule>
 </group>
