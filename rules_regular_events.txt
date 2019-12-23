@@ -109,14 +109,14 @@ Event to test with /var/ossec/bin/ossec-logtest
    <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, VNC Traffic</description>
    <options>no_full_log</options>
 </rule>
-<rule id="100243" level="10">
+<rule id="100244" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">5156</field>
    <field name="win.eventdata.DestPort">5938</field>
    <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Teamviewer Traffic</description>
    <options>no_full_log</options>
 </rule>
-<rule id="100243" level="10">
+<rule id="100245" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">5156</field>
    <field name="win.eventdata.DestPort">8200</field>
