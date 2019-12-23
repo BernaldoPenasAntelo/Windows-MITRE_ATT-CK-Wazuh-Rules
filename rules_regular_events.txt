@@ -137,6 +137,8 @@ Event to test with /var/ossec/bin/ossec-logtest
 
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4928","version":"0","level":"0","task":"14083","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"524","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"An Active Directory replica source naming context was established."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","DestinationDRA":"CN=NTDS Settings,CN=DC01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=contoso,DC=local","SourceDRA":"CN=NTDS Settings,CN=WIN2012R2,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=contoso,DC=local","SourceAddr":"ddec0cff-6ceb-4a59-b13f-1724c38a0970.\\_msdcs.contoso.local","NamingContext":"DC=ForestDnsZones,DC=contoso,DC=local","Options":"368","StatusCode":"0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1102","version":"0","level":"4","task":"104","opcode":"0","keywords":"0x4020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"452811","processID":"524","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se borró el registro de auditoría."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000"}}}
 -->
 
 <!-- DEFENSE EVASION -->
@@ -145,6 +147,12 @@ Event to test with /var/ossec/bin/ossec-logtest
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">4928|4929</field>
    <description>Mitre ATT&CK T1207, Defense Evasion, DCShadow, Check if the source of events is not a legitimate domain controller</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100281" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">1102</field>
+   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audfit registry deleted</description>
    <options>no_full_log</options>
 </rule>
 </group>
