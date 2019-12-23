@@ -153,3 +153,12 @@ Event to test with /var/ossec/bin/ossec-logtest
    <options>no_full_log</options>
 </rule>
 </group>
+
+<!-- PERSISTENCE -->
+<rule id="100300" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4756</field>
+   <description>Mitre ATT&CK T1098, Persistence,  A member was added to a security-enabled universal group</description>
+   <options>no_full_log</options>
+</rule>
+
