@@ -155,13 +155,13 @@ Event to test with /var/ossec/bin/ossec-logtest
 <rule id="100281" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">1102</field>
-   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audfit registry deleted</description>
+   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Security log was deleted.</description>
    <options>no_full_log</options>
 </rule>
 <rule id="100282" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">104</field>
-   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audit system registry deleted</description>
+   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, The System log file was cleared.</description>
    <options>no_full_log</options>
 </rule>
 
