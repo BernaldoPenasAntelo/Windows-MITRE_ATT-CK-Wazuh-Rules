@@ -9,7 +9,7 @@ The idea is to work with two files:
 
 1. The first one **rules_regular_events.txt** consist on rules that one can obtain just with regular windows events 
 
-### Note that in many cases you must enable the event in wazuh agent config
+### Notice that in many cases you must enable specific event gathering in wazuh agent config
 >  <localfile>
 >    <location>Security</location>
 >    <log_format>eventchannel</log_format>
