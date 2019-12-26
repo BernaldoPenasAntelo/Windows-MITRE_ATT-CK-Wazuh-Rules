@@ -165,8 +165,6 @@
 -->
 
 <!-- DEFENSE EVASION -->
-<!-- Win_4985_T1186_Process_Doppelganging.evtx -->
-
 <!-- Detailed Directory Service Replication Auditing must be enabled -->
 <rule id="100280" level="10">
    <if_sid>60103</if_sid>
