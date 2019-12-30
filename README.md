@@ -21,4 +21,4 @@ The idea is to work with two files:
 
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
-before each rule category i insert a comment with events in order to test each rule with **ossec-logtest**.
+Before each rule category i insert a comment with events in order to test each rule with **ossec-logtest**.
