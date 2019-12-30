@@ -23,5 +23,7 @@ The idea is to work with two files:
 
 
 --------------------
+
 Before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
 ---------------------
