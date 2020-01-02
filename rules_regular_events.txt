@@ -257,6 +257,9 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4738","version":"0","level":"0","task":"13824","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"175408","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A user account was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","Dummy":"-","TargetUserName":"ksmith","TargetDomainName":"CONTOSO","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-6609","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x30dc2","PrivilegeList":"-","SamAccountName":"-","DisplayName":"-","UserPrincipalName":"-","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"-","AccountExpires":"-","PrimaryGroupId":"-","AllowedToDelegateTo":"-","OldUacValue":"0x15","NewUacValue":"0x210","UserAccountControl":"%%2050 %%2089","UserParameters":"-","SidHistory":"-","LogonHours":"-"}}}
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4720","version":"0","level":"0","task":"13824","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"175408","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" A user account was created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"ksmith","TargetDomainName":"CONTOSO","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-6609","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x30dc2","PrivilegeList":"-","SamAccountName":"ksmith$","DisplayName":"Ken ","UserPrincipalName":"ksmith@contoso.local","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"%%1794","AccountExpires":"%%1794","PrimaryGroupId":"513","AllowedToDelegateTo":"-","OldUacValue":"0x0","NewUacValue":"0x15","UserAccountControl":"%%2080 %%2082 %%2084","UserParameters":"-","SidHistory":"-","LogonHours":"%%1793"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4616","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"The system time was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO", "SubjectLogonId":"0x48f29","PreviousTime":"2015-10-09T05:04:30.000941900Z","NewTime":"2015-10-09T05:04:30.000000000Z","ProcessId":"0x1074", "ProcessName":"C:\\WindowsSystem32\\rundll.exe"}}}
+
  -->
 <!-- PERSISTENCE -->
 
@@ -320,6 +323,13 @@ Copy below to your client's ossec.conf file to enable powershell audit:
    <field name="win.system.eventID">4720</field>
    <field name="win.eventdata.SamAccountName">(\.*)\$</field>
    <description>Mitre ATT&CK T1136 , Persistence, Create Account, User account created with a name that mimic a machine account</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100308" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4616</field>
+   <field name="win.eventdata.ProcessName">(\.*)rundll.exe</field>
+   <description>Mitre ATT&CK T1209, Persistence, Time Providers, Time change outside the normal Windows Time Service.</description>
    <options>no_full_log</options>
 </rule>
 
