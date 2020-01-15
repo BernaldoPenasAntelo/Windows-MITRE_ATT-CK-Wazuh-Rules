@@ -11,6 +11,8 @@
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5152","version":"0","level":"0","task":"13825","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T03:00:37.586173100Z","eventRecordID":"203057","processID":"444","threadID":"1224","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessId":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","Direction":"%%14592","SourceAddress":"10.0.0.100","SourcePort":"49278","DestAddress":"10.0.0.10","DestPort":"3389","Protocol":"6","FilterRTID":"0","LayerName":"%%14610","LayerRTID":"44"}}}
 
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
+
 -->
 <!-- LATERAL MOVEMENT -->
 <!-- Event 5145 must be enabled in agent config -->
@@ -49,6 +51,16 @@
    <description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
    <options>no_full_log</options>
 </rule>
+<rule id="100205" level="7">
+   <if_sid>60106</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">9</field>
+   <field name="win.eventdata.AuthenticationPackageName">Negotiate</field>
+   <field name="win.eventdata.LogonProcessName">seclogo</field>
+   <description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash</description>
+   <options>no_full_log</options>
+</rule>
+
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
 
