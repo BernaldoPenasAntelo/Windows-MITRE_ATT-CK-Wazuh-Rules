@@ -42,3 +42,6 @@ Spearphishing via Service | Execution through Module Load | Bootkit | Exploitati
 Supply Chain Compromise | Exploitation for Client Execution | Browser Extensions | Extra Window Memory Injection | Component Firmware | Hooking | Password Policy Discovery | Remote File Copy | Email Collection | Domain Generation Algorithms | Scheduled Transfer | Inhibit System Recovery
 Trusted Relationship | Graphical User Interface | Change Default File Association | File System Permissions Weakness | Component Object Model Hijacking | Input Capture | Peripheral Device Discovery | Remote Services | Input Capture | Fallback Channels | | Network Denial of Service
 Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
+ | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | Kerberoasting | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
+ | Mshta | Create Account | New Service | DCShadow | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
+ 
