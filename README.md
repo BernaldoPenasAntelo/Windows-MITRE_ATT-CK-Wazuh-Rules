@@ -28,6 +28,9 @@ Before each rule category it's a commented block with events in order to test ea
 
 ---------------------
 
+Table ATT&CK with tactics covered by the rules
+
+-------------------------
 
 `Initial access` |	`Execution` |	`Persistence` |	`Privilege Escalation` |	`Defense Evasion` |	`Credential Access` |	`Discovery` |	`Lateral Movement` |	`Collection` |	`Command and Control` |	`Exfiltration` |	`Impact`
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
