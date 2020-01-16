@@ -29,7 +29,7 @@ Before each rule category it's a commented block with events in order to test ea
 ---------------------
 
 
-```html  <span style="color:orange;">Initial access</span> ``` |	Execution |	Persistence |	Privilege Escalation |	Defense Evasion |	Credential Access |	Discovery |	Lateral Movement |	Collection |	Command and Control |	Exfiltration |	Impact
+Initial access |	Execution |	Persistence |	Privilege Escalation |	Defense Evasion |	Credential Access |	Discovery |	Lateral Movement |	Collection |	Command and Control |	Exfiltration |	Impact
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
 Drive-by Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	Account Manipulation |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
 Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	Brute Force |	Application Window Discovery |	Component Object Model and Distributed COM |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
