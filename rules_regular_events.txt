@@ -16,7 +16,9 @@
 
 -->
 <!-- LATERAL MOVEMENT -->
-<!-- Event 5145 must be enabled in agent config -->
+<!-- Event 5145 must be enabled in agent config 
+	and even must be anbled policy setting Detailed File Share Auditing, we strongly recommend that
+-->
 <rule id="100200" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">5145</field>
@@ -315,6 +317,9 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 {"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"srcv","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
 
 {"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"PSEXECSVC","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"A network share object was checked to see whether client can be granted desired access."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\test","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"5501-WKSTN1-4020-stdout","AccessMask":"0x100081","AccessList":"%%1541 %%4417 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4417: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
+
  -->
 <!-- PERSISTENCE -->
 
@@ -406,7 +411,13 @@ Copy below to your client's ossec.conf file to enable powershell audit:
     <description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
     <options>no_full_log</options>
 </rule>
-
+<rule id="100312" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5145</field>
+   <field name="win.eventdata.RelativeTargetName">\.*-stdin$|-stdout$|-stderr$</field>
+   <description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+   <options>no_full_log</options>
+</rule>
 
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4964","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Special groups have been assigned to a new logon."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0xd972e","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetUserSid":"S-1-5-21-3457937927-2839227994-823803824-500","TargetUserName":"ladmin","TargetDomainName":"CONTOSO","TargetLogonId":"0x139faf","TargetLogonGuid":"{B03B6192-09AE-E77F-DD10-2DC430766040}","SidList":"%{S-1-5-21-3457937927-2839227994-823803824-512}"}}}
@@ -442,6 +453,9 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\kushu3sd.default\\key4.db","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4625","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"An account failed to log on."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"DC01$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","TargetUserSid":"S-1-0-0","TargetUserName":"Auditor","TargetDomainName":"CONTOSO","Status":"0xC000006A","FailureReason":"%%2307","SubStatus":"0x0","LogonType":"2","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"DC01","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1bc","ProcessName":"C:\\Windows\\System32\\winlogon.exe","IpAddress":"-","IpPort":"0"}}}
+
 -->
 <!-- CREDENTIAL ACCESS -->
 
@@ -449,7 +463,7 @@ Copy below to your client's ossec.conf file to enable powershell audit:
    <if_sid>60104</if_sid>
    <field name="win.system.eventID">4771</field>
    <field name="win.eventdata.Status">0x18</field>
-   <description>Mitre ATT&CK TT1078,  Credential Access, Valid Accounts, Kerberos pre-authentication failed</description>
+   <description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, Kerberos pre-authentication failed</description>
    <options>no_full_log</options>
    <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 </rule>
@@ -457,7 +471,7 @@ Copy below to your client's ossec.conf file to enable powershell audit:
    <if_sid>60122</if_sid>
    <field name="win.system.eventID">4625</field>
    <field name="win.eventdata.Status">0xC0000064|0xC000006A</field>
-   <description>Mitre ATT&CK TT1078,  Credential Access, Valid Accounts, An account failed to log on</description>
+   <description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, An account failed to log on</description>
    <options>no_full_log</options>
    <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 </rule>
@@ -495,6 +509,14 @@ Copy below to your client's ossec.conf file to enable powershell audit:
    <options>no_full_log</options>
    <group>authentication_failures,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,</group>
 </rule>
+<rule id="100346" level="5">
+   <if_sid>60122</if_sid>
+   <field name="win.system.eventID">4625</field>
+   <field name="win.eventdata.IpAddress">-|NULL</field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on with null ip address</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
 
 <!-- 
 Replicating Directory Changes All, 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2, 9923a32a-3607-11d2-b9be-0000f87a36b2, or 1131f6ac-9c07-11d1-f79f-00c04fc2dcd2
@@ -503,14 +525,14 @@ Not all machines have logging turned on for example Windows server 2016 the GPO 
 Editor and going to Computer configurations > Windows Settings > Security Settings > Local Policies > Audit Policy. Right clicking on Audit directory service access and then
 click on Properties. Check the box for Success and click Apply.
 -->
-<rule id="100346" level="10">
+<rule id="100347" level="10">
    <if_matched_sid>60103</if_matched_sid>
    <field name="win.system.eventID">4662</field>
    <field name="win.eventdata.Properties">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2|9923a32a-3607-11d2-b9be-0000f87a36b2|1131f6ac-9c07-11d1-f79f-00c04fc2dcd2</field>
    <description>Mitre ATT&CK T1003,  Credential Access, Credential Dumping, DCSyn</description>
    <options>no_full_log</options>
 </rule>
-<rule id="100347" level="10">
+<rule id="100348" level="10">
    <if_matched_sid>60106</if_matched_sid>
    <field name="win.system.eventID">4769</field>
    <field name="win.eventdata.TicketOptions">0x40810000</field>
@@ -523,18 +545,11 @@ windows credentials from browsers.
 Tools → Local Security policy → Local Policies → Audit Policies, From here we can set the Audit Object Access policy to log successes and failures
 Properties → Security → Advanced → Auditing → Click Add → Select Principal → Everyone
 -->
-<rule id="100348" level="7">
+<rule id="100349" level="7">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">4663</field>
    <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data(\.*)</field>
    <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Chrome, Verify that field ProcessName it's a process not related with chrome</description>
-   <options>no_full_log</options>
- </rule>
-<rule id="100349" level="7">
-   <if_sid>60103</if_sid>
-   <field name="win.system.eventID">4663</field>
-   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
-   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
    <options>no_full_log</options>
  </rule>
 <rule id="100350" level="7">
@@ -547,11 +562,18 @@ Properties → Security → Advanced → Auditing → Click Add → Select Princ
 <rule id="100351" level="7">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">4663</field>
-   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\key4.db(\.*)</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
    <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
    <options>no_full_log</options>
  </rule>
 <rule id="100352" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\key4.db(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+   <options>no_full_log</options>
+ </rule>
+<rule id="100353" level="7">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">4663</field>
    <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data(\.*)</field>
