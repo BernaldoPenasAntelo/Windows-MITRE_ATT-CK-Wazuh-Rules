@@ -47,3 +47,34 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy |
 | | PowerShell | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation 
+| | PowerShell | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
+| |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
+| |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation
+| | Rundll32 | Hidden Files and Directories | PowerShell Profile | DLL Side-Loading | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
+| | Scheduled Task | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
+| | Scripting | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
+| | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 
+| | Signed Binary Proxy Execution | Logon Scripts | SID-History Injection | File and Directory Permissions Modification | | System Service Discovery | | | Web Service | | |
+| | Signed Script Proxy Execution | LSASS Driver | Valid Accounts | File Deletion | | System Time Discovery | | | | |				
+| |	Third-party Software | Modify Existing Service | Web Shell | File System Logical Offsets | | Virtualization/Sandbox Evasion | | | | |
+| | Trusted Developer Utilities | Netsh Helper DLL | | Group Policy Modification | | | | | | | 				
+| | User Execution | New Service | | Hidden Files and Directories | | | | | | |		
+| | Windows Management Instrumentation | Office Application Startup | | Hidden Window | | | | | | | 						
+| | Windows Remote Management | Path Interception | | Image File Execution Options Injection | | | | | | | 						
+| | XSL Script Processing | Port Monitors | | Indicator Blocking | | | | | | |
+| | | PowerShell Profile | | Indicator Removal from Tools | | | | | | | |  							
+| | | Redundant Access | | Indicator Removal on Host | | | | | | | |						
+| | | Registry Run Keys / Startup Folder | | Indirect Command Execution | | | | | | | |							
+| | | Scheduled Task | | Install Root Certificate | | | | | | | |
+| | | Screensaver | | InstallUtil | | | | | | | |
+| | | Security Support Provider | | Masquerading | | | | | | | | 							
+| | | Server Software Component | | Modify Registry | | | | | | | |				
+| | | Service Registry Permissions Weakness | | Mshta | | | | | | | |			
+| | | Shortcut Modification | | Network Share Connection Removal | | | | | | | |						
+| | | SIP and Trust Provider Hijacking | | NTFS File Attributes | | | | | | | |		
+| | | System Firmware | | Obfuscated Files or Information | | | | | | | |		
+| | | Time Providers | | Parent PID Spoofing | | | | | | | |
+| | | Valid Accounts | | Process Doppelgänging | | | | | | | |			
+| | | Web Shell | | Process Hollowing | | | | | | | |	
+| | | Windows Management Instrumentation Event Subscription | | Process Injection | | | | | | | |
+| | | Winlogon Helper DLL | | Redundant Access | | | | | | | |
