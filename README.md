@@ -78,3 +78,19 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy |
 | | | Web Shell | | Process Hollowing | | | | | | | |	
 | | | Windows Management Instrumentation Event Subscription | | Process Injection | | | | | | | |
 | | | Winlogon Helper DLL | | Redundant Access | | | | | | | |
+| | | | | Regsvcs/Regasm | | | | | | | |
+| | | | | Regsvr32 | | | | | | | |						
+| | | | | Rootkit | | | | | | | |			
+| | | | | Rundll32 | | | | | | | |			
+| | | | | Scripting | | | | | | | |			
+| | | | | Signed Binary Proxy Execution | | | | | | | | 							
+| | | | | Signed Script Proxy Execution | | | | | | | |			
+| | | | | SIP and Trust Provider Hijacking | | | | | | | |				
+| | | | | Software Packing | | | | | | | |
+| | | | | Template Injection | | | | | | | |			
+| | | | | Timestomp | | | | | | | |
+| | | | | Trusted Developer Utilities | | | | | | | | 							
+| | | | | Valid Accounts | | | | | | | |
+| | | | | Virtualization/Sandbox Evasion | | | | | | | | 							
+| | | | | Web Service | | | | | | | |
+| | | | | XSL Script Processing | | | | | | | |
