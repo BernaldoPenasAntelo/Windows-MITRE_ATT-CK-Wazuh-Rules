@@ -27,3 +27,8 @@ The idea is to work with two files:
 Before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
 
 ---------------------
+
+
+Initial Access |	Execution |	Persistence |	Privilege Escalation |	Defense Evasion |	Credential Access |	Discovery |	Lateral Movement |	Collection |	Command and Control |	Exfiltration |	Impact
+---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
+Drive-by | Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	Account Manipulation |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
