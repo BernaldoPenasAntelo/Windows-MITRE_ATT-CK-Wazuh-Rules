@@ -13,6 +13,7 @@
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
 
+
 -->
 <!-- LATERAL MOVEMENT -->
 <!-- Event 5145 must be enabled in agent config -->
@@ -60,9 +61,8 @@
    <description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash</description>
    <options>no_full_log</options>
 </rule>
-
 <!--
-{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"-","subjectDomainName":"-","subjectLogonId":"0x0","TargetUserSid":"S-1-5-7","TargetUserName":"ANONYMOUS LOGON","TargetDomainName":"NT AUTHORITY","TargetLogonId":"0x1d12916","LogonType":"3","LogonProcessName":"NtLmSsp","AuthenticationPackageName":"NTLM","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"NTLM V1","KeyLength":"128","ProcessId":"0x0","ProcessName":"-","IpAddress":"127.0.0.1","IpPort":"59336","ImpersonationLevel":"%%1833"}}}
 
@@ -160,6 +160,9 @@
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4661","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A handle to an object was requested."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x4280e","ObjectServer":"Security Account Manager","ObjectType":"SAM\\_DOMAIN","ObjectName":"DC=contoso,DC=local","HandleId":"0xdd64d36870","TransactionId":"{00000000-0000-0000-0000-000000000000}","AccessList":"%%5400","AccessMask":"0x2d","PrivilegeList":"Ā","Properties":"-","RestrictedSidCount":"2949165","ProcessId":"0x9000a000d002d","ProcessName":"{bf967a90-0de6-11d0-a285-00aa003049e2} %%5400 {ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501}"}}}
 
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4661","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A handle to an object was requested."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x4280e","ObjectServer":"Security Account Manager","ObjectType":"SAM\\_DOMAIN","ObjectName":"S-1-5-21-1587066498-1489273250-1035260531-512","HandleId":"0xdd64d36870","TransactionId":"{00000000-0000-0000-0000-000000000000}","AccessList":"%%5400","AccessMask":"0x2d","PrivilegeList":"Ā","Properties":"-","RestrictedSidCount":"2949165","ProcessId":"0x9000a000d002d","ProcessName":"{bf967a90-0de6-11d0-a285-00aa003049e2} %%5400 {ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501}"}}}
+
+
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4104","version":"1","level":"2","task":"3","opcode":"15","keywords":"0x0","systemTime":"2019-09-09T13:35:09.315230000Z","eventRecordID":"1123","processID":"5500","threadID":"356","channel":"Microsoft-Windows-PowerShell/Operational","computer":"DC1.insecurebank.local","severityValue":"","message":"Script Block Logging."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","MessageNumber":"1","MessageTotal":"1","ScriptBlockText":"Get-Date","ScriptBlockId":"c7ca7056-b317-4fff-b796-05d8ef896dcd","Path":"/"}}} 
 -->
 <!-- DISCOVERY -->
@@ -174,8 +177,16 @@
 <rule id="100261" level="10">
    <if_sid>60103</if_sid>
    <field name="win.system.eventID">4661</field>
-   <field name="win.eventdata.ObjectType">(\.*)SAM(\.*)</field> 
+   <field name="win.eventdata.SourceUserName">(\.*)\$</field>
+   <field name="win.eventdata.ObjectName">(\.*)S-1-5-21-(\.*)-512|502|500|505|519|520|544|551|555(\.*)</field>
    <description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, Audit SAM</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100262" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4661</field>
+   <field name="win.eventdata.ObjectType">(\.*)SAM(\.*)</field> 
+   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, known privileged AD accounts/groups enumeration</description>
    <options>no_full_log</options>
 </rule>
 <!-- event 4104 it's for Powershell 4 or above
@@ -185,7 +196,7 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 <log_format>eventchannel</log_format>
 </localfile>
 --> 
-<rule id="100262" level="10">
+<rule id="100263" level="10">
   <if_sid>60000</if_sid>
   <field name="win.system.eventID">4104</field>
   <field name="win.eventdata.ScriptBlockText">(\.*)Get-(\.*)</field>
@@ -300,6 +311,10 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4616","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"The system time was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO", "SubjectLogonId":"0x48f29","PreviousTime":"2015-10-09T05:04:30.000941900Z","NewTime":"2015-10-09T05:04:30.000000000Z","ProcessId":"0x1074", "ProcessName":"C:\\WindowsSystem32\\rundll.exe"}}}
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4697","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"The system time was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"WIN-GG82ULGC9GO$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","ServiceName":"AppHostSvc","ServiceFileName":"%windir%\\system32\\svchost.exe -k apphost","ServiceType":"0x20","ServiceStartType":"2","ServiceAccount":"localSystem"}}}
+
+{"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"srcv","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
+
+{"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"PSEXECSVC","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
  -->
 <!-- PERSISTENCE -->
 
@@ -374,10 +389,25 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 </rule>
 <rule id="100309" level="8">
    <if_sid>60103</if_sid>
-   <field name="win.system.eventID">7045|4697</field>
+   <field name="win.system.eventID">4697</field>
    <description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
    <options>no_full_log</options>
 </rule>
+<rule id="100310" level="8">
+    <if_sid>61100</if_sid>
+    <field name="win.system.eventID">^7045$</field>
+    <description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
+    <options>no_full_log</options>
+</rule>
+<rule id="100311" level="8">
+    <if_sid>61100</if_sid>
+    <field name="win.system.eventID">^7045$</field>
+	<field name="win.eventdata.ServiceName">PSEXECSVC</field>
+    <description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+    <options>no_full_log</options>
+</rule>
+
+
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4964","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Special groups have been assigned to a new logon."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0xd972e","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetUserSid":"S-1-5-21-3457937927-2839227994-823803824-500","TargetUserName":"ladmin","TargetDomainName":"CONTOSO","TargetLogonId":"0x139faf","TargetLogonGuid":"{B03B6192-09AE-E77F-DD10-2DC430766040}","SidList":"%{S-1-5-21-3457937927-2839227994-823803824-512}"}}}
 -->
@@ -562,3 +592,5 @@ Copy below to your client's ossec.conf file to enable powershell audit:
 </rule>
  
 </group>
+
+ 
