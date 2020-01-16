@@ -31,10 +31,10 @@ Before each rule category it's a commented block with events in order to test ea
 
 `Initial access` |	`Execution` |	`Persistence` |	`Privilege Escalation` |	`Defense Evasion` |	`Credential Access` |	`Discovery` |	`Lateral Movement` |	`Collection` |	`Command and Control` |	`Exfiltration` |	`Impact`
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
-Drive-by Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	Account Manipulation |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
-Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	Brute Force |	Application Window Discovery |	Component Object Model and Distributed COM |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
-External Remote Services |	Compiled HTML File |	AppCert DLLs |	AppCert DLLs |	BITS Jobs |	Credential Dumping |	Browser Bookmark Discovery |	Exploitation of Remote Services |	Clipboard Data |	Connection Proxy |	Data Encrypted |	Data Encrypted for Impact
-Hardware Additions | Component Object Model and Distributed COM | AppInit DLLs | AppInit DLLs | Bypass User Account Control | Credentials from Web Browsers | Domain Trust Discovery | Internal Spearphishing | Data from Information Repositories | Custom Command and Control Protocol | Data Transfer Size Limits | Defacement
+Drive-by Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	**Account Manipulation** |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
+Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	* **Brute Force** |	Application Window Discovery |	Component Object Model and Distributed COM |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
+External Remote Services |	Compiled HTML File |	AppCert DLLs |	AppCert DLLs |	BITS Jobs |	* **Credential Dumping** |	Browser Bookmark Discovery |	Exploitation of Remote Services |	Clipboard Data |	Connection Proxy |	Data Encrypted |	Data Encrypted for Impact
+Hardware Additions | Component Object Model and Distributed COM | AppInit DLLs | AppInit DLLs | Bypass User Account Control | * **Credentials from Web Browsers** | Domain Trust Discovery | Internal Spearphishing | Data from Information Repositories | Custom Command and Control Protocol | Data Transfer Size Limits | Defacement
 Replication Through Removable Media | Control Panel Items | Application Shimming | Application Shimming | CMSTP | Credentials in Files | File and Directory Discovery | Logon Scripts | Data from Local System | Custom Cryptographic Protocol | Exfiltration Over Alternative Protocol | Disk Content Wipe
 Spearphishing Attachment | Dynamic Data Exchange | Authentication Package | Bypass User Account Control | Code Signing | Credentials in Registry | Network Service Scanning | Pass the Hash | Data from Network Shared Drive | Data Encoding | Exfiltration Over Command and Control Channel | Disk Structure Wipe
 Spearphishing Link | Execution through API | BITS Jobs | DLL Search Order Hijacking | Compile After Delivery | Exploitation for Credential Access | Network Share Discovery | Pass the Ticket | Data from Removable Media | Data Obfuscation | Exfiltration Over Other Network Medium | Endpoint Denial of Service
@@ -42,23 +42,21 @@ Spearphishing via Service | Execution through Module Load | Bootkit | Exploitati
 Supply Chain Compromise | Exploitation for Client Execution | Browser Extensions | Extra Window Memory Injection | Component Firmware | Hooking | Password Policy Discovery | Remote File Copy | Email Collection | Domain Generation Algorithms | Scheduled Transfer | Inhibit System Recovery
 Trusted Relationship | Graphical User Interface | Change Default File Association | File System Permissions Weakness | Component Object Model Hijacking | Input Capture | Peripheral Device Discovery | Remote Services | Input Capture | Fallback Channels | | Network Denial of Service
 Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
-| | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | Kerberoasting | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
-| | Mshta | Create Account | New Service | **DCShadow** | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
-| | PowerShell | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
+| | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | * **Kerberoasting** | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
+| | Mshta | * **Create Account** | New Service | * **DCShadow** | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
+| | * **PowerShell** | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation 
-| | PowerShell | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
-| |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation
 | | Rundll32 | Hidden Files and Directories | PowerShell Profile | DLL Side-Loading | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
-| | Scheduled Task | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
+| | * **Scheduled Task** | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
 | | Scripting | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
 | | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 
-| | Signed Binary Proxy Execution | Logon Scripts | SID-History Injection | File and Directory Permissions Modification | | System Service Discovery | | | Web Service | | |
+| | Signed Binary Proxy Execution | Logon Scripts | SID-History Injection | * **File and Directory Permissions Modification** | | System Service Discovery | | | Web Service | | |
 | | Signed Script Proxy Execution | LSASS Driver | Valid Accounts | File Deletion | | System Time Discovery | | | | |				
 | |	Third-party Software | Modify Existing Service | Web Shell | File System Logical Offsets | | Virtualization/Sandbox Evasion | | | | |
 | | Trusted Developer Utilities | Netsh Helper DLL | | Group Policy Modification | | | | | | | 				
-| | User Execution | New Service | | Hidden Files and Directories | | | | | | |		
+| | User Execution | * **New Service** | | Hidden Files and Directories | | | | | | |		
 | | Windows Management Instrumentation | Office Application Startup | | Hidden Window | | | | | | | 						
 | | Windows Remote Management | Path Interception | | Image File Execution Options Injection | | | | | | | 						
 | | XSL Script Processing | Port Monitors | | Indicator Blocking | | | | | | |
@@ -73,14 +71,14 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy |
 | | | Shortcut Modification | | Network Share Connection Removal | | | | | | | |						
 | | | SIP and Trust Provider Hijacking | | NTFS File Attributes | | | | | | | |		
 | | | System Firmware | | Obfuscated Files or Information | | | | | | | |		
-| | | Time Providers | | Parent PID Spoofing | | | | | | | |
-| | | Valid Accounts | | Process Doppelgänging | | | | | | | |			
+| | | * **Time Providers** | | Parent PID Spoofing | | | | | | | |
+| | | * **Valid Accounts** | | Process Doppelgänging | | | | | | | |			
 | | | Web Shell | | Process Hollowing | | | | | | | |	
 | | | Windows Management Instrumentation Event Subscription | | Process Injection | | | | | | | |
 | | | Winlogon Helper DLL | | Redundant Access | | | | | | | |
 | | | | | Regsvcs/Regasm | | | | | | | |
 | | | | | Regsvr32 | | | | | | | |						
-| | | | | Rootkit | | | | | | | |			
+| | | | | * **Rootkit** | | | | | | | |			
 | | | | | Rundll32 | | | | | | | |			
 | | | | | Scripting | | | | | | | |			
 | | | | | Signed Binary Proxy Execution | | | | | | | | 							
