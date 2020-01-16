@@ -44,4 +44,6 @@ Trusted Relationship | Graphical User Interface | Change Default File Associatio
 Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
 | | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | Kerberoasting | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
 | | Mshta | Create Account | New Service | DCShadow | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
- 
+| | PowerShell | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
+| |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
+| |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation 
