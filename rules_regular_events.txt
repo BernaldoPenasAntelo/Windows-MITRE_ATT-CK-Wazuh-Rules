@@ -205,6 +205,27 @@ Copy below to your client's ossec.conf file to enable powershell audit:
   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, Powershell</description>
   <options>no_full_log</options>
 </rule>
+<!-- To audit event 148 you must enable RDService Core audit
+Copy below to your client's ossec.conf file
+<localfile>
+<location>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</location>
+<log_format>eventchannel</log_format>
+</localfile>
+-->
+<rule id="100264" level="3">
+  <if_sid>60009</if_sid>
+  <field name="win.system.eventID">148</field>
+  <field name="win.eventdata.ChannelName">ms_t120</field>
+  <field name="win.eventdata.TunnelID">0</field>
+  <description>Mitre ATT&CK T1046, Discovery, Network Service Scanning, RDP Scan</description>
+  <options>no_full_log</options>
+</rule>
+<rule id="100265" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100264</if_matched_sid>
+   <field name="win.system.eventID">148</field>
+   <description>Mitre ATT&CK T1046,   Discovery, Network Service Scanning, RDP Scan</description>
+   <options>no_full_log</options>
+</rule>
 
 
 <!--
