@@ -1,6 +1,6 @@
 1. [Windows-MITRE_ATT-CK-Wazuh-Rules](#Windows-MITRE_ATT-CK-Wazuh-Rules)
-2. [INDEPENDENT FILE LIST](#INDEPENDENT FILE LIST:)
-3. [Table ATT&CK with tactics covered by the rules](#Table ATT&CK with tactics covered by the rules)
+2. [INDEPENDENT FILE LIST](#INDEPENDENT-FILE-LIST)
+3. [Table ATT&CK with tactics covered by the rules](#Table-ATT&CK-with-tactics-covered-by-the-rules)
 
 
 
