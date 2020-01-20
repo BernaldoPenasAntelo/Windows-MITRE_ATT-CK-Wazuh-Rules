@@ -5,7 +5,7 @@ I add rules as i develop them for my own needs. Notice that i'm working with eve
 Use under your own risk.
 
 
-The idea is to work with two files:
+The idea is to work with two main files:
 
 1. The first one **rules_regular_events.txt** consist on rules that one can obtain just with regular windows events 
 
@@ -22,9 +22,44 @@ The idea is to work with two files:
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
 
+Due to the complexity of the task i try to follow the way wazuh categorizes rules and so if audit new log sources needed (other than security and system, both enabled by default) i will create new independent files.
+
+INDEPENDENT FILE LIST:
+
+- powershell_rules.xml
+-------------------------------
+This config must be enabled in the agent configuration:
+
+```
+<localfile>
+<location>Microsoft-Windows-PowerShell/Operational</location>
+<log_format>eventchannel</log_format>
+</localfile>
+
+```
+
+PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
+Alternately, setting the following registry values will have the same effect:
+   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
+   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
+   
+
+- rdp_rules.xml
+
+This config must be enabled in agent configuration:
+
+```
+<localfile>
+<location>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</location>
+<log_format>eventchannel</log_format>
+</localfile>
+
+```
+
+
 --------------------
 
-Before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
 
 ---------------------
 

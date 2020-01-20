@@ -1,0 +1,11 @@
+<group name="MITRE ATT&CK sysmon">
+<!-- LATERAL MOVEMENT -->
+<!-- PRIVILEGE ESCALATION -->
+<!-- COMMAND AND CONTROL -->
+<!-- DISCOVERY -->
+<!-- DEFENSE EVASION -->
+<!-- PERSISTENCE -->
+<!-- INITIAL ACCESS -->
+<!-- CREDENTIAL ACCESS -->
+<!-- EXECUTION -->
+</group>
