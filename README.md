@@ -4,6 +4,9 @@
 
 
 
+
+
+
 ## Windows-MITRE_ATT-CK-Wazuh-Rules
 
 This is a set of rules that i was developing for wazuh HIDS based on MITRE ATT&CK Framework to complement the windows base ruleset.
@@ -31,6 +34,11 @@ The idea is to work with two main files:
 In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
 
 -----------------------------------------------------
+
+
+
+
+
 
 
 
@@ -69,11 +77,13 @@ This config must be enabled in agent configuration:
 
 ```
 
-
-
-
-
 --------------------------------
+
+
+
+
+
+
 
 
 ## Table ATT&CK with tactics covered by the rules
