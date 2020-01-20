@@ -43,7 +43,7 @@ Alternately, setting the following registry values will have the same effect:
    - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
    - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
    
-
+------------------------------
 - rdp_rules.xml
 
 This config must be enabled in agent configuration:
