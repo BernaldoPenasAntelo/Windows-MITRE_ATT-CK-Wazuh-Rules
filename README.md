@@ -1,7 +1,6 @@
 1. [Windows-MITRE_ATT-CK-Wazuh-Rules](#Windows-MITRE_ATT-CK-Wazuh-Rules)
-2. [My second title](#my-second-title)
-
-## My second title
+2. [INDEPENDENT FILE LIST](#INDEPENDENT FILE LIST:)
+3. [Table ATT&CK with tactics covered by the rules](#Table ATT&CK with tactics covered by the rules)
 
 
 
@@ -29,9 +28,16 @@ The idea is to work with two main files:
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
 
+In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
+-----------------------------------------------------
+
+
+
+##INDEPENDENT FILE LIST:
+
 Due to the complexity of the task i try to follow the way wazuh categorizes rules and so if audit new log sources needed (other than security and system, both enabled by default) i will create new independent files.
 
-INDEPENDENT FILE LIST:
 
 - powershell_rules.xml
 -------------------------------
@@ -64,15 +70,17 @@ This config must be enabled in agent configuration:
 ```
 
 
---------------------
 
-In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
 
----------------------
 
-Table ATT&CK with tactics covered by the rules
+--------------------------------
 
--------------------------
+
+
+
+##Table ATT&CK with tactics covered by the rules
+
+
 
 `Initial access` |	`Execution` |	`Persistence` |	`Privilege Escalation` |	`Defense Evasion` |	`Credential Access` |	`Discovery` |	`Lateral Movement` |	`Collection` |	`Command and Control` |	`Exfiltration` |	`Impact`
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
