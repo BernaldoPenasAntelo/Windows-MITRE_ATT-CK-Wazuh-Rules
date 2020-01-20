@@ -60,10 +60,10 @@ This config must be enabled in the agent configuration:
 
 ```
 
-PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
-Alternately, setting the following registry values will have the same effect:
-   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
-   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
+> PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
+> Alternately, setting the following registry values will have the same effect:
+>   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
+>   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
    
 ------------------------------
 ### - rdp_rules.xml
