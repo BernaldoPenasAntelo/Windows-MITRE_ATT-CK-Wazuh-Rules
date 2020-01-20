@@ -76,8 +76,6 @@ This config must be enabled in agent configuration:
 --------------------------------
 
 
-
-
 ## Table ATT&CK with tactics covered by the rules
 
 
