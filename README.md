@@ -34,7 +34,7 @@ In the two main files before each rule category it's a commented block with even
 
 
 
-##INDEPENDENT FILE LIST:
+## INDEPENDENT FILE LIST:
 
 Due to the complexity of the task i try to follow the way wazuh categorizes rules and so if audit new log sources needed (other than security and system, both enabled by default) i will create new independent files.
 
@@ -78,7 +78,7 @@ This config must be enabled in agent configuration:
 
 
 
-##Table ATT&CK with tactics covered by the rules
+## Table ATT&CK with tactics covered by the rules
 
 
 
