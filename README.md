@@ -1,4 +1,7 @@
-1. [Windows-MITRE_ATT&CK-Wazuh-Rules](#Windows-MITRE_ATT-CK-Wazuh-Rules)
+# Windows-MITRE&ATT-CK-Wazuh-Rules
+
+
+1. [Regular rule files](#Regular-rule-files)
 2. [Independent file list](#Independent-file-list)
 3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
 
@@ -7,7 +10,7 @@
 
 
 
-## Windows-MITRE_ATT-CK-Wazuh-Rules
+## Regular rule files
 
 
 
