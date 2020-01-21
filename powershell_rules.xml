@@ -12,62 +12,62 @@ Alternately, setting the following registry values will have the same effect:
 
 -->
 <group name="powershell">
-<rule id="100263" level="0">
+<rule id="110300" level="0">
     <if_sid>60000</if_sid>
     <field name="win.system.channel">^Microsoft-Windows-PowerShell/Operational$</field>
     <options>no_full_log</options>
     <description>Group of Windows rules for the PowerShell channel</description>
 	<group> MITRE ATT&CK, </group>
   </rule>
-<rule id="100264" level="0">
-    <if_sid>100263</if_sid>
+<rule id="110301" level="0">
+    <if_sid>100300</if_sid>
     <field name="win.system.severityValue">^INFORMATION$</field>
     <description>Windows PowerShells informational event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-  <rule id="100265" level="0">
-    <if_sid>100263</if_sid>
+  <rule id="110302" level="0">
+    <if_sid>100300</if_sid>
     <field name="win.system.severityValue">^WARNING$</field>
     <description>Windows PowerShell warning event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-  <rule id="100266" level="5">
-    <if_sid>100263</if_sid>
+  <rule id="110303" level="5">
+    <if_sid>100300</if_sid>
     <field name="win.system.severityValue">^ERROR$</field>
     <description>Windows PowerShell error event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-<rule id="100267" level="10">
-  <if_sid>100265</if_sid>
-  <field name="win.system.eventID">4104</field>
+<rule id="110304" level="10">
+  <if_sid>100302</if_sid>
+  <field name="win.system.eventID">^4104$</field>
   <field name="win.eventdata.ScriptBlockText">(\.*)Get-(\.*)</field>
   <description>Mitre ATT&CK T1087, Discovery, Account Discovery, Powershell</description>
   <options>no_full_log</options>
   <group> MITRE ATT&CK, </group>
 </rule>
-<rule id="100370" level="12">
-  <if_sid>100265</if_sid>
-  <field name="win.system.eventID">4104</field>
+<rule id="110305" level="12">
+  <if_sid>100302</if_sid>
+  <field name="win.system.eventID">^4104$</field>
   <field name="win.eventdata.ScriptBlockText">(\.*)iex|IEX(\.*)</field>
   <description>Mitre ATT&CK T1086, Execution, Powershell, invoke execution call</description>
   <options>no_full_log</options>
   <group> MITRE ATT&CK, </group>
 </rule>
 <!-- event 4103 must be enabled via GPO and must be noisy -->
-<rule id="100373" level="12">
-  <if_sid>100264</if_sid>
-  <field name="win.system.eventID">4103</field>
+<rule id="110306" level="12">
+  <if_sid>100301</if_sid>
+  <field name="win.system.eventID">^4103$</field>
   <field name="win.eventdata.Payload">(\.*)mimikatz(\.*)</field>
   <description>Mitre ATT&CK T1086, Execution, PowerShell, Mimikatz powershell execution</description>
   <options>no_full_log</options>
   <group> MITRE ATT&CK, </group>
 </rule>
-<rule id="100374" level="12">
-  <if_sid>100264</if_sid>
-  <field name="win.system.eventID">4103</field>
+<rule id="110307" level="12">
+  <if_sid>100301</if_sid>
+  <field name="win.system.eventID">^4103$</field>
   <field name="win.eventdata.Payload">(\.*)-enc(\.*)</field>
   <description>Mitre ATT&CK T1086, Execution, PowerShell, Encripted powershell command</description>
   <options>no_full_log</options>

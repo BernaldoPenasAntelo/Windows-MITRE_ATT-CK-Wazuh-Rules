@@ -7,46 +7,46 @@ Copy below to your client's ossec.conf file
 -->
 
 <group name="RDP">
- <rule id="100268" level="0">
+ <rule id="110350" level="0">
     <if_sid>60000</if_sid>
     <field name="win.system.channel">^Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational$</field>
     <options>no_full_log</options>
     <description>Group of Windows rules for the RemoteDesktopServices channel</description>
 	<group> MITRE ATT&CK, </group>
   </rule>
-<rule id="100269" level="0">
-    <if_sid>100268</if_sid>
+<rule id="110351" level="0">
+    <if_sid>100350</if_sid>
     <field name="win.system.severityValue">^INFORMATION$</field>
     <description>Windows RemoteDesktopServices informational event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-  <rule id="100270" level="0">
-    <if_sid>100268</if_sid>
+  <rule id="110352" level="0">
+    <if_sid>100350</if_sid>
     <field name="win.system.severityValue">^WARNING$</field>
     <description>Windows RemoteDesktopServices warning event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-  <rule id="100271" level="5">
-    <if_sid>100268</if_sid>
+  <rule id="110353" level="5">
+    <if_sid>100350</if_sid>
     <field name="win.system.severityValue">^ERROR$</field>
     <description>Windows RemoteDesktopServices error event</description>
     <options>no_full_log</options>
 	<group> MITRE ATT&CK, </group>
   </rule>
-<rule id="100272" level="3">
-  <if_sid>100269</if_sid>
-  <field name="win.system.eventID">148</field>
+<rule id="110354" level="3">
+  <if_sid>100351</if_sid>
+  <field name="win.system.eventID">^148$</field>
   <field name="win.eventdata.ChannelName">ms_t120</field>
   <field name="win.eventdata.TunnelID">0</field>
   <description>Mitre ATT&CK T1046, Discovery, Network Service Scanning, RDP Scan</description>
   <options>no_full_log</options>
   <group> MITRE ATT&CK, </group>
 </rule>
-<rule id="100273" timeframe="60" frequency="6" level="10">
-   <if_matched_sid>100272</if_matched_sid>
-   <field name="win.system.eventID">148</field>
+<rule id="110355" timeframe="60" frequency="6" level="10">
+   <if_matched_sid>100351</if_matched_sid>
+   <field name="win.system.eventID">^148$</field>
    <description>Mitre ATT&CK T1046,   Discovery, Network Service Scanning, RDP Scan</description>
    <options>no_full_log</options>
    <group> MITRE ATT&CK, </group>
