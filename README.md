@@ -1,9 +1,22 @@
-# Windows-MITRE_ATT-CK-Wazuh-Rules
+# Windows-MITRE&ATT-CK-Wazuh-Rules
+
+
+1. [Regular rule files](#Regular-rule-files)
+2. [Independent file list](#Independent-file-list)
+3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
+
+
+
+
+
+
+## Regular rule files
+
+
 
 This is a set of rules that i was developing for wazuh HIDS based on MITRE ATT&CK Framework to complement the windows base ruleset.
 I add rules as i develop them for my own needs. Notice that i'm working with events for windows above 2003.
 Use under your own risk.
-
 
 The idea is to work with two main files:
 
@@ -22,11 +35,23 @@ The idea is to work with two main files:
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
 
+In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+## Independent file list:
+
 Due to the complexity of the task i try to follow the way wazuh categorizes rules and so if audit new log sources needed (other than security and system, both enabled by default) i will create new independent files.
 
-INDEPENDENT FILE LIST:
 
-- powershell_rules.xml
+### - powershell_rules.xml
 -------------------------------
 This config must be enabled in the agent configuration:
 
@@ -38,13 +63,13 @@ This config must be enabled in the agent configuration:
 
 ```
 
-PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
-Alternately, setting the following registry values will have the same effect:
-   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
-   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
+> PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
+> Alternately, setting the following registry values will have the same effect:
+>   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
+>   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
    
-
-- rdp_rules.xml
+------------------------------
+### - rdp_rules.xml
 
 This config must be enabled in agent configuration:
 
@@ -56,16 +81,18 @@ This config must be enabled in agent configuration:
 
 ```
 
+--------------------------------
 
---------------------
 
-In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
 
----------------------
 
-Table ATT&CK with tactics covered by the rules
 
--------------------------
+
+
+
+## ATT_CK Matrix with tactics covered by the rules
+
+
 
 `Initial access` |	`Execution` |	`Persistence` |	`Privilege Escalation` |	`Defense Evasion` |	`Credential Access` |	`Discovery` |	`Lateral Movement` |	`Collection` |	`Command and Control` |	`Exfiltration` |	`Impact`
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
