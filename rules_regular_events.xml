@@ -696,6 +696,7 @@ Alternately, setting the following registry values will have the same effect:
   <group> MITRE ATT&CK, </group>
 </rule>
 
+<<<<<<< HEAD
 
 <!-- EXFILTRATION -->
 <!-- event 4104 it's for Powershell 4 or above
@@ -722,3 +723,7 @@ Alternately, setting the following registry values will have the same effect:
 
 
 </group> 
+=======
+</group>
+ 
+>>>>>>> ffae97781e5bf02e5d4c0637d1d648177468a972
