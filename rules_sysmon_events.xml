@@ -57,7 +57,7 @@ Must change sysmon configuration to include TargetObject in section
 <rule id="100901" level="10">
    <if_sid>61614</if_sid>
    <if_group>sysmon_event_12</if_group>
-   <field name="win.eventdata.TargetObject">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</field>
+   <field name="win.eventdata.TargetObject">HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy</field>
    <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled</description>
    <options>no_full_log</options>
 </rule>
@@ -70,7 +70,7 @@ Must change sysmon configuration to include TargetObject in section
 <rule id="100902" level="10">
    <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
-   <field name="win.eventdata.TargetObject">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</field>
+   <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA</field>
    <field name="win.eventdata.Details">DWORD (0x00000000)</field>
    <description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,Disable UAC </description>
    <options>no_full_log</options>
