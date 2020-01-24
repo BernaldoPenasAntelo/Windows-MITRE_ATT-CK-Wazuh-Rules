@@ -2,7 +2,6 @@
 
 
 1. [Regular rule files](#Regular-rule-files)
-2. [Independent file list](#Independent-file-list)
 3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
 
 
@@ -40,56 +39,6 @@ In the two main files before each rule category it's a commented block with even
 -----------------------------------------------------
 
 
-
-
-
-
-
-
-## Independent file list:
-
-Due to the complexity of the task i try to follow the way wazuh categorizes rules and so if audit new log sources needed (other than security and system, both enabled by default) i will create new independent files.
-
-
-### - powershell_rules.xml
--------------------------------
-This config must be enabled in the agent configuration:
-
-```
-<localfile>
-<location>Microsoft-Windows-PowerShell/Operational</location>
-<log_format>eventchannel</log_format>
-</localfile>
-
-```
-
-> PowerShell module logging can be configured to record all activities of each PowerShell module, covering single PowerShell commands, imported modules, and remote management. The module logging function can be enabled by configuring GPO settings.
-> Alternately, setting the following registry values will have the same effect:
->   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging → EnableModuleLogging = 1
->   - HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging \ModuleNames → * = *
-   
-------------------------------
-### - rdp_rules.xml
-
-This config must be enabled in agent configuration:
-
-```
-<localfile>
-<location>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</location>
-<log_format>eventchannel</log_format>
-</localfile>
-
-```
-
---------------------------------
-
-
-
-
-
-
-
-
 ## ATT_CK Matrix with tactics covered by the rules
 
 
@@ -98,22 +47,22 @@ This config must be enabled in agent configuration:
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
 Drive-by Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	* **Account Manipulation** |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
 Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	* **Brute Force** |	Application Window Discovery |	Component Object Model and Distributed COM |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
-External Remote Services |	Compiled HTML File |	AppCert DLLs |	AppCert DLLs |	BITS Jobs |	* **Credential Dumping** |	Browser Bookmark Discovery |	Exploitation of Remote Services |	Clipboard Data |	Connection Proxy |	Data Encrypted |	Data Encrypted for Impact
-Hardware Additions | Component Object Model and Distributed COM | AppInit DLLs | AppInit DLLs | Bypass User Account Control | * **Credentials from Web Browsers** | Domain Trust Discovery | Internal Spearphishing | Data from Information Repositories | Custom Command and Control Protocol | Data Transfer Size Limits | Defacement
+External Remote Services |	Compiled HTML File |	AppCert DLLs |	AppCert DLLs |	BITS Jobs |	* **Credential Dumping** |	Browser Bookmark Discovery |	Exploitation of Remote Services |	Clipboard Data |	* **Connection Proxy** |	Data Encrypted |	Data Encrypted for Impact
+Hardware Additions | Component Object Model and Distributed COM | AppInit DLLs | AppInit DLLs | * **Bypass User Account Control** | * **Credentials from Web Browsers** | Domain Trust Discovery | Internal Spearphishing | Data from Information Repositories | Custom Command and Control Protocol | Data Transfer Size Limits | Defacement
 Replication Through Removable Media | Control Panel Items | Application Shimming | Application Shimming | CMSTP | Credentials in Files | File and Directory Discovery | Logon Scripts | Data from Local System | Custom Cryptographic Protocol | Exfiltration Over Alternative Protocol | Disk Content Wipe
 Spearphishing Attachment | Dynamic Data Exchange | Authentication Package | Bypass User Account Control | Code Signing | Credentials in Registry | Network Service Scanning | Pass the Hash | Data from Network Shared Drive | Data Encoding | Exfiltration Over Command and Control Channel | Disk Structure Wipe
 Spearphishing Link | Execution through API | BITS Jobs | DLL Search Order Hijacking | Compile After Delivery | Exploitation for Credential Access | Network Share Discovery | Pass the Ticket | Data from Removable Media | Data Obfuscation | Exfiltration Over Other Network Medium | Endpoint Denial of Service
-Spearphishing via Service | Execution through Module Load | Bootkit | Exploitation for Privilege Escalation | Compiled HTML File | Forced Authentication | Network Sniffing | Remote Desktop Protocol | Data Staged | Domain Fronting | Exfiltration Over Physical Medium | Firmware Corruption
+Spearphishing via Service | * **Execution through Module Load** | Bootkit | Exploitation for Privilege Escalation | Compiled HTML File | Forced Authentication | Network Sniffing | Remote Desktop Protocol | Data Staged | Domain Fronting | Exfiltration Over Physical Medium | Firmware Corruption
 Supply Chain Compromise | Exploitation for Client Execution | Browser Extensions | Extra Window Memory Injection | Component Firmware | Hooking | Password Policy Discovery | Remote File Copy | Email Collection | Domain Generation Algorithms | Scheduled Transfer | Inhibit System Recovery
 Trusted Relationship | Graphical User Interface | Change Default File Association | File System Permissions Weakness | Component Object Model Hijacking | Input Capture | Peripheral Device Discovery | Remote Services | Input Capture | Fallback Channels | | Network Denial of Service
-Valid Accounts | InstallUtil | Component Firmware | Hooking | Connection Proxy | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
+Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Proxy** | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
 | | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | * **Kerberoasting** | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
 | | Mshta | * **Create Account** | New Service | * **DCShadow** | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
 | | * **PowerShell** | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
-| |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
+| |	Regsvcs/Regasm | External Remote Services | Path Interception | * **Disabling Security Tools** | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation 
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
-| | Rundll32 | Hidden Files and Directories | PowerShell Profile | DLL Side-Loading | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
+| | Rundll32 | Hidden Files and Directories | PowerShell Profile | * **DLL Side-Loading** | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
 | | * **Scheduled Task** | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
 | | Scripting | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
 | | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 

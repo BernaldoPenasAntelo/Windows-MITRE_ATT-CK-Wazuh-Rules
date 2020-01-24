@@ -1,11 +1,182 @@
-<group name="MITRE ATT&CK sysmon">
-<!-- LATERAL MOVEMENT -->
-<!-- PRIVILEGE ESCALATION -->
-<!-- COMMAND AND CONTROL -->
-<!-- DISCOVERY -->
-<!-- DEFENSE EVASION -->
-<!-- PERSISTENCE -->
-<!-- INITIAL ACCESS -->
-<!-- CREDENTIAL ACCESS -->
-<!-- EXECUTION -->
+<group name="MITRE ATT&CK_sysmon">
+<!-- LATERAL MOVEMENT 100500-->
+<!-- PRIVILEGE ESCALATION 100600-->
+
+<!--
+
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-02 14:48:51.664","ProcessGuid":"{365abb72-0244-5ccb-0000-00109ae70b00}","ProcessId":"1508","Image":"C:\\Windows\\System32\\svchost.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"true","SourceIsIpv6":"false","SourceIp":"10.0.2.15","SourceHostname":"IEWIN7.home","SourcePort":"3389","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"127.0.0.1","DestinationHostname":"","DestinationPort":"443","DestinationPortName":"https"}}}
+-->
+<!-- COMMAND AND CONTROL 100700-->
+<!--
+Must change sysmon configuration to include TargetObject in section
+<NetworkConnect onmatch="include">
+   <DestinationIp condition="is">127.0.0.1</DestinationPort>
+   <DestinationIp condition="is">::1</DestinationPort>
+</NetworkConnect>
+-->
+<rule id="100701" level="10">
+   <if_sid>61605</if_sid>
+   <if_group>sysmon_event3</if_group>
+   <field name="win.eventdata.SourceIp">127.\.*|::1</field>
+   <field name="win.eventdata.DestinationIp">127.\.*|::1</field>   
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include TargetObject in section
+<NetworkConnect onmatch="include">
+   <DestinationPort condition="is">3389</DestinationPort>
+</NetworkConnect>
+-->
+<rule id="100702" level="10">
+   <if_sid>61605</if_sid>
+   <if_group>sysmon_event3</if_group>
+   <field name="win.eventdata.Image">(\.*)\\w3wp.exe</field>
+   <field name="win.eventdata.DestinationPort">^3389$|^445$</field>
+   <field name="win.eventdata.DestinationIp">127.\.*|::1</field>   
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP & SMB Tunneling using SECFORCE/Tunna</description>
+   <options>no_full_log</options>
+</rule>
+
+<!-- DISCOVERY 100800-->
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"12","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry object added or deleted."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"Defense Evasion - PowerShell CLM Setting Changed","EventType":"DeleteValue","UtcTime":"2019-05-16 13:10:13.759","ProcessGuid":"{dfae8213-5b49-5cdd-0000-0010ee520500}","ProcessId":"3580","Image":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","TargetObject":"HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry value set."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1088,technique_name=Bypass User Account Control","EventType":"SetValue","UtcTime":"2019-05-16 14:17:15.758","ProcessGuid":"{dfae8213-70eb-5cdd-0000-0010f66d0a00}","ProcessId":"3788","Image":"C:\\Windows\\system32\\reg.exe","TargetObject":"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA","Details":"DWORD (0x00000000)"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Image loaded."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"dll side loading","UtcTime":"2019-04-27 15:57:53.509","ProcessGuid":"{365abb72-7c01-5cc4-0000-00102b3e0c00}","ProcessId":"2680","Image":"C:\\Users\\IEUser\\Downloads\\Flash_update.exe","ImageLoaded":"C:\\Windows\\System32\\winmm.dll","FileVersion":"6.1.7600.16385 (win7_rtm.090713-1255)","Description":"MCI API DLL","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","Hashes":"SHA1=41905C387FA657D91DA8A743ABC04B6C11A38B52,MD5=D5AEFAD57C08349A4393D987DF7C715D,SHA256=C36A45BC2448DF30CD17BD2F8A17FC196FAFB685612CACCEB22DC7B58515C201,IMPHASH=1A7210F2C9930AF9B51025300C67DA77","Signed":"true","Signature":"Microsoft Windows","SignatureStatus":"Valid"}}}
+-->
+<!-- DEFENSE EVASION 100900-->
+<!--
+Must change sysmon configuration to include TargetObject in section
+<RegistryEvent onmatch="include">
+   <TargetObject condition="is">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
+</RegistryEvent>
+-->
+<rule id="100901" level="10">
+   <if_sid>61614</if_sid>
+   <if_group>sysmon_event_12</if_group>
+   <field name="win.eventdata.TargetObject">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</field>
+   <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include TargetObject in section
+<RegistryEvent onmatch="include">
+   <TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
+</RegistryEvent>
+-->
+<rule id="100902" level="10">
+   <if_sid>61615</if_sid>
+   <if_group>sysmon_event_13</if_group>
+   <field name="win.eventdata.TargetObject">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</field>
+   <field name="win.eventdata.Details">DWORD (0x00000000)</field>
+   <description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,Disable UAC </description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<ImageLoad onmatch="include">
+  <Signed condition="is">false</Signed>
+</ImageLoad>
+-->
+<rule id="100903" level="10">
+   <if_sid>61609</if_sid>
+   <if_group>sysmon_event7</if_group>
+   <field name="win.eventdata.Signed">false</field>
+   <field name="win.eventdata.ImageLoaded">\.*\.dll$</field>
+   <description>Mitre ATT&CK T1073, Defense Evasion, DLL Side-Loading, DLL not signed loaded </description>
+   <options>no_full_log</options>
+</rule>
+
+
+
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
+ 
+-->
+<!-- PERSISTENCE 101000-->
+<!--
+<FileCreate onmatch="include">
+   <TargetFilename condition="contains">aitagent.exe</TargetFilename>
+   <TargetFilename condition="contains">DiagTrackRunner.exe</TargetFilename>
+   <TargetFilename condition="contains">CompatTelRunner.exe</TargetFilename>
+   <TargetFilename condition="contains">acproxy.dl</TargetFilename>
+   <TargetFilename condition="contains">wsqmcons.exe</TargetFilename>
+   <TargetFilename condition="contains">lpremove.exe</TargetFilename>
+   <TargetFilename condition="contains">srrstr.dll</TargetFilename>
+   <TargetFilename condition="contains">wermgr.exe</TargetFilename>
+   <TargetFilename condition="contains">sdclt.exe</TargetFilename>
+   <TargetFilename condition="contains">appidcertstorecheck.exe</TargetFilename>
+   <TargetFilename condition="contains">AppHostRegistrationVerifier.exe</TargetFilename>
+   <TargetFilename condition="contains">MicTray64.exe</TargetFilename>
+   <TargetFilename condition="contains">usoclient.exe</TargetFilename>
+   <TargetFilename condition="contains">dsregcmd.exe</TargetFilename>
+   <TargetFilename condition="contains">sihclient.exe</TargetFilename>
+   <TargetFilename condition="contains">dimsjob.dll</TargetFilename>
+   <TargetFilename condition="contains">Lracengn.dll</TargetFilename>
+   <TargetFilename condition="contains">HotstartUserAgent.dll</TargetFilename>
+   <TargetFilename condition="contains">MsCtfMonitor.dll</TargetFilename>
+   <TargetFilename condition="contains">PlaySndSrv.dll</TargetFilename>
+   <TargetFilename condition="contains">AdobeARM.exe</TargetFilename>
+   <TargetFilename condition="contains">GoogleUpdate.exe</TargetFilename>
+</FileCreate>
+-->
+<rule id="101301" level="10">
+   <if_sid>61613</if_sid>
+   <if_group>sysmon_event_11</if_group>
+   <field name="win.eventdata.TargetFilename">(\.*)aitagent.exe|DiagTrackRunner.exe|CompatTelRunner.exe|acproxy.dl|wsqmcons.exe|lpremove.exe|srrstr.dll|wermgr.exe|sdclt.exe|appidcertstorecheck.exe|AppHostRegistrationVerifier.exe|MicTray64.exe|usoclient.exe|dsregcmd.exe|sihclient.exe|dimsjob.dll|Lracengn.dll|HotstartUserAgent.dll|MsCtfMonitor.dll|PlaySndSrv.dll|AdobeARM.exe|GoogleUpdate.exe(\.*)</field>
+   <description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Modification of the program run by a Windows Default Scheduled Task</description>
+   <options>no_full_log</options>
+</rule>
+<!-- INITIAL ACCESS 101100-->
+<!-- CREDENTIAL ACCESS 101200-->
+<!--
+<ProcessAccess onmatch="include">
+  <CallTrace condition="contains">dbghelp.dll</CallTrace>
+  <CallTrace condition="contains">dbgcore.dll</CallTrace>
+</ProcessAccess>
+-->
+<rule id="101201" level="10">
+   <if_sid>61612</if_sid>
+   <if_group>sysmon_event_10</if_group>
+   <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
+   <field name="win.eventdata.CallTrace">\.*dbghelp.dll|dbgcore.dll\.*|</field>
+   <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Procdump or Taskmgr - memory dump</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<ProcessAccess onmatch="include">
+  <CallTrace condition="contains">mimikatz</CallTrace>
+</ProcessAccess>
+-->
+<rule id="101202" level="10">
+   <if_sid>61612</if_sid>
+   <if_group>sysmon_event_10</if_group>
+   <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
+   <field name="win.eventdata.CallTrace">\.*mimikatz\.*</field>
+   <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Sekursla mimikatz module memory dump</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\taskmgr.exe","TargetFilename":"C:\\UsageLogs\\cscript.exe.log","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
+-->
+<!-- EXECUTION 101300-->
+<!--
+<FileCreate onmatch="include">
+   <TargetFilename condition="contains">\UsageLogs\cscript.exe.log</TargetFilename>
+   <TargetFilename condition="contains">\UsageLogs\wscript.exe.log</TargetFilename>
+   <TargetFilename condition="contains">\UsageLogs\mshta.log</TargetFilename>
+   <TargetFilename condition="contains">\UsageLogs\wmic.log</TargetFilename>
+   <TargetFilename condition="contains">\UsageLogs\regsvr32.exe.log</TargetFilename>
+   <TargetFilename condition="contains">\UsageLogs\svchost.log</TargetFilename>
+</FileCreate>
+-->
+<rule id="101300" level="10">
+   <if_sid>61613</if_sid>
+   <if_group>sysmon_event_11</if_group>
+   <field name="win.eventdata.TargetFilename">(\.*)\\UsageLogs\\cscript.exe.log|wscript.exe.log|mshta.log|wmic.log|regsvr32.exe.log|svchost.log(\.*)</field>
+   <description>Mitre ATT&CK T1129, Execution, Execution through Module Load, .NET CLR Usage</description>
+   <options>no_full_log</options>
+</rule>
 </group>
