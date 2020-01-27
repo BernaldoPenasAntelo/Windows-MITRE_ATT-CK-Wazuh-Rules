@@ -78,7 +78,10 @@ Must change sysmon configuration to include TargetObject in section
    <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA</field>
+<<<<<<< HEAD
 <!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
+=======
+>>>>>>> cded8daca9e7c2365a5d6291a10a0bb2eac65b56
    <field name="win.eventdata.Details">DWORD (0x00000000)</field>
 -->   
    <description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,  Disabled UAC if Details field has value 0x00000000D</description>
