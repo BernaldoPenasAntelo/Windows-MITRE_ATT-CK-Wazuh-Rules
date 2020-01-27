@@ -1,10 +1,7 @@
 <group name="MITRE ATT&CK_sysmon">
 <!-- LATERAL MOVEMENT 100500-->
 <!-- PRIVILEGE ESCALATION 100600-->
-
 <!--
-
-
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-02 14:48:51.664","ProcessGuid":"{365abb72-0244-5ccb-0000-00109ae70b00}","ProcessId":"1508","Image":"C:\\Windows\\System32\\svchost.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"true","SourceIsIpv6":"false","SourceIp":"10.0.2.15","SourceHostname":"IEWIN7.home","SourcePort":"3389","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"127.0.0.1","DestinationHostname":"","DestinationPort":"443","DestinationPortName":"https"}}}
 -->
 <!-- COMMAND AND CONTROL 100700-->
@@ -46,6 +43,16 @@ Must change sysmon configuration to include TargetObject in section
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry value set."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1088,technique_name=Bypass User Account Control","EventType":"SetValue","UtcTime":"2019-05-16 14:17:15.758","ProcessGuid":"{dfae8213-70eb-5cdd-0000-0010f66d0a00}","ProcessId":"3788","Image":"C:\\Windows\\system32\\reg.exe","TargetObject":"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA","Details":"DWORD (0x00000000)"}}}
 
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"7","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Image loaded."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"dll side loading","UtcTime":"2019-04-27 15:57:53.509","ProcessGuid":"{365abb72-7c01-5cc4-0000-00102b3e0c00}","ProcessId":"2680","Image":"C:\\Users\\IEUser\\Downloads\\Flash_update.exe","ImageLoaded":"C:\\Windows\\System32\\winmm.dll","FileVersion":"6.1.7600.16385 (win7_rtm.090713-1255)","Description":"MCI API DLL","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","Hashes":"SHA1=41905C387FA657D91DA8A743ABC04B6C11A38B52,MD5=D5AEFAD57C08349A4393D987DF7C715D,SHA256=C36A45BC2448DF30CD17BD2F8A17FC196FAFB685612CACCEB22DC7B58515C201,IMPHASH=1A7210F2C9930AF9B51025300C67DA77","Signed":"true","Signature":"Microsoft Windows","SignatureStatus":"Valid"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Process Create."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1158,technique_name=Hidden Files and DirectoriesHidden Files and Directories","UtcTime":"2019-05-19 17:32:00.478","ProcessGuid":"{dfae8213-9310-5ce1-0000-0010eaba0a00}","ProcessId":"2728","Image":"C:\\Windows\\System32\\attrib.exe","FileVersion":"6.3.9600.16384 (winblue_rtm.130821-1623)","Description":"Attribute Utility","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","CommandLine":"attrib +h nbtscan.exe","CurrentDirectory":"c:\\ProgramData\\","User":"insecurebank\\Administrator","LogonGuid":"{dfae8213-9133-5ce1-0000-0020cc660500}","LogonId":"0x566cc","TerminalSessionId":"2","IntegrityLevel":"High","Hashes":"SHA1=B71C1331AC5FA214076E5CD5C885712447057B96,MD5=116D463D2F5DBF76F7E2F5C6D8B5D3BB,SHA256=EBE94E294D86C714BED13EF018E70F75C37F8D8259144C0C847637EDC0222ECB,IMPHASH=461A33302E82ED68F1A74C083E27BD02","ParentProcessGuid":"{dfae8213-91cc-5ce1-0000-0010bef40600}","ParentProcessId":"3408","ParentImage":"C:\\Windows\\System32\\cmd.exe","ParentCommandLine":"C:\\Windows\\system32\\cmd.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Process Create."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-23 17:46:04.651","ProcessGuid":"{365abb72-dc5c-5ce6-0000-001066e27200}","ProcessId":"4088","Image":"C:\\Windows\\System32\\netsh.exe","FileVersion":"6.1.7600.16385 (win7_rtm.090713-1255)","Description":"Network Command Shell","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","CommandLine":"netsh I p a v l=8001 listena=1.2.3.4 connectp=3389 c=1.2.3.5","CurrentDirectory":"c:\\","User":"IEWIN7\\IEUser","LogonGuid":"{365abb72-ce6c-5ce6-0000-002047f30000}","LogonId":"0xf347","TerminalSessionId":"1","IntegrityLevel":"High","Hashes":"SHA1=7DA1852DF83C58841AD35248AD2A20D7FFBB7FA0,MD5=784A50A6A09C25F011C3143DDD68E729,SHA256=661F5D4CE4F0A6CB32669A43CE5DEEC6D5A9E19B2387F22C5012405E92169943,IMPHASH=33B8120C37D7861778989FBFD16214E1","ParentProcessGuid":"{365abb72-dc3e-5ce6-0000-00102bc97200}","ParentProcessId":"712","ParentImage":"C:\\Windows\\System32\\cmd.exe","ParentCommandLine":"C:\\Windows\\system32\\cmd.exe"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry value set."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1088,technique_name=Bypass User Account Control","EventType":"SetValue","UtcTime":"2019-05-16 14:17:15.758","ProcessGuid":"{dfae8213-70eb-5cdd-0000-0010f66d0a00}","ProcessId":"3788","Image":"C:\\Windows\\system32\\reg.exe","TargetObject":"HKLM\\SOFTWARE\\Microsoft\\PowerShell\\1\\ShellIds\\Microsoft.PowerShell\\ExecutionPolicy","Details":"DWORD (0x00000000)"}}}
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry value set."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1088,technique_name=Bypass User Account Control","EventType":"SetValue","UtcTime":"2019-05-16 14:17:15.758","ProcessGuid":"{dfae8213-70eb-5cdd-0000-0010f66d0a00}","ProcessId":"3788","Image":"C:\\Windows\\system32\\reg.exe","TargetObject":"HKU\\Software\\Microsoft\\Office\\12.0\\PowerPoint\\Security\\AccessVBOM","Details":"DWORD (0x00000000)"}}}
+
+
 -->
 <!-- DEFENSE EVASION 100900-->
 <!--
@@ -57,7 +64,7 @@ Must change sysmon configuration to include TargetObject in section
 <rule id="100901" level="10">
    <if_sid>61614</if_sid>
    <if_group>sysmon_event_12</if_group>
-   <field name="win.eventdata.TargetObject">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</field>
+   <field name="win.eventdata.TargetObject">HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy</field>
    <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled</description>
    <options>no_full_log</options>
 </rule>
@@ -70,9 +77,11 @@ Must change sysmon configuration to include TargetObject in section
 <rule id="100902" level="10">
    <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
-   <field name="win.eventdata.TargetObject">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</field>
+   <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA</field>
+<!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
    <field name="win.eventdata.Details">DWORD (0x00000000)</field>
-   <description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,Disable UAC </description>
+-->   
+   <description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,  Disabled UAC if Details field has value 0x00000000D</description>
    <options>no_full_log</options>
 </rule>
 <!--
@@ -85,12 +94,81 @@ Must change sysmon configuration to include TargetObject in section
    <if_group>sysmon_event7</if_group>
    <field name="win.eventdata.Signed">false</field>
    <field name="win.eventdata.ImageLoaded">\.*\.dll$</field>
-   <description>Mitre ATT&CK T1073, Defense Evasion, DLL Side-Loading, DLL not signed loaded </description>
+   <description>Mitre ATT&CK T1073, Defense Evasion, DLL Side-Loading, DLL not signed loaded</description>
    <options>no_full_log</options>
 </rule>
-
-
-
+<!--
+Must change sysmon configuration to include TargetObject in section
+<RegistryEvent onmatch="include">
+   <TargetObject condition="is">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
+</RegistryEvent>
+-->
+<rule id="100904" level="10">
+   <if_sid>61615</if_sid>
+   <if_group>sysmon_event_13</if_group>
+   <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Wow6432Node\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging\\EnableScriptBlockLogging</field>
+<!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
+   <field name="win.eventdata.Details">DWORD (0x00000000)</field>
+-->   
+   <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools,isabled PowerShell Audit Settings if Details field has value 0x00000000</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include CommandLine in section
+<ProcessCreate onmatch="include">
+  <CommandLine condition="contains">attrib +h</CommandLine>
+</ProcessCreate>
+-->
+<rule id="100905" level="10">
+   <if_sid>61603</if_sid>
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.CommandLine">\.*attrib +h\.*</field>
+   <description>Mitre ATT&CK T1158, Defense Evasion, Hidden Files and Directories, hiding files via attrib cmdlet</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include CommandLine in section
+<ProcessCreate onmatch="include">
+  <CommandLine condition="contains">*netsh*connectp=3389*</CommandLine>
+</ProcessCreate>
+-->
+<rule id="100906" level="10">
+   <if_sid>61603</if_sid>
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.CommandLine">\.*netsh\.*connectp=3389\.*</field>
+   <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Port fordwarding via netsh</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include TargetObject in section
+<RegistryEvent onmatch="include">
+   <TargetObject condition="is">HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+</RegistryEvent>
+-->
+<rule id="100907" level="10">
+   <if_sid>61615</if_sid>
+   <if_group>sysmon_event_13</if_group>
+   <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\PowerShell\\1\\ShellIds\\Microsoft.PowerShell\\ExecutionPolicy</field>
+   <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Change in Powershell execution policy</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+Must change sysmon configuration to include TargetObject in section
+<RegistryEvent onmatch="include">
+   <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
+   <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
+   <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
+   <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
+   <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
+</RegistryEvent>
+-->
+<rule id="100908" level="10">
+   <if_sid>61615</if_sid>
+   <if_group>sysmon_event_13</if_group>
+   <field name="win.eventdata.TargetObject">HHKU\\\.*\\Software\\Microsoft\\Office\\\.*\\Excel|PowerPoint||Word|Access|Outlook\\Security\\AccessVBOM</field>
+   <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Disable Trust access for VBA into Office</description>
+   <options>no_full_log</options>
+</rule>
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
  
@@ -122,7 +200,7 @@ Must change sysmon configuration to include TargetObject in section
    <TargetFilename condition="contains">GoogleUpdate.exe</TargetFilename>
 </FileCreate>
 -->
-<rule id="101301" level="10">
+<rule id="101001" level="10">
    <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">(\.*)aitagent.exe|DiagTrackRunner.exe|CompatTelRunner.exe|acproxy.dl|wsqmcons.exe|lpremove.exe|srrstr.dll|wermgr.exe|sdclt.exe|appidcertstorecheck.exe|AppHostRegistrationVerifier.exe|MicTray64.exe|usoclient.exe|dsregcmd.exe|sihclient.exe|dimsjob.dll|Lracengn.dll|HotstartUserAgent.dll|MsCtfMonitor.dll|PlaySndSrv.dll|AdobeARM.exe|GoogleUpdate.exe(\.*)</field>
@@ -172,7 +250,7 @@ Must change sysmon configuration to include TargetObject in section
    <TargetFilename condition="contains">\UsageLogs\svchost.log</TargetFilename>
 </FileCreate>
 -->
-<rule id="101300" level="10">
+<rule id="101301" level="10">
    <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">(\.*)\\UsageLogs\\cscript.exe.log|wscript.exe.log|mshta.log|wmic.log|regsvr32.exe.log|svchost.log(\.*)</field>
