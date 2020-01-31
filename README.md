@@ -46,7 +46,7 @@ In the two main files before each rule category it's a commented block with even
 `Initial access` |	`Execution` |	`Persistence` |	`Privilege Escalation` |	`Defense Evasion` |	`Credential Access` |	`Discovery` |	`Lateral Movement` |	`Collection` |	`Command and Control` |	`Exfiltration` |	`Impact`
 ---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	---- |	----
 Drive-by Compromise |	CMSTP |	Accessibility Features |	Access Token Manipulation |	Access Token Manipulation |	* **Account Manipulation** |	Account Discovery |	Application Deployment Software |	Audio Capture |	Commonly Used Port |	Automated Exfiltration |	Account Access Removal
-Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	* **Brute Force** |	Application Window Discovery |	Component Object Model and Distributed COM |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
+Exploit Public-Facing Application |	Command-Line Interface |	Account Manipulation |	Accessibility Features |	Binary Padding |	* **Brute Force** |	Application Window Discovery |	* **Component Object Model and Distributed COM** |	Automated Collection |	Communication Through Removable Media |	Data Compressed |	Data Destruction
 External Remote Services |	Compiled HTML File |	AppCert DLLs |	AppCert DLLs |	BITS Jobs |	* **Credential Dumping** |	Browser Bookmark Discovery |	Exploitation of Remote Services |	Clipboard Data |	* **Connection Proxy** |	Data Encrypted |	Data Encrypted for Impact
 Hardware Additions | Component Object Model and Distributed COM | AppInit DLLs | AppInit DLLs | * **Bypass User Account Control** | * **Credentials from Web Browsers** | Domain Trust Discovery | Internal Spearphishing | Data from Information Repositories | Custom Command and Control Protocol | Data Transfer Size Limits | Defacement
 Replication Through Removable Media | Control Panel Items | Application Shimming | Application Shimming | CMSTP | Credentials in Files | File and Directory Discovery | Logon Scripts | Data from Local System | Custom Cryptographic Protocol | Exfiltration Over Alternative Protocol | Disk Content Wipe
@@ -62,7 +62,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | * **Disabling Security Tools** | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | Windows Remote Management | | Remote File Copy | | Transmitted Data Manipulation 
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
-| | Rundll32 | Hidden Files and Directories | PowerShell Profile | * **DLL Side-Loading** | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
+| | * **Rundll32** | Hidden Files and Directories | PowerShell Profile | * **DLL Side-Loading** | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
 | | * **Scheduled Task** | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
 | | Scripting | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
 | | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 
@@ -76,7 +76,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | XSL Script Processing | Port Monitors | | Indicator Blocking | | | | | | |
 | | | PowerShell Profile | | Indicator Removal from Tools | | | | | | | |  							
 | | | Redundant Access | | Indicator Removal on Host | | | | | | | |						
-| | | Registry Run Keys / Startup Folder | | Indirect Command Execution | | | | | | | |							
+| | | Registry Run Keys / Startup Folder | | * **Indirect Command Execution** | | | | | | | |							
 | | | Scheduled Task | | Install Root Certificate | | | | | | | |
 | | | Screensaver | | InstallUtil | | | | | | | |
 | | | Security Support Provider | | Masquerading | | | | | | | | 							
