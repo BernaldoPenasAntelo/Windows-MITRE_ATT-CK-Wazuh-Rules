@@ -46,7 +46,7 @@ In the two main files before each rule category it's a commented block with even
 >
 >Setup Sysmon: 
 >
->Sysmon64.exe -accepteula -i
+>Sysmon64.exe -accepteula -i sysmon_config_events.xml
 >
 
 
