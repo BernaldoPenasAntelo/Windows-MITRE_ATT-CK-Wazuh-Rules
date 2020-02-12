@@ -2,7 +2,7 @@
 
 
 1. [Regular rule files](#Regular-rule-files)
-2. [Install sysmon] (#Install-sysmon)
+2. [Install sysmon](#Install-sysmon)
 3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
 
 
