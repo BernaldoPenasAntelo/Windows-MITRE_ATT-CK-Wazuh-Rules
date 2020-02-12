@@ -12,20 +12,28 @@
 		  <Image condition="end with">forfiles.exe</Image>
 		  <Image condition="end with">rundll32.exe</Image>
 		  <Image condition="image">regsvr32.exe</Image>
+		  <Image condition="end with">dllhost.exe</Image>
 		  
 		  <CommandLine condition="contains">*/stext*</CommandLine>
           <CommandLine condition="contains">*/scomma*</CommandLine>
 		  <CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
+		  <CommandLine condition="contains">*cmstp.exe*/au*</CommandLine>
 		  <CommandLine condition="contains">*netsh*connectp=3389*</CommandLine>
 		  <CommandLine condition="contains">attrib +h</CommandLine>
 		  <CommandLine condition="contains">*unload*sysmon*</CommandLine>
+		  <CommandLine condition="contains">*schtasks.exe*/create*c:\users\*</CommandLine>
+		  <CommandLine condition="contains">*schtasks.exe*/create*c:\programdata\*</CommandLine>
+		  <CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+		  
 		  
 		  <ParentImage condition="end with">mshta.exe</ParentImage>
           <ParentImage condition="contains">WinrsHost.exe</ParentImage>
 		  <ParentImage condition="end with">wsmprovhost.exe</ParentImage>
 		  <ParentImage condition="contains">WinrsHost.exe</ParentImage>
 		  
-		  <ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>			  
+		  
+		  <ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
+          <ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>		  
       </ProcessCreate>
 	  
 	  <!-- Event ID 2 == File Creation Time. -->
@@ -100,6 +108,7 @@
           <TargetFilename condition="end with">\UsageLogs\wmic.log</TargetFilename>
           <TargetFilename condition="end with">\UsageLogs\regsvr32.exe.log</TargetFilename>
           <TargetFilename condition="end with">\UsageLogs\svchost.log</TargetFilename>
+		  <TargetFilename condition="contains">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
 
 	  </FileCreate>
 	  
@@ -131,7 +140,9 @@
 	  
 	  <!-- Event ID 19,20,21, == WmiEvent. Log all WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter activity-->
       <WmiEvent onmatch="include">
+	      <Operation condition="is">Created</Operation>
 	  </WmiEvent>
 	  
+
   </EventFiltering>
 </Sysmon>

@@ -1,3 +1,50 @@
+<group name="windows,sysmon,">
+<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
+
+<rule id="101601" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(19)</match>
+    <description>Sysmon - Event 19</description>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101602" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(20)</match>
+    <description>Sysmon - Event 20</description>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101603" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(21)</match>
+    <description>Sysmon - Event 21</description>
+    <group>sysmon_event_21,</group>
+</rule>
+
+<rule id="101604" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^19$</field>
+    <description>Sysmon - Event 19: WmiEventFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101605" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^20$</field>
+    <description>Sysmon - Event 20: WmiEventConsumer</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101606" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^21$</field>
+    <description>Sysmon - Event 21: WmiEventConsumerToFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_21,</group>
+</rule>
+</group>
+
+
+
 <group name="MITRE ATT&CK_sysmon">
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-14 01:29:00.318","ProcessGuid":"{365abb72-19e0-5cda-0000-001006711000}","ProcessId":"1932","Image":"C:\\Windows\\System32\\mshta.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"false","SourceIsIpv6":"false","SourceIp":"10.0.2.16","SourceHostname":"IEWIN7","SourcePort":"49168","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"10.0.2.17","DestinationHostname":"","DestinationPort":"55683","DestinationPortName":""}}}
@@ -10,7 +57,6 @@
 </NetworkConnect>
 -->
 <rule id="100501" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.Image">\\mshta.exe</field>
    <description>Mitre ATT&CK T1175, Lateral Movement, Component Object Model and Distributed COM, LethalHTA</description>
@@ -22,7 +68,6 @@
  </ProcessCreate>
 --> 
 <rule id="100502" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.ParentImage">\\wsmprovhost.exe</field>
     <description>Mitre ATT&CK T1028, Lateral Movement, Windows Remote Management, Powershell remoting wsmprovhost</description>
@@ -34,12 +79,12 @@
  </ProcessCreate>
 --> 
 <rule id="100503" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.ParentImage">\.*WinrsHost.exe\.*</field>
     <description>Mitre ATT&CK T1028, Lateral Movement, Windows Remote Management, Host Process for WinRM's Remote Shell plugin</description>
    <options>no_full_log</options>
 </rule>
+
 <!-- PRIVILEGE ESCALATION 100600-->
 <!--
 <RegistryEvent onmatch="include">
@@ -47,7 +92,6 @@
 </RegistryEvent>
 -->
 <rule id="100601" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKU\\\.*\\exefile\\shell\\runas\\command\\IsolatedCommand</field>
    <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control,  Fileless UAC Bypass using sdclt.exe</description>
@@ -61,7 +105,6 @@
 </RegistryEvent>
 -->
 <rule id="100602" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKU\\\.*\\ms-settings\\shell\\open\\command\\DelegateExecute|HKU\\\.*\\ms-settings\\shell\\open\\command\\(Default)|HKU\\\.*\\ms-settings\\shell\\open\\command</field>
    <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control,  UAC Bypass – Fodhelper - UACME 33</description>
@@ -73,7 +116,6 @@
  </ProcessCreate>
 --> 
 <rule id="100603" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.ParentCommandLine">C:\\Windows\\System32\\eventvwr.exe</field>
     <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, Fileless UAC Bypass Using eventvwr.exe</description>
@@ -85,7 +127,6 @@
 </FileCreate>
 -->
 <rule id="100604" level="10">
-   <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">\.*\\AppData\\Local\\Temp\\comctl32.dll</field>
    <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 22</description>
@@ -97,7 +138,6 @@
 </FileCreate>
 -->
 <rule id="100605" level="10">
-   <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">\.*\\AppData\\Local\\Temp\\dismcore.dll</field>
    <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 23</description>
@@ -109,11 +149,53 @@
 </FileCreate>
 -->
 <rule id="100606" level="10">
-   <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">\.*\\AppData\\Local\\Temp\\wow64log.dll</field>
    <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 32</description>
    <options>no_full_log</options>
+</rule>
+<!--
+<FileCreate onmatch="include">
+   <TargetFilename condition="contains">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
+</FileCreate>
+-->
+<rule id="100607" level="10">
+   <if_group>sysmon_event_11</if_group>
+   <field name="win.eventdata.TargetFilename">\.*\\AppData\\Local\\Temp\\mscoree.dll</field>
+   <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 36</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<FileCreate onmatch="include">
+   <TargetFilename condition="contains">*\AppData\Local\Temp\GdiPlus.dll</TargetFilename>
+</FileCreate>
+-->
+<rule id="100608" level="10">
+   <if_group>sysmon_event_11</if_group>
+   <field name="win.eventdata.TargetFilename">\.*\\AppData\\Local\\Temp\\GdiPlus.dll</field>
+   <description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 37</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+ <ProcessCreate onmatch="include">
+	<ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>
+ </ProcessCreate>
+--> 
+<rule id="100609" level="10">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.CommandLine">\.*\\\\.\\pipe\.*</field>
+    <description>Mitre ATT&CK T1055, Privilege Escalation, Process Injection, NamedPipeImpersonation</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+<CommandLine condition="contains">*cmstp.exe*/au*</CommandLine>
+</ProcessCreate>
+-->
+<rule id="100610" level="10">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.CommandLine">\.*cmstp.exe /au\.*</field>
+   <description>Mitre ATT&CK T1088,  Privilege Escalation, Bypass User Account Control, CMSTP bypass user account control</description>
 </rule>
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-02 14:48:51.664","ProcessGuid":"{365abb72-0244-5ccb-0000-00109ae70b00}","ProcessId":"1508","Image":"C:\\Windows\\System32\\svchost.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"true","SourceIsIpv6":"false","SourceIp":"10.0.2.15","SourceHostname":"IEWIN7.home","SourcePort":"3389","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"127.0.0.1","DestinationHostname":"","DestinationPort":"443","DestinationPortName":"https"}}}
@@ -127,7 +209,6 @@ Must change sysmon configuration to include TargetObject in section
 </NetworkConnect>
 -->
 <rule id="100701" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.SourceIp">127.\.*|::1</field>
    <field name="win.eventdata.DestinationIp">127.\.*|::1</field>   
@@ -141,7 +222,6 @@ Must change sysmon configuration to include TargetObject in section
 </NetworkConnect>
 -->
 <rule id="100702" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.Image">(\.*)\\w3wp.exe</field>
    <field name="win.eventdata.DestinationPort">^3389$|^445$</field>
@@ -180,7 +260,6 @@ Must change sysmon configuration to include TargetObject in section
 </RegistryEvent>
 -->
 <rule id="100901" level="10">
-   <if_sid>61614</if_sid>
    <if_group>sysmon_event_12</if_group>
    <field name="win.eventdata.TargetObject">HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy</field>
    <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled</description>
@@ -193,7 +272,6 @@ Must change sysmon configuration to include TargetObject in section
 </RegistryEvent>
 -->
 <rule id="100902" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\policies\\system\\EnableLUA</field>
 <!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
@@ -208,7 +286,6 @@ Must change sysmon configuration to include TargetObject in section
 </ImageLoad>
 -->
 <rule id="100903" level="10">
-   <if_sid>61609</if_sid>
    <if_group>sysmon_event7</if_group>
    <field name="win.eventdata.Signed">false</field>
    <field name="win.eventdata.ImageLoaded">\.*\.dll$</field>
@@ -222,7 +299,6 @@ Must change sysmon configuration to include TargetObject in section
 </RegistryEvent>
 -->
 <rule id="100904" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Wow6432Node\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging\\EnableScriptBlockLogging</field>
 <!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
@@ -238,7 +314,6 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessCreate>
 -->
 <rule id="100905" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.CommandLine">\.*attrib +h\.*</field>
    <description>Mitre ATT&CK T1158, Defense Evasion, Hidden Files and Directories, hiding files via attrib cmdlet</description>
@@ -251,7 +326,6 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessCreate>
 -->
 <rule id="100906" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.CommandLine">\.*netsh\.*connectp=3389\.*</field>
    <description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Port fordwarding via netsh</description>
@@ -264,7 +338,6 @@ Must change sysmon configuration to include TargetObject in section
 </RegistryEvent>
 -->
 <rule id="100907" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Microsoft\\PowerShell\\1\\ShellIds\\Microsoft.PowerShell\\ExecutionPolicy</field>
    <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Change in Powershell execution policy</description>
@@ -281,7 +354,6 @@ Must change sysmon configuration to include TargetObject in section
 </RegistryEvent>
 -->
 <rule id="100908" level="10">
-   <if_sid>61615</if_sid>
    <if_group>sysmon_event_13</if_group>
    <field name="win.eventdata.TargetObject">HHKU\\\.*\\Software\\Microsoft\\Office\\\.*\\Excel|PowerPoint|Word|Access|Outlook\\Security\\AccessVBOM</field>
    <description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Disable Trust access for VBA into Office</description>
@@ -293,7 +365,6 @@ Must change sysmon configuration to include TargetObject in section
  </ProcessCreate>
 -->
 <rule id="100909" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\forfiles.exe</field>
    <description>Mitre ATT&CK T1202,  Defense Evasion, Indirect Command Execution, Forfiles Indirect Command Execution</description>
@@ -306,7 +377,6 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessCreate>
 -->
 <rule id="100910" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\fltmc.exe</field>
    <field name="win.eventdata.CommandLine">\.*unload\.*sysmon\.*</field>
@@ -314,7 +384,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="100911" level="10">
-   <if_sid>61602</if_sid>
    <field name="win.system.eventID">^255$</field>
    <field name="win.eventdata.ID">DriverCommunication</field>
    <description>Mitre ATT&CK T1089,  Defense Evasion, Disabling Security Tools, Posible sysmon driver unloading</description>
@@ -326,7 +395,6 @@ Must change sysmon configuration to include CommandLine in section
 </RegistryEvent>
 -->
 <rule id="100912" level="10">
-   <if_sid>61614</if_sid>
    <field name="win.eventdata.TargetObject">HKLM\\SOFTWARE\\Policies\\Microsoft\\SystemCertificates\\Root\\Certificates</field>
    <description>Mitre ATT&CK T1130, Defense Evasion, Install Root Certificate</description>
    <options>no_full_log</options>
@@ -363,7 +431,6 @@ Must change sysmon configuration to include CommandLine in section
 </FileCreate>
 -->
 <rule id="101001" level="10">
-   <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">(\.*)aitagent.exe|DiagTrackRunner.exe|CompatTelRunner.exe|acproxy.dl|wsqmcons.exe|lpremove.exe|srrstr.dll|wermgr.exe|sdclt.exe|appidcertstorecheck.exe|AppHostRegistrationVerifier.exe|MicTray64.exe|usoclient.exe|dsregcmd.exe|sihclient.exe|dimsjob.dll|Lracengn.dll|HotstartUserAgent.dll|MsCtfMonitor.dll|PlaySndSrv.dll|AdobeARM.exe|GoogleUpdate.exe(\.*)</field>
    <description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Modification of the program run by a Windows Default Scheduled Task</description>
@@ -379,7 +446,6 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessAccess>
 -->
 <rule id="101201" level="10">
-   <if_sid>61612</if_sid>
    <if_group>sysmon_event_10</if_group>
    <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
    <field name="win.eventdata.CallTrace">\.*dbghelp.dll|dbgcore.dll\.*|</field>
@@ -392,7 +458,6 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessAccess>
 -->
 <rule id="101202" level="10">
-   <if_sid>61612</if_sid>
    <if_group>sysmon_event_10</if_group>
    <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
    <field name="win.eventdata.CallTrace">\.*mimikatz\.*</field>
@@ -424,7 +489,6 @@ Must change sysmon configuration to include CommandLine in section
 </FileCreate>
 -->
 <rule id="101301" level="10">
-   <if_sid>61613</if_sid>
    <if_group>sysmon_event_11</if_group>
    <field name="win.eventdata.TargetFilename">(\.*)\\UsageLogs\\cscript.exe.log|wscript.exe.log|mshta.log|wmic.log|regsvr32.exe.log|svchost.log(\.*)</field>
    <description>Mitre ATT&CK T1129, Execution, Execution through Module Load, .NET CLR Usage</description>
@@ -436,7 +500,6 @@ Must change sysmon configuration to include CommandLine in section
  </ProcessCreate>
 --> 
 <rule id="101302" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*ieframe.dll|url.dll|shdocvw.dll,OpenURL\.*</field>
@@ -444,7 +507,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101303" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, OpenURLA\.*</field>
@@ -452,7 +514,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101304" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, FileProtocolHandler\.*</field>
@@ -460,7 +521,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101305" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*zipfldr.dll, RouteTheCall\.*</field>
@@ -468,7 +528,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101306" level="10">
-   <if_sid>61603</if_sid>1085, Execution, Rundll32, E
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*advpack.dll,RegisterOCX \.*</field>
@@ -476,7 +535,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101307" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*pcwutl.dll,LaunchApplication  \.*</field>
@@ -484,7 +542,6 @@ Must change sysmon configuration to include CommandLine in section
    <options>no_full_log</options>
 </rule>
 <rule id="101308" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*Shell32.dll,Control_RunDLL\.*</field>
@@ -497,7 +554,6 @@ Must change sysmon configuration to include CommandLine in section
  </ProcessCreate>
 -->
 <rule id="101309" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\vshadow.exe</field>
    <field name="win.eventdata.CommandLine">\.*vshadow.exe -nw -exec\.*</field>
@@ -510,7 +566,6 @@ Must change sysmon configuration to include CommandLine in section
 </NetworkConnect>
 -->
 <rule id="101310" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.Image">\\regsvr32.exe</field>
    <description>Mitre ATT&CK T1117, Execution, Regsvr32, Executing Regsvr32 Living off the Land Binaries</description>
@@ -522,7 +577,6 @@ Must change sysmon configuration to include CommandLine in section
  </ProcessCreate>
 --> 
 <rule id="101311" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\regsvr32.exe</field>
    <field name="win.eventdata.CommandLine">\.*regsvr32\.*/i\.*scrobj.dll</field>
@@ -535,7 +589,6 @@ Must change sysmon configuration to include CommandLine in section
  </ProcessCreate>
 -->
 <rule id="101312" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.parentImage">\\mshta.exe</field>
    <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land Microsoft HTML Application execution</description>
@@ -547,14 +600,12 @@ Must change sysmon configuration to include CommandLine in section
 </NetworkConnect>
 -->
 <rule id="101313" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.Image">\\certutil.exe</field>
    <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land possible misuse of certutil downloading capabilities</description>
    <options>no_full_log</options>
 </rule>
 <rule id="101314" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*PowerShdll.dll,main\.*</field>
@@ -578,7 +629,6 @@ Must change sysmon configuration to include CommandLine in section
 </NetworkConnect>
 -->
 <rule id="101316" level="10">
-   <if_sid>61605</if_sid>
    <if_group>sysmon_event3</if_group>
    <field name="win.eventdata.Image">\\powershell.exe</field>
    <description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell Execution</description>
@@ -605,6 +655,74 @@ Must change sysmon configuration to include CommandLine in section
    <field name="win.eventdata.CommandLine">\.*cmstp.exe /s\.*</field>
    <description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass applicatioeven whitelisting</description>
 </rule>
+<!--
+<ProcessCreate onmatch="include">
+<CommandLine condition="contains">*schtasks.exe*/create*c:\users\*</CommandLine>
+<CommandLine condition="contains">*schtasks.exe*/create*c:\programdata\*</CommandLine>
+<CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+</ProcessCreate>
+-->
+<rule id="101319" level="10">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.CommandLine">\.*schtasks.exe\.*/create\.*c:\\users\.*|\.*schtasks.exe\.*/create\.* c:\\programdata\.*|\.*schtasks.exe\.*/create\.* c:\\windows\\temp\.*</field>
+   <description>Mitre ATT&CK T1053, Execution, Scheduled Task, Scheduled Task running programs from suspicious locations or scripting utilities</description>
+</rule>
+<!-- Excel.Application (AppId = {00020812-0000-0000-C000-000000000046})
+Word.Application (AppId = {00020906-0000-0000-C000-000000000046})
+Poewrpoint.Application (AppId = {048EB43E-2059-422F-95E0-557DA96038AF})
+Outlook.Application (AppId = {0006F04A-0000-0000-C000-000000000046})
+Visio.Application (AppId = {00021A20-0000-0000-C000-000000000046})
+ShellWindows (AppId = {9BA05972-F6A8-11CF-A42-00A0C90A8F39})
+ShellbrowserWindows (AppId = {c08afd90-f2a1-11d1-8455-00a0c91f3880})
+MMC20.Application (AppId = {7e0423cd-11198-0928-900c-e6d4a52a0715})
+HTML Application (AppId = {40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91})
+WScript.Shell.1(Clsid = {72C24DD5-D70A-438B-8A42-98424B88AFB8})
+Shell.Application.1 (Clsid = {13709620-C279-11CE-A49E-444553540000})
+-->
+<!--
+ <ProcessCreate onmatch="include">
+	<Image condition="end with">rundll32.exe</Image>
+ </ProcessCreate>
+--> 
+<rule id="101320" level="10">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*rundll32.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*rundll32.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*rundll32.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*rundll32.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*rundll32.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*rundll32.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
+   <description>Mitre ATT&CK T1085, Execution, Rundll32, Component Object Model and Distributed COM, </description>
+   <options>no_full_log</options>
+</rule>
+<!--
+ <ProcessCreate onmatch="include">
+	<Image condition="end with">dllhost.exe</Image>
+ </ProcessCreate>
+--> 
+<rule id="101321" level="10">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.Image">\\dllhost.exe</field>
+   <field name="win.eventdata.CommandLine">\.*dllhost.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*dllhost.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*dllhost.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*dllhost.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*dllhost.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*dllhost.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*dllhost.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
+   <description>Mitre ATT&CK T1085, Execution, Rundll32, Component Object Model and Distributed COM, </description>
+   <options>no_full_log</options>
+</rule>
+<!--
+ <WmiEvent onmatch="include">
+    <Operation condition="is">Created</Operation>
+ </WmiEvent>
+-->
+<rule id="101322" level="10">
+   <if_group>sysmon_event_19</if_group>
+   <field name="win.eventdata.Operation">Created</field>
+   <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+</rule>
+<rule id="101323" level="10">
+   <if_group>sysmon_event_20</if_group>
+   <field name="win.eventdata.Operation">Created</field>
+   <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+</rule>
+<rule id="101324" level="10">
+   <if_group>sysmon_event_21</if_group>
+   <field name="win.eventdata.Operation">Created</field>
+   <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+</rule>
 <!-- COLLECTION 101400-->
 <!--
 <ProcessCreate onmatch="include">
@@ -613,11 +731,12 @@ Must change sysmon configuration to include CommandLine in section
 </ProcessCreate>
 -->
 <rule id="101401" level="10">
-   <if_sid>61603</if_sid>
    <if_group>sysmon_event1</if_group>
    <field name="win.eventdata.CommandLine">\.*/stext|/scomma\.*</field>
    <description>Mitre ATT&CK T1056,  Collection, Input Capture, Keylogger abusing NirSoft Tools</description>
    <options>no_full_log</options>
 </rule>
+
+
 </group>
 

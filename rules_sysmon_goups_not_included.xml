@@ -1,0 +1,44 @@
+<group name="windows,sysmon,">
+<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
+
+<rule id="101601" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(19)</match>
+    <description>Sysmon - Event 19</description>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101602" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(20)</match>
+    <description>Sysmon - Event 20</description>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101603" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(21)</match>
+    <description>Sysmon - Event 21</description>
+    <group>sysmon_event_21,</group>
+</rule>
+
+<rule id="101604" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^19$</field>
+    <description>Sysmon - Event 19: WmiEventFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101605" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^20$</field>
+    <description>Sysmon - Event 20: WmiEventConsumer</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101606" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^21$</field>
+    <description>Sysmon - Event 21: WmiEventConsumerToFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_21,</group>
+</rule>
+</group>
