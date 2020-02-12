@@ -37,6 +37,7 @@ The idea is to work with two main files:
 
 
 In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
 -----------------------------------------------------
 ## New rules sysmon groups not included in wazuh config
 
