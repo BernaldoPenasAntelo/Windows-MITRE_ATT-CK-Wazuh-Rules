@@ -43,7 +43,8 @@ In the two main files before each rule category it's a commented block with even
 
 You must check your wazuh predefined ruleset, but at the time I create rules for Windows Management Instrumentation using sysmon events 19, 20 and 21, the actual wazuh predefined ruleset in file **/var/ossec/ruleset/rules/0595-win-sysmon_rules.xml** has no grouping for this events.
 
-I include file **rules_sysmon_groups_not_included.xml** to generate the basic skeleton for WMI rules. 
+I include file **rules_sysmon_groups_not_included.xml** to generate the basic skeleton for WMI rules.
+
 -----------------------------------------------------
 ## Install sysmon
 >
