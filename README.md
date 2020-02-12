@@ -41,9 +41,12 @@ In the two main files before each rule category it's a commented block with even
 ## Install sysmon
 >
 > As a brief to install sysmon using the config included
+>
 >Download sysmon : https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
+>
 >Setup Sysmon: 
->Sysmon64.exe -accepteula -i
+>
+>Sysmon64.exe -accepteula -i sysmon_config_events.xml
 >
 
 
