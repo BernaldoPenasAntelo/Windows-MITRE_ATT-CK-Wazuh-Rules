@@ -76,13 +76,13 @@ Trusted Relationship | Graphical User Interface | Change Default File Associatio
 Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Proxy** | Input Prompt | Permission Groups Discovery | Replication Through Removable Media | Man in the Browser | Multi-hop Proxy | | Resource Hijacking
 | | LSASS Driver | Component Object Model Hijacking | Image File Execution Options Injection | Control Panel Items | * **Kerberoasting** | Process Discovery | Shared Webroot | Screen Capture | Multi-Stage Channels | | Runtime Data Manipulation
 | | Mshta | * **Create Account** | New Service | * **DCShadow** | LLMNR/NBT-NS Poisoning and Relay | Query Registry | Taint Shared Content | Video Capture | Multiband Communication | | Service Stop
-| | * **PowerShell** | DLL Search Order Hijacking | Parent PID Spoofing | Deobfuscate/Decode Files or Information | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
+| | * **PowerShell** | DLL Search Order Hijacking | Parent PID Spoofing | * **Deobfuscate/Decode Files or Information** | Network Sniffing | Remote System Discovery | Third-party Software | |	Multilayer Encryption | | Stored Data Manipulation
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | * **Disabling Security Tools** | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | |	Regsvr32 | File System Permissions Weakness | Port Monitors | DLL Search Order Hijacking | Private Keys | Software Discovery | * **Windows Remote Management** | | Remote File Copy | | Transmitted Data Manipulation 
 | |	Regsvcs/Regasm | External Remote Services | Path Interception | Disabling Security Tools | Password Filter DLL | Security Software Discovery | Windows Admin Shares | |	Remote Access Tools | |	System Shutdown/Reboot
 | | * **Rundll32** | Hidden Files and Directories | PowerShell Profile | * **DLL Side-Loading** | Steal Web Session Cookie | System Information Discovery | | |	Standard Application Layer Protocol | | |	
 | | * **Scheduled Task** | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
-| | Scripting | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
+| | * **Scripting** | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
 | | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 
 | | Signed Binary Proxy Execution | Logon Scripts | SID-History Injection | * **File and Directory Permissions Modification** | | System Service Discovery | | | Web Service | | |
 | | Signed Script Proxy Execution | LSASS Driver | Valid Accounts | File Deletion | | System Time Discovery | | | | |				

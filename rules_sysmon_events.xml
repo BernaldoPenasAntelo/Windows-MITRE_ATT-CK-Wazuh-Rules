@@ -1,14 +1,76 @@
 <group name="MITRE ATT&CK_sysmon">
-<!--
-{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-14 01:29:00.318","ProcessGuid":"{365abb72-19e0-5cda-0000-001006711000}","ProcessId":"1932","Image":"C:\\Windows\\System32\\mshta.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"false","SourceIsIpv6":"false","SourceIp":"10.0.2.16","SourceHostname":"IEWIN7","SourcePort":"49168","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"10.0.2.17","DestinationHostname":"","DestinationPort":"55683","DestinationPortName":""}}}
--->
+
 <!-- GENERAL RULES 100100-->
+<!--
+<ProcessCreate onmatch="include">
+   <Image condition="end with">rundll32.exe</Image>
+</ProcessCreate>
+-->
 <rule id="100100" level="0">
     <if_group>sysmon_event1</if_group>	   
     <field name="win.eventdata.Image">\\rundll32.exe</field>
     <description>Mitre ATT&CK T1085, Rundll32,</description>
+	<options>no_full_log</options>
 </rule>
-
+<!--
+<ProcessCreate onmatch="include">
+	<ParentImage condition="end with">mshta.exe</ParentImage>
+</ProcessCreate>
+-->
+<rule id="100101" level="0">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.parentImage">\\mshta.exe</field>
+   <description>Mitre ATT&CK T1170, Microsoft HTML Application execution</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+    <ParentImage condition="end with">WINWORD.exe</ParentImage>
+    <ParentImage condition="end with">EXCEL.exe</ParentImage>
+    <ParentImage condition="end with">POWERPNT.exe</ParentImage>
+    <ParentImage condition="end with">MSPUB.exe</ParentImage>
+    <ParentImage condition="end with">VISIO.exe</ParentImage>
+</ProcessCreate>
+-->
+<rule id="100102" level="0">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.ParentImage">\\WINWORD.EXE||\\EXCEL.EXE||\\POWERPNT.exe||\\MSPUB.exe||\\VISIO.exe</field>
+    <description>Mitre ATT&CK T1059, MS Word - Ms EXCEL run</description>
+	<options>no_full_log</options>
+</rule>
+<!--
+<CreateRemoteThread onmatch="include">
+    <TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+</CreateRemoteThread>
+-->
+<rule id="100103" level="0">
+    <if_group>sysmon_event8</if_group>
+    <field name="win.eventdata.TargetImage">\\lsass.exe</field>
+    <description>Mitre ATT&CK S0121, Credential Access</description>
+	<options>no_full_log</options>
+</rule>
+<!--
+<NetworkConnect onmatch="include">
+	<Image condition="end with">rundll32.exe</Image>
+</NetworkConnect>
+-->
+<rule id="100104" level="0">
+    <if_group>sysmon_event3</if_group>
+    <field name="win.eventdata.image">rundll32.exe</field>
+    <description>Mitre ATT&CK T1085, Rundll32 Internet Connection</description>
+	<options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+	<Image condition="end with">certutil.exe</Image>
+</ProcessCreate>
+-->
+<rule id="100105" level="0">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image">certutil.exe</field>
+    <description>Mitre ATT&CK S0160, Detetcs a suspicious Microsoft certutil execution with sub commands</description>
+	<options>no_full_log</options>
+</rule>
 
 <!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
 
@@ -53,8 +115,9 @@
     <group>sysmon_event_21,</group>
 </rule>
 
-
-
+<!--
+{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-14 01:29:00.318","ProcessGuid":"{365abb72-19e0-5cda-0000-001006711000}","ProcessId":"1932","Image":"C:\\Windows\\System32\\mshta.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"false","SourceIsIpv6":"false","SourceIp":"10.0.2.16","SourceHostname":"IEWIN7","SourcePort":"49168","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"10.0.2.17","DestinationHostname":"","DestinationPort":"55683","DestinationPortName":""}}}
+-->
 <!-- LATERAL MOVEMENT 100500-->
 <!--
 <NetworkConnect onmatch="include">
@@ -88,6 +151,20 @@
    <field name="win.eventdata.ParentImage">\.*WinrsHost.exe\.*</field>
     <description>Mitre ATT&CK T1028, Lateral Movement, Windows Remote Management, Host Process for WinRM's Remote Shell plugin</description>
    <options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+    <CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
+    <CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
+    <CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
+    <CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
+</ProcessCreate>
+-->
+<rule id="100504" level="12">
+    <if_sid>100105</if_sid>
+    <field name="win.eventdata.commandline">URL||urlcache||ping</field>
+    <description>Mitre ATT&CK T1105, Lateral Movement, Remote File Copy, Detetcs a suspicious Microsoft certutil execution with sub commands</description>
+	<options>no_full_log</options>
 </rule>
 
 <!-- PRIVILEGE ESCALATION 100600-->
@@ -404,6 +481,40 @@ Must change sysmon configuration to include CommandLine in section
    <description>Mitre ATT&CK T1130, Defense Evasion, Install Root Certificate</description>
    <options>no_full_log</options>
 </rule>
+<rule id="100913" level="12">
+    <if_sid>100100</if_sid>
+    <field name="win.eventdata.ImageLoaded">\\vaultcli.dll</field>
+    <description>Mitre ATT&CK T1064, Defense Evasion, Scripting, Possible Mimikatz Running In-Memory Detection</description>
+	<options>no_full_log</options>
+</rule>
+<rule id="100914" level="12">
+    <if_sid>100100</if_sid>
+    <field name="win.eventdata.ImageLoaded">\\wlanapi.dll</field>
+    <description>Mitre ATT&CK T1064, Defense Evasion, Scripting, Possible Mimikatz In-Memory Detection</description>
+	<options>no_full_log</options>
+</rule>
+
+<!-- You can define your own local networks setting vars like local_net_x and creating OR in rule -->
+<var name="local_net_1">192.</var>
+
+<rule id="100915" level="12">
+    <if_sid>100104</if_sid>
+    <match>!$local_net_1</match>
+    <description>Mitre ATT&CK T1085, Defense Evasion, Rundll32, Detects a rundll32 that communicates with public IP addresses</description>
+	<options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+	<CommandLine condition="contains">*\certutil.exe * -decode *</CommandLine>
+    <CommandLine condition="contains">*\certutil.exe * -decodehex *</CommandLine>
+</ProcessCreate>
+-->
+<rule id="100916" level="12">
+    <if_sid>100105</if_sid>
+    <field name="win.eventdata.commandline">decode||decodehex</field>
+    <description>Mitre ATT&CK T1140, Defense Evasion, Deobfuscate/Decode Files or Information, Detetcs a suspicious Microsoft certutil execution with sub commands</description>
+	<options>no_full_log</options>
+</rule>
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
  
@@ -452,7 +563,7 @@ Must change sysmon configuration to include CommandLine in section
 -->
 <rule id="101201" level="10">
    <if_group>sysmon_event_10</if_group>
-   <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
+   <if_sid>100103</if_sid>
    <field name="win.eventdata.CallTrace">\.*dbghelp.dll|dbgcore.dll\.*|</field>
    <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Procdump or Taskmgr - memory dump</description>
    <options>no_full_log</options>
@@ -464,10 +575,17 @@ Must change sysmon configuration to include CommandLine in section
 -->
 <rule id="101202" level="10">
    <if_group>sysmon_event_10</if_group>
-   <field name="win.eventdata.TargetImage">\.*lsass.exe\.*</field>
+   <if_sid>100103</if_sid>
    <field name="win.eventdata.CallTrace">\.*mimikatz\.*</field>
    <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Sekursla mimikatz module memory dump</description>
    <options>no_full_log</options>
+</rule>
+
+<rule id="101203" level="12">
+    <if_sid>100103</if_sid>
+    <field name="win.eventdata.startModule">null</field>
+    <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping ,Password Dumper Remote Thread in LSASS</description>
+	<options>no_full_log</options>
 </rule>
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\taskmgr.exe","TargetFilename":"C:\\UsageLogs\\cscript.exe.log","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -499,11 +617,7 @@ Must change sysmon configuration to include CommandLine in section
    <description>Mitre ATT&CK T1129, Execution, Execution through Module Load, .NET CLR Usage</description>
    <options>no_full_log</options>
 </rule>
-<!--
- <ProcessCreate onmatch="include">
-	<Image condition="end with">rundll32.exe</Image>
- </ProcessCreate>
--->
+
 <rule id="101302" level="10">
    <if_group>sysmon_event1</if_group>
    <if_sid>100100</if_sid>
@@ -588,15 +702,11 @@ Must change sysmon configuration to include CommandLine in section
    <description>Mitre ATT&CK T1117, Execution, Regsvr32, Squiblydoo technique</description>
    <options>no_full_log</options>
 </rule>
-<!--
-<ProcessCreate onmatch="include">
-	<ParentImage condition="end with">mshta.exe</ParentImage>
- </ProcessCreate>
--->
-<rule id="101312" level="10">
-   <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.parentImage">\\mshta.exe</field>
-   <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land Microsoft HTML Application execution</description>
+
+<rule id="101312" level="12">
+   <if_sid>100101</if_sid>
+   <field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\reg.exe||\\regsvr32.exe||\\BITSADMIN*</field>
+   <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land Microsoft HTML Application command line execution </description>
    <options>no_full_log</options>
 </rule>
 <!--
@@ -717,16 +827,54 @@ Shell.Application.1 (Clsid = {13709620-C279-11CE-A49E-444553540000})
    <if_group>sysmon_event_19</if_group>
    <field name="win.eventdata.Operation">Created</field>
    <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+   <options>no_full_log</options>
 </rule>
 <rule id="101323" level="10">
    <if_group>sysmon_event_20</if_group>
    <field name="win.eventdata.Operation">Created</field>
    <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+   <options>no_full_log</options>
 </rule>
 <rule id="101324" level="10">
    <if_group>sysmon_event_21</if_group>
    <field name="win.eventdata.Operation">Created</field>
    <description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
+   <options>no_full_log</options>
+</rule>
+<rule id="101325" level="12">
+   <if_sid>100102</if_sid>
+   <field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\scrcons.exe||\\schtasks.exe||\\regsvr32.exe||\\hh.exe</field>
+   <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Microsoft Office Product Spawning Windows Shell</description>
+   <options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+	<CommandLine condition="contains">*new-object system.net.webclient).downloadstring(*</CommandLine>
+    <CommandLine condition="contains">*new-object system.net.webclient).downloadfile(*</CommandLine>
+</ProcessCreate>
+-->
+<rule id="101326" level="12">
+    <if_sid>101315</if_sid>
+    <field name="win.eventdata.commandline">DownloadString||downloadfile</field>
+    <description>Mitre ATT&CK T1086, Execution, PowerShell, PowerShell scripts that download content from the Internet</description>
+	<options>no_full_log</options>
+</rule>
+<!--
+<ProcessCreate onmatch="include">
+	<CommandLine condition="contains"> -enc </CommandLine>
+    <CommandLine condition="contains"> -EncodedCommand </CommandLine>
+    <CommandLine condition="contains"> -w hidden </CommandLine>
+    <CommandLine condition="contains"> -window hidden </CommandLine>
+    <CommandLine condition="contains"> -windowstyle hidden </CommandLine>
+    <CommandLine condition="contains"> -noni </CommandLine>
+    <CommandLine condition="contains"> -noninteractive </CommandLine>
+</ProcessCreate>
+-->
+<rule id="101327" level="12">
+    <if_sid>101315</if_sid>
+    <field name="win.eventdata.commandline">EncodedCommand||-w hidden||-window hidden||-windowstyle hidden||-enc||-noni||noninteractive</field>
+    <description>Mitre ATT&CK T1086, Execution, PowerShell, Detects suspicious PowerShell invocation command parameters</description>
+	<options>no_full_log</options>
 </rule>
 <!-- COLLECTION 101400-->
 <!--

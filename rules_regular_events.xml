@@ -532,7 +532,7 @@ Copy below to your client's ossec.conf file
    <if_matched_sid>100340</if_matched_sid>
    <field name="win.system.eventID">^4771$</field>
    <same_field>win.eventdata.ipAddress</same_field>
-   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from same ip</description>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress)</description>
    <options>no_full_log</options>
    <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 </rule>
@@ -540,7 +540,7 @@ Copy below to your client's ossec.conf file
    <if_matched_sid>100340</if_matched_sid>
    <field name="win.system.eventID">^4771$</field>
    <same_field>win.eventdata.subjectUserSid</same_field>
-   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from same user</description>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from user $(win.eventdata.subjectUserSid)</description>
    <options>no_full_log</options>
    <group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 </rule>
@@ -549,7 +549,7 @@ Copy below to your client's ossec.conf file
    <if_matched_sid>100341</if_matched_sid>
    <field name="win.system.eventID">^4625$</field>
    <same_field>win.eventdata.ipAddress</same_field>
-   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on multiple times from same ip</description>
+   <description>Mitre ATT&CK T1110,  Credential Access, Brute Force, An account failed to log on multiple times from $(win.eventdata.ipAddress)</description>
    <options>no_full_log</options>
    <group>authentication_failures,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,</group>
 </rule>
