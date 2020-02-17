@@ -2,6 +2,58 @@
 <!--
 {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-14 01:29:00.318","ProcessGuid":"{365abb72-19e0-5cda-0000-001006711000}","ProcessId":"1932","Image":"C:\\Windows\\System32\\mshta.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"false","SourceIsIpv6":"false","SourceIp":"10.0.2.16","SourceHostname":"IEWIN7","SourcePort":"49168","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"10.0.2.17","DestinationHostname":"","DestinationPort":"55683","DestinationPortName":""}}}
 -->
+<!-- GENERAL RULES 100100-->
+<rule id="100100" level="0">
+    <if_group>sysmon_event1</if_group>	   
+    <field name="win.eventdata.Image">\\rundll32.exe</field>
+    <description>Mitre ATT&CK T1085, Rundll32,</description>
+</rule>
+
+
+<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
+
+<rule id="101601" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(19)</match>
+    <description>Sysmon - Event 19</description>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101602" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(20)</match>
+    <description>Sysmon - Event 20</description>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101603" level="0">
+    <if_sid>18100</if_sid>
+    <match>Microsoft-Windows-Sysmon/Operational: INFORMATION(21)</match>
+    <description>Sysmon - Event 21</description>
+    <group>sysmon_event_21,</group>
+</rule>
+
+<rule id="101604" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^19$</field>
+    <description>Sysmon - Event 19: WmiEventFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_19,</group>
+</rule>
+<rule id="101605" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^20$</field>
+    <description>Sysmon - Event 20: WmiEventConsumer</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_20,</group>
+</rule>
+<rule id="101606" level="0">
+    <if_sid>61600</if_sid>
+    <field name="win.system.eventID">^21$</field>
+    <description>Sysmon - Event 21: WmiEventConsumerToFilter</description>
+    <options>no_full_log</options>
+    <group>sysmon_event_21,</group>
+</rule>
+
+
 
 <!-- LATERAL MOVEMENT 100500-->
 <!--
@@ -451,23 +503,23 @@ Must change sysmon configuration to include CommandLine in section
  <ProcessCreate onmatch="include">
 	<Image condition="end with">rundll32.exe</Image>
  </ProcessCreate>
---> 
+-->
 <rule id="101302" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*ieframe.dll|url.dll|shdocvw.dll,OpenURL\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
 </rule>
 <rule id="101303" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, OpenURLA\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
 </rule>
 <rule id="101304" level="10">
-   <if_group>sysmon_event1</if_group>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.Image">\\rundll32.exe</field>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, FileProtocolHandler\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
@@ -475,28 +527,28 @@ Must change sysmon configuration to include CommandLine in section
 </rule>
 <rule id="101305" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*zipfldr.dll, RouteTheCall\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
 </rule>
 <rule id="101306" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*advpack.dll,RegisterOCX \.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
 </rule>
 <rule id="101307" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*pcwutl.dll,LaunchApplication  \.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
 </rule>
 <rule id="101308" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*Shell32.dll,Control_RunDLL\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
    <options>no_full_log</options>
@@ -560,7 +612,7 @@ Must change sysmon configuration to include CommandLine in section
 </rule>
 <rule id="101314" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*PowerShdll.dll,main\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Powershell Without Powershell.exe</description>
    <options>no_full_log</options>
@@ -639,7 +691,7 @@ Shell.Application.1 (Clsid = {13709620-C279-11CE-A49E-444553540000})
 --> 
 <rule id="101320" level="10">
    <if_group>sysmon_event1</if_group>
-   <field name="win.eventdata.Image">\\rundll32.exe</field>
+   <if_sid>100100</if_sid>
    <field name="win.eventdata.CommandLine">\.*rundll32.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*rundll32.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*rundll32.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*rundll32.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*rundll32.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*rundll32.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*rundll32.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
    <description>Mitre ATT&CK T1085, Execution, Rundll32, Component Object Model and Distributed COM, </description>
    <options>no_full_log</options>
