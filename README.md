@@ -35,14 +35,15 @@ The idea is to work with two main files:
 
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
-
 In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
 -----------------------------------------------------
 ## New rules sysmon groups not included in wazuh config
 
 You must check your wazuh predefined ruleset, but at the time I create rules for Windows Management Instrumentation using sysmon events 19, 20 and 21, the actual wazuh predefined ruleset in file **/var/ossec/ruleset/rules/0595-win-sysmon_rules.xml** has no grouping for this events.
 
-I include file **rules_sysmon_groups_not_included.xml** to generate the basic skeleton for WMI rules. 
+I include file **rules_sysmon_groups_not_included.xml** to generate the basic skeleton for WMI rules.
+ 
 -----------------------------------------------------
 ## Install sysmon
 >
@@ -54,6 +55,9 @@ I include file **rules_sysmon_groups_not_included.xml** to generate the basic sk
 >
 >Sysmon64.exe -accepteula -i sysmon_config_events.xml
 >
+> If you have already installed sysmon you can just merge your own rules with sysmon_config_events.xml and execute
+>
+>Sysmon64.exe -c <name_of_new_merged_file>
 
 
 -----------------------------------------------------
