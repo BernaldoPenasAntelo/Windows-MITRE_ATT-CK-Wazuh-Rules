@@ -13,6 +13,15 @@
 		  <Image condition="end with">rundll32.exe</Image>
 		  <Image condition="image">regsvr32.exe</Image>
 		  <Image condition="end with">dllhost.exe</Image>
+		  <Image condition="end with">cscript.exe</Image>
+          <Image condition="end with">wscript.exe</Image>
+		  <Image condition="end with">hh.exe</Image>
+		  <Image condition="end with">bash.exe</Image>
+		  <Image condition="end with">scrcons.exe</Image>
+		  <Image condition="end with">schtasks.exe</Image>
+		  <Image condition="end with">sh.exe</Image>
+		  <Image condition="end with">wscript.exe</Image>
+		  <Image condition="end with">certutil.exe</Image>
 		  
 		  <CommandLine condition="contains">*/stext*</CommandLine>
           <CommandLine condition="contains">*/scomma*</CommandLine>
@@ -24,12 +33,32 @@
 		  <CommandLine condition="contains">*schtasks.exe*/create*c:\users\*</CommandLine>
 		  <CommandLine condition="contains">*schtasks.exe*/create*c:\programdata\*</CommandLine>
 		  <CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+		  <CommandLine condition="contains">*new-object system.net.webclient).downloadstring(*</CommandLine>
+          <CommandLine condition="contains">*new-object system.net.webclient).downloadfile(*</CommandLine>
+          <CommandLine condition="contains"> -enc </CommandLine>
+          <CommandLine condition="contains"> -EncodedCommand </CommandLine>
+          <CommandLine condition="contains"> -w hidden </CommandLine>
+          <CommandLine condition="contains"> -window hidden </CommandLine>
+          <CommandLine condition="contains"> -windowstyle hidden </CommandLine>
+          <CommandLine condition="contains"> -noni </CommandLine>
+          <CommandLine condition="contains"> -noninteractive </CommandLine>		  
+		  <CommandLine condition="contains">*\certutil.exe * -decode *</CommandLine>
+          <CommandLine condition="contains">*\certutil.exe * -decodehex *</CommandLine>
+          <CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
+          <CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
+          <CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
+          <CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
 		  
 		  
 		  <ParentImage condition="end with">mshta.exe</ParentImage>
           <ParentImage condition="contains">WinrsHost.exe</ParentImage>
 		  <ParentImage condition="end with">wsmprovhost.exe</ParentImage>
 		  <ParentImage condition="contains">WinrsHost.exe</ParentImage>
+		  <ParentImage condition="end with">WINWORD.exe</ParentImage>
+          <ParentImage condition="end with">EXCEL.exe</ParentImage>
+          <ParentImage condition="end with">POWERPNT.exe</ParentImage>
+          <ParentImage condition="end with">MSPUB.exe</ParentImage>
+          <ParentImage condition="end with">VISIO.exe</ParentImage>
 		  
 		  
 		  <ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
@@ -44,6 +73,8 @@
 	  <NetworkConnect onmatch="include">
 	      <Image condition="image">mshta.exe</Image>
 		  <Image condition="image">certutil.exe</Image>
+		  <Image condition="image">regsvr32.exe</Image>
+		  <Image condition="end with">rundll32.exe</Image>
 		  
 		  <DestinationIp condition="is">127.0.0.1</DestinationIp>
           <DestinationIp condition="is">::1</DestinationIp>
@@ -62,6 +93,7 @@
 	  
 	  <!-- Event ID 8 == CreateRemoteThread. -->
       <CreateRemoteThread onmatch="include">
+          <TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
 	  </CreateRemoteThread>
 	  
 	  <!-- Event ID 9 == RawAccessRead. -->
