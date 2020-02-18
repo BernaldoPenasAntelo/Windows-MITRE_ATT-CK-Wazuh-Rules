@@ -1,180 +1,220 @@
-<Sysmon schemaversion="4.00">
-   <!-- Capture all hashes -->
-   <HashAlgorithms>*</HashAlgorithms>
-   <EventFiltering>
-      <!-- Event ID 1 == Process Creation. -->   
-      <ProcessCreate onmatch="include">
-          <Image condition="end with">cmd.exe</Image>
-          <Image condition="end with">powershell.exe</Image>
-          <Image condition="end with">cmd.exe</Image>
-		  <Image condition="end with">regsvr32.exe</Image>
-		  <Image condition="end with">vshadow.exe</Image>
-		  <Image condition="end with">forfiles.exe</Image>
-		  <Image condition="end with">rundll32.exe</Image>
-		  <Image condition="image">regsvr32.exe</Image>
-		  <Image condition="end with">dllhost.exe</Image>
-		  <Image condition="end with">cscript.exe</Image>
-          <Image condition="end with">wscript.exe</Image>
-		  <Image condition="end with">hh.exe</Image>
-		  <Image condition="end with">bash.exe</Image>
-		  <Image condition="end with">scrcons.exe</Image>
-		  <Image condition="end with">schtasks.exe</Image>
-		  <Image condition="end with">sh.exe</Image>
-		  <Image condition="end with">wscript.exe</Image>
-		  <Image condition="end with">certutil.exe</Image>
-		  
-		  <CommandLine condition="contains">*/stext*</CommandLine>
-          <CommandLine condition="contains">*/scomma*</CommandLine>
-		  <CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
-		  <CommandLine condition="contains">*cmstp.exe*/au*</CommandLine>
-		  <CommandLine condition="contains">*netsh*connectp=3389*</CommandLine>
-		  <CommandLine condition="contains">attrib +h</CommandLine>
-		  <CommandLine condition="contains">*unload*sysmon*</CommandLine>
-		  <CommandLine condition="contains">*schtasks.exe*/create*c:\users\*</CommandLine>
-		  <CommandLine condition="contains">*schtasks.exe*/create*c:\programdata\*</CommandLine>
-		  <CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
-		  <CommandLine condition="contains">*new-object system.net.webclient).downloadstring(*</CommandLine>
-          <CommandLine condition="contains">*new-object system.net.webclient).downloadfile(*</CommandLine>
-          <CommandLine condition="contains"> -enc </CommandLine>
-          <CommandLine condition="contains"> -EncodedCommand </CommandLine>
-          <CommandLine condition="contains"> -w hidden </CommandLine>
-          <CommandLine condition="contains"> -window hidden </CommandLine>
-          <CommandLine condition="contains"> -windowstyle hidden </CommandLine>
-          <CommandLine condition="contains"> -noni </CommandLine>
-          <CommandLine condition="contains"> -noninteractive </CommandLine>		  
-		  <CommandLine condition="contains">*\certutil.exe * -decode *</CommandLine>
-          <CommandLine condition="contains">*\certutil.exe * -decodehex *</CommandLine>
-          <CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
-          <CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
-          <CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
-          <CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
-		  
-		  
-		  <ParentImage condition="end with">mshta.exe</ParentImage>
-          <ParentImage condition="contains">WinrsHost.exe</ParentImage>
-		  <ParentImage condition="end with">wsmprovhost.exe</ParentImage>
-		  <ParentImage condition="contains">WinrsHost.exe</ParentImage>
-		  <ParentImage condition="end with">WINWORD.exe</ParentImage>
-          <ParentImage condition="end with">EXCEL.exe</ParentImage>
-          <ParentImage condition="end with">POWERPNT.exe</ParentImage>
-          <ParentImage condition="end with">MSPUB.exe</ParentImage>
-          <ParentImage condition="end with">VISIO.exe</ParentImage>
-		  
-		  
-		  <ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
-          <ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>		  
-      </ProcessCreate>
-	  
-	  <!-- Event ID 2 == File Creation Time. -->
-	  <FileCreateTime onmatch="include">
-	  </FileCreateTime>
-	  
-	  <!-- Event ID 3 == Network Connection. -->
-	  <NetworkConnect onmatch="include">
-	      <Image condition="image">mshta.exe</Image>
-		  <Image condition="image">certutil.exe</Image>
-		  <Image condition="image">regsvr32.exe</Image>
-		  <Image condition="end with">rundll32.exe</Image>
-		  
-		  <DestinationIp condition="is">127.0.0.1</DestinationIp>
-          <DestinationIp condition="is">::1</DestinationIp>
-		  
-		  <DestinationPort condition="is">3389</DestinationPort>
-	  </NetworkConnect>
-	  
-	  <!-- Event ID 5 == Process Terminated. -->
-	  <ProcessTerminate onmatch="include">
-	  </ProcessTerminate>
-	  
-	  <!-- Event ID 7 == Image Load-->
-	  <ImageLoad onmatch="include">
-          <Signed condition="is">false</Signed>
-      </ImageLoad>
-	  
-	  <!-- Event ID 8 == CreateRemoteThread. -->
-      <CreateRemoteThread onmatch="include">
-          <TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
-	  </CreateRemoteThread>
-	  
-	  <!-- Event ID 9 == RawAccessRead. -->
-      <RawAccessRead onmatch="include">
-	  </RawAccessRead>
-	  
-	  <!-- Event ID 10 == ProcessAccess. -->
-      <ProcessAccess onmatch="include">
-	     <CallTrace condition="contains">dbghelp.dll</CallTrace>
-         <CallTrace condition="contains">dbgcore.dll</CallTrace>
-		 <CallTrace condition="contains">mimikatz</CallTrace>
-	  </ProcessAccess>
-	  
-	  <!-- Event ID 11 == FileCreate. -->
-      <FileCreate onmatch="include">
-	      <TargetFilename condition="is">*\AppData\Local\Temp\comctl32.dll</TargetFilename>
-		  <TargetFilename condition="is">*\AppData\Local\Temp\dismcore.dll</TargetFilename>
-		  <TargetFilename condition="is">*\AppData\Local\Temp\wow64log.dll</TargetFilename>
-		  <TargetFilename condition="contains">aitagent.exe</TargetFilename>
-          <TargetFilename condition="contains">DiagTrackRunner.exe</TargetFilename>
-          <TargetFilename condition="contains">CompatTelRunner.exe</TargetFilename>
-          <TargetFilename condition="contains">acproxy.dl</TargetFilename>
-          <TargetFilename condition="contains">wsqmcons.exe</TargetFilename>
-          <TargetFilename condition="contains">lpremove.exe</TargetFilename>
-          <TargetFilename condition="contains">srrstr.dll</TargetFilename>
-          <TargetFilename condition="contains">wermgr.exe</TargetFilename>
-          <TargetFilename condition="contains">sdclt.exe</TargetFilename>
-          <TargetFilename condition="contains">appidcertstorecheck.exe</TargetFilename>
-          <TargetFilename condition="contains">AppHostRegistrationVerifier.exe</TargetFilename>
-          <TargetFilename condition="contains">MicTray64.exe</TargetFilename>
-          <TargetFilename condition="contains">usoclient.exe</TargetFilename>
-          <TargetFilename condition="contains">dsregcmd.exe</TargetFilename>
-          <TargetFilename condition="contains">sihclient.exe</TargetFilename>
-          <TargetFilename condition="contains">dimsjob.dll</TargetFilename>
-          <TargetFilename condition="contains">Lracengn.dll</TargetFilename>
-          <TargetFilename condition="contains">HotstartUserAgent.dll</TargetFilename>
-          <TargetFilename condition="contains">MsCtfMonitor.dll</TargetFilename>
-          <TargetFilename condition="contains">PlaySndSrv.dll</TargetFilename>
-          <TargetFilename condition="contains">AdobeARM.exe</TargetFilename>
-          <TargetFilename condition="contains">GoogleUpdate.exe</TargetFilename>
-		  <TargetFilename condition="end with">\UsageLogs\cscript.exe.log</TargetFilename>
-          <TargetFilename condition="end with">\UsageLogs\wscript.exe.log</TargetFilename>
-          <TargetFilename condition="end with">\UsageLogs\mshta.log</TargetFilename>
-          <TargetFilename condition="end with">\UsageLogs\wmic.log</TargetFilename>
-          <TargetFilename condition="end with">\UsageLogs\regsvr32.exe.log</TargetFilename>
-          <TargetFilename condition="end with">\UsageLogs\svchost.log</TargetFilename>
-		  <TargetFilename condition="contains">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
+<Sysmon schemaversion="4.22">
 
-	  </FileCreate>
-	  
-	  <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
-      <RegistryEvent onmatch="include">
-	      <TargetObject condition="is">HKU\*\exefile\shell\runas\command\IsolatedCommand</TargetObject>
-		  <TargetObject condition="is">HKU\*\ms-settings\shell\open\command\DelegateExecute</TargetObject>
-          <TargetObject condition="is">HKU\*\ms-settings\shell\open\command\(Default)</TargetObject>
-          <TargetObject condition="is">HKU\*\ms-settings\shell\open\command</TargetObject>
-		  <TargetObject condition="is">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
-		  <TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
-		  <TargetObject condition="is">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
-		  <TargetObject condition="is">HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
-		  <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
-          <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
-          <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
-          <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
-          <TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
-		  <TargetObject condition="is">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
-	  </RegistryEvent>
-	  
-	  <!-- Event ID 15 == FileStream Created. -->
-      <FileCreateStreamHash onmatch="include">
-	  </FileCreateStreamHash>
-	  
-	  <!-- Event ID 17,18 == PipeEvent. Log Named pipe created & Named pipe connected -->
-      <PipeEvent onmatch="include">
-	  </PipeEvent>
-	  
-	  <!-- Event ID 19,20,21, == WmiEvent. Log all WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter activity-->
-      <WmiEvent onmatch="include">
-	      <Operation condition="is">Created</Operation>
-	  </WmiEvent>
-	  
-
-  </EventFiltering>
+	<HashAlgorithms>md5,sha256</HashAlgorithms>
+	<CheckRevocation/>
+	
+	<EventFiltering>
+		<RuleGroup name="" groupRelation="or">		
+			<!-- Event ID 1 == Process Creation. -->
+			<ProcessCreate onmatch="include">
+				<Image condition="end with">cmd.exe</Image>
+				<Image condition="end with">powershell.exe</Image>
+				<Image condition="end with">cmd.exe</Image>
+				<Image condition="end with">regsvr32.exe</Image>
+				<Image condition="end with">vshadow.exe</Image>
+				<Image condition="end with">forfiles.exe</Image>
+				<Image condition="end with">rundll32.exe</Image>
+				<Image condition="image">regsvr32.exe</Image>
+				<Image condition="end with">dllhost.exe</Image>
+				<Image condition="end with">cscript.exe</Image>
+				<Image condition="end with">wscript.exe</Image>
+				<Image condition="end with">hh.exe</Image>
+				<Image condition="end with">bash.exe</Image>
+				<Image condition="end with">scrcons.exe</Image>
+				<Image condition="end with">schtasks.exe</Image>
+				<Image condition="end with">sh.exe</Image>
+				<Image condition="end with">wscript.exe</Image>
+				<Image condition="end with">certutil.exe</Image>
+					  
+				<CommandLine condition="contains">*/stext*</CommandLine>
+				<CommandLine condition="contains">*/scomma*</CommandLine>
+				<CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
+				<CommandLine condition="contains">*cmstp.exe*/au*</CommandLine>
+				<CommandLine condition="contains">*netsh*connectp=3389*</CommandLine>
+				<CommandLine condition="contains">attrib +h</CommandLine>
+				<CommandLine condition="contains">*unload*sysmon*</CommandLine>
+				<CommandLine condition="contains">*schtasks.exe*/create*c:\users\*</CommandLine>
+				<CommandLine condition="contains">*schtasks.exe*/create*c:\programdata\*</CommandLine>
+				<CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+				<CommandLine condition="contains">*new-object system.net.webclient).downloadstring(*</CommandLine>
+				<CommandLine condition="contains">*new-object system.net.webclient).downloadfile(*</CommandLine>
+				<CommandLine condition="contains"> -enc </CommandLine>
+				<CommandLine condition="contains"> -EncodedCommand </CommandLine>
+				<CommandLine condition="contains"> -w hidden </CommandLine>
+				<CommandLine condition="contains"> -window hidden </CommandLine>
+				<CommandLine condition="contains"> -windowstyle hidden </CommandLine>
+				<CommandLine condition="contains"> -noni </CommandLine>
+				<CommandLine condition="contains"> -noninteractive </CommandLine>		  
+				<CommandLine condition="contains">*\certutil.exe * -decode *</CommandLine>
+				<CommandLine condition="contains">*\certutil.exe * -decodehex *</CommandLine>
+				<CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
+				<CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
+				<CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
+				<CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
+					  
+				<ParentImage condition="end with">mshta.exe</ParentImage>
+				<ParentImage condition="contains">WinrsHost.exe</ParentImage>
+				<ParentImage condition="end with">wsmprovhost.exe</ParentImage>
+				<ParentImage condition="contains">WinrsHost.exe</ParentImage>
+				<ParentImage condition="end with">WINWORD.exe</ParentImage>
+				<ParentImage condition="end with">EXCEL.exe</ParentImage>
+				<ParentImage condition="end with">POWERPNT.exe</ParentImage>
+				<ParentImage condition="end with">MSPUB.exe</ParentImage>
+				<ParentImage condition="end with">VISIO.exe</ParentImage>
+				<ParentImage condition="end with">control.exe</ParentImage>
+			  
+				<ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
+				<ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>		  
+			</ProcessCreate>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">	  
+			<!-- Event ID 2 == File Creation Time. -->
+			<FileCreateTime onmatch="include">
+			</FileCreateTime>
+		</RuleGroup>
+			  
+			
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 3 == Network Connection. -->
+			<NetworkConnect onmatch="include">
+				<Image condition="image">mshta.exe</Image>
+				<Image condition="image">certutil.exe</Image>
+				<Image condition="image">regsvr32.exe</Image>
+				<Image condition="end with">rundll32.exe</Image>
+				
+				<DestinationIp condition="is">127.0.0.1</DestinationIp>
+				<DestinationIp condition="is">::1</DestinationIp>
+				
+				<DestinationPort condition="is">3389</DestinationPort>
+			</NetworkConnect>
+		</RuleGroup>	
+			
+			<!--Event ID 4 : RESERVED FOR SYSMON SERVICE STATUS MESSAGES CAN NOT BE FILTERED-->
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 5 == Process Terminated. -->
+			<ProcessTerminate onmatch="include">
+			</ProcessTerminate>
+		</RuleGroup>	
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 6 == Driver Loaded. -->
+			<DriverLoad onmatch="include">
+			</DriverLoad>		
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">	
+			<!-- Event ID 7 == Image Load-->
+			<ImageLoad onmatch="include">
+				<Signed condition="is">false</Signed>
+			</ImageLoad>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 8 == CreateRemoteThread. -->
+			<CreateRemoteThread onmatch="include">
+				<TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+			</CreateRemoteThread>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 9 == RawAccessRead. -->
+			<RawAccessRead onmatch="include">
+			</RawAccessRead>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">	
+			<!-- Event ID 10 == ProcessAccess. -->
+			<ProcessAccess onmatch="include">
+				<CallTrace condition="contains">dbghelp.dll</CallTrace>
+				<CallTrace condition="contains">dbgcore.dll</CallTrace>
+				<CallTrace condition="contains">mimikatz</CallTrace>
+			</ProcessAccess>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">	
+			<!-- Event ID 11 == FileCreate. -->
+			<FileCreate onmatch="include">
+				<TargetFilename condition="is">*\AppData\Local\Temp\comctl32.dll</TargetFilename>
+				<TargetFilename condition="is">*\AppData\Local\Temp\dismcore.dll</TargetFilename>
+				<TargetFilename condition="is">*\AppData\Local\Temp\wow64log.dll</TargetFilename>
+				<TargetFilename condition="contains">aitagent.exe</TargetFilename>
+				<TargetFilename condition="contains">DiagTrackRunner.exe</TargetFilename>
+				<TargetFilename condition="contains">CompatTelRunner.exe</TargetFilename>
+				<TargetFilename condition="contains">acproxy.dl</TargetFilename>
+				<TargetFilename condition="contains">wsqmcons.exe</TargetFilename>
+				<TargetFilename condition="contains">lpremove.exe</TargetFilename>
+				<TargetFilename condition="contains">srrstr.dll</TargetFilename>
+				<TargetFilename condition="contains">wermgr.exe</TargetFilename>
+				<TargetFilename condition="contains">sdclt.exe</TargetFilename>
+				<TargetFilename condition="contains">appidcertstorecheck.exe</TargetFilename>
+				<TargetFilename condition="contains">AppHostRegistrationVerifier.exe</TargetFilename>
+				<TargetFilename condition="contains">MicTray64.exe</TargetFilename>
+				<TargetFilename condition="contains">usoclient.exe</TargetFilename>
+				<TargetFilename condition="contains">dsregcmd.exe</TargetFilename>
+				<TargetFilename condition="contains">sihclient.exe</TargetFilename>
+				<TargetFilename condition="contains">dimsjob.dll</TargetFilename>
+				<TargetFilename condition="contains">Lracengn.dll</TargetFilename>
+				<TargetFilename condition="contains">HotstartUserAgent.dll</TargetFilename>
+				<TargetFilename condition="contains">MsCtfMonitor.dll</TargetFilename>
+				<TargetFilename condition="contains">PlaySndSrv.dll</TargetFilename>
+				<TargetFilename condition="contains">AdobeARM.exe</TargetFilename>
+				<TargetFilename condition="contains">GoogleUpdate.exe</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\cscript.exe.log</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\wscript.exe.log</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\mshta.log</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\wmic.log</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\regsvr32.exe.log</TargetFilename>
+				<TargetFilename condition="end with">\UsageLogs\svchost.log</TargetFilename>
+				<TargetFilename condition="contains">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
+			</FileCreate>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">	
+			<!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
+			<RegistryEvent onmatch="include">
+				<TargetObject condition="is">HKU\*\exefile\shell\runas\command\IsolatedCommand</TargetObject>
+				<TargetObject condition="is">HKU\*\ms-settings\shell\open\command\DelegateExecute</TargetObject>
+				<TargetObject condition="is">HKU\*\ms-settings\shell\open\command\(Default)</TargetObject>
+				<TargetObject condition="is">HKU\*\ms-settings\shell\open\command</TargetObject>
+				<TargetObject condition="is">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
+				<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
+				<TargetObject condition="is">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
+				<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
+			</RegistryEvent>
+		</RuleGroup>
+				
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 15 == FileStream Created. -->
+			<FileCreateStreamHash onmatch="include">
+			</FileCreateStreamHash>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 17,18 == PipeEvent. Log Named pipe created & Named pipe connected -->
+			<PipeEvent onmatch="include">
+			</PipeEvent>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 19,20,21, == WmiEvent. Log WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter creation activity-->
+			<WmiEvent onmatch="include">
+				<Operation condition="is">Created</Operation>
+			</WmiEvent>
+		</RuleGroup>
+		
+		<RuleGroup name="" groupRelation="or">
+			<!-- Event ID 22 == DNSQuery-->
+			<DnsQuery onmatch="exclude">
+			</DnsQuery>
+		</RuleGroup>
+		
+	</EventFiltering>
 </Sysmon>

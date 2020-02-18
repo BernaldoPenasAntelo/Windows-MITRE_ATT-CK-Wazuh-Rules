@@ -2,7 +2,7 @@
 
 
 1. [Regular rule files](#Regular-rule-files)
-2. [Install sysmon](#Install-sysmon)
+2. [Sysmon Management](#Sysmon-Management)
 3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
 
 
@@ -39,7 +39,7 @@ In the two main files before each rule category it's a commented block with even
 -----------------------------------------------------
 
 
-## Install sysmon
+## Sysmon Management
 >
 > As a brief to install sysmon using the config included
 >
@@ -53,6 +53,7 @@ In the two main files before each rule category it's a commented block with even
 >
 >Sysmon64.exe -c <name_of_new_merged_file>
 
+**Note that provided configuration it's using a 4.22 xml schema not compatible with all sysmon versions, this config it's tested for sysmon v.10.42 and above**
 
 -----------------------------------------------------
 
