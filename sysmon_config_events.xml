@@ -25,7 +25,31 @@
 				<Image condition="end with">sh.exe</Image>
 				<Image condition="end with">wscript.exe</Image>
 				<Image condition="end with">certutil.exe</Image>
-					  
+				<Image condition="contains">*\PerfLogs\*</Image>
+				<Image condition="contains">*\$Recycle.bin\*</Image>
+				<Image condition="contains">*\Intel\Logs\*</Image>
+				<Image condition="contains">*\Users\All Users\*</Image>
+				<Image condition="contains">*\Users\Default\*</Image>
+				<Image condition="contains">*\Users\Public\*</Image>
+				<Image condition="contains">*\Users\NetworkService\*</Image>
+				<Image condition="contains">*\Windows\Fonts\*</Image>
+				<Image condition="contains">*\Windows\Debug\*</Image>
+				<Image condition="contains">*\Windows\Media\*</Image>
+				<Image condition="contains">*\Windows\IME\*</Image>
+				<Image condition="contains">*\Windows\Help\*</Image>
+				<Image condition="contains">*\Windows\addins\*</Image>
+				<Image condition="contains">*\Windows\repair\*</Image>
+				<Image condition="contains">*\Windows\security\*</Image>
+				<Image condition="contains">*\RSA\MachineKeys\*</Image>
+				<Image condition="contains">*\wwwroot\*</Image>
+				<Image condition="contains">*\wmpub\*</Image>
+				<Image condition="contains">*\htdocs\*</Image>
+				<Image condition="contains">*\Windows\system32\config\systemprofile\*</Image>
+				<Image condition="end with">net.exe</Image>
+				<Image condition="end with">net1.exe</Image>
+				<Image condition="end with">wmic.exe</Image>
+				<Image condition="end with">bitsadmin.exe</Image>
+									  
 				<CommandLine condition="contains">*/stext*</CommandLine>
 				<CommandLine condition="contains">*/scomma*</CommandLine>
 				<CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
@@ -51,7 +75,20 @@
 				<CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
 				<CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
 				<CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
-					  
+				<CommandLine condition="contains">net*group*</CommandLine>
+				<CommandLine condition="contains">net*localgroup*</CommandLine>
+				<CommandLine condition="contains">net*view*</CommandLine>
+				<CommandLine condition="contains">net*share</CommandLine>
+				<CommandLine condition="contains">net*account*</CommandLine>
+				<CommandLine condition="contains">net*use*</CommandLine>
+				<CommandLine condition="contains">vssadmin.exe Delete Shadows</CommandLine>
+				<CommandLine condition="contains">vssadmin create shadow /for=*:</CommandLine>
+				<CommandLine condition="contains">vssadmin delete shadows /for=*:</CommandLine>
+				<CommandLine condition="contains">copy \\?\GLOBALROOT\Device\*\windows\ntds\ntds.dit</CommandLine>
+				<CommandLine condition="contains">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
+				<CommandLine condition="contains">reg SAVE HKLM\SYSTEM </CommandLine>
+				<CommandLine condition="contains">*transport=dt_socket,address=*</CommandLine>
+		  
 				<ParentImage condition="end with">mshta.exe</ParentImage>
 				<ParentImage condition="contains">WinrsHost.exe</ParentImage>
 				<ParentImage condition="end with">wsmprovhost.exe</ParentImage>
@@ -62,6 +99,9 @@
 				<ParentImage condition="end with">MSPUB.exe</ParentImage>
 				<ParentImage condition="end with">VISIO.exe</ParentImage>
 				<ParentImage condition="end with">control.exe</ParentImage>
+				<ParentImage condition="end with">mmc.exe</ParentImage>
+				<ParentImage condition="contains">cscript.exe</ParentImage>
+				<ParentImage condition="contains">wscript.exe</ParentImage>
 			  
 				<ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
 				<ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>		  
@@ -100,7 +140,9 @@
 		
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 6 == Driver Loaded. -->
+			<!--TECHNICAL:	If exclude it's used Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
 			<DriverLoad onmatch="include">
+				<ImageLoaded condition="contains">\Temp</ImageLoaded>
 			</DriverLoad>		
 		</RuleGroup>
 		
@@ -212,7 +254,7 @@
 		
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 22 == DNSQuery-->
-			<DnsQuery onmatch="exclude">
+			<DnsQuery onmatch="include">
 			</DnsQuery>
 		</RuleGroup>
 		
