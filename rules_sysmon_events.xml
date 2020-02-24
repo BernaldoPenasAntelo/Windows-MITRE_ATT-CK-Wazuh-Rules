@@ -1,3 +1,6 @@
+<!--
+A robust detection can only begin once the data sources (process monitoring, file monitoring, etc.) within a specified environment are mapped to malicious activity.
+-->
 <group name="MITRE ATT&CK_sysmon">
 
 	<!-- GENERAL RULES 100100-->
@@ -119,7 +122,7 @@
 	
 	<!--
 	<ProcessCreate onmatch="include">
-		<ParentImage condition="end with">mmc.exe</Image>
+		<ParentImage condition="end with">mmc.exe</ParentImage>
 	</ProcessCreate>
 	-->
 	<rule id="100110" level="0">
@@ -128,6 +131,17 @@
 		<description>Mitre ATT&CK T1175, Lateral Movement, Component Object Model and Distributed COM</description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">conhost.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100111" level="0">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.Image">conhost.exe</field>
+        <description>Mitre ATT&CK T1059, Execution, Command-Line Interface execution $(win.eventdata.parentimage)</description>
+		<options>no_full_log</options>
+    </rule>
 	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
@@ -698,6 +712,13 @@
 		<description>Mitre ATT&CK T1197, Defense Evasion, BITS Jobs, Detects usage of bitsadmin downloading a file</description>
 		<options>no_full_log</options>
 	</rule>
+	
+	<rule id="100920" level="12">
+	   <if_group>sysmon_event_10</if_group>
+	   <field name="win.eventdata.GrantedAccess">0x800</field>
+	   <description>Mitre ATT&CK T1093, Defense Evasion, Process Hollowing, Proccess accessed with suspend access from $(win.eventdata.SourceImage)</description>
+	   <options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -736,10 +757,26 @@
 	   <description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Modification of the program run by a Windows Default Scheduled Task</description>
 	   <options>no_full_log</options>
 	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains">Windows\CurrentVersion\Run</TargetObject>
+		<TargetObject condition="contains">Windows\CurrentVersion\RunOnce</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101002" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">Windows\\CurrentVersion\\Run||Windows\\CurrentVersion\\RunOnce</field>
+		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
+		<options>no_full_log</options>
+	</rule>
 	
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	
+	
+	<!--
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"10","version":"3","level":"4","task":"20","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process accessed"},"eventdata":{"subjectUserSid":"S-1-5-18","RuleName":"","UtcTime":"2019-05-22 04:02:11.287","SourceProcessGUID":"{365abb72-c9c1-5ce4-0000-00100b222e00}","SourceProcessId":"3156","SourceThreadId":"828","SourceImage":"C:\\Windows\\system32\\lsass.exe","TargetProcessGUID":"{365abb72-c9c3-5ce4-0000-00101f422e00}","TargetProcessId":"2888","TargetImage":"C:\\Windows\\system32\\taskmgr.exe","GrantedAccess":"0x1010","CallTrace":"C:\\Windows\\system32\\iertutil.dll"}}}
+	-->
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- CREDENTIAL ACCESS 101200-->
 
@@ -768,14 +805,35 @@
 	   <description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Sekursla mimikatz module memory dump</description>
 	   <options>no_full_log</options>
 	</rule>
-
 	<rule id="101203" level="12">
 		<if_sid>100103</if_sid>
 		<field name="win.eventdata.startModule">null</field>
 		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping ,Password Dumper Remote Thread in LSASS</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<ProcessAccess onmatch="exclude">
+		<SourceImage condition="end with">wmiprvse.exe</SourceImage>
+		<SourceImage condition="end with">GoogleUpdate.exe</SourceImage>
+		<SourceImage condition="end with">LTSVC.exe</SourceImage>
+		<SourceImage condition="end with">VBoxService.exe</SourceImage> 
+		<SourceImage condition="end with">vmtoolsd.exe</SourceImage>
+		<SourceImage condition="end with">\Citrix\System32\wfshell.exe</SourceImage> 
+		<SourceImage condition="is">C:\Windows\System32\lsm.exe</SourceImage> 
+		<SourceImage condition="end with">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> 
+		<SourceImage condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> 
+	</ProcessAccess>
+	<ProcessAccess onmatch="include">
+		<TargetImage condition="contains">lsass.exe</TargetImage>
+	</ProcessAccess>
+	-->
+	<rule id="101204" level="12">
+		<if_group>sysmon_event_10</if_group>
+		<field name="win.eventdata.GrantedAccess">0x1010</field>
+		<field name="win.eventdata.TargetImage">lsass.exe</field>
+		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Posible password dump using mimikatz</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\taskmgr.exe","TargetFilename":"C:\\UsageLogs\\cscript.exe.log","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -1116,7 +1174,12 @@
 		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Windows management Instrumentation command execution</description>
 		<options>no_full_log</options>
 	</rule>	
-	
+	<rule id="101334" level="12">
+        <if_sid>100111</if_sid>
+        <field name="win.eventdata.ParentImage">mimikatz.exe</field>
+        <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Mimikatz Detection Image: $(win.eventdata.parentimage)</description>
+		<options>no_full_log</options>
+    </rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- COLLECTION 101400-->
 	<!--

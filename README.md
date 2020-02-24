@@ -95,7 +95,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | XSL Script Processing | Port Monitors | | Indicator Blocking | | | | | | |
 | | | PowerShell Profile | | Indicator Removal from Tools | | | | | | | |  							
 | | | Redundant Access | | Indicator Removal on Host | | | | | | | |						
-| | | Registry Run Keys / Startup Folder | | * **Indirect Command Execution** | | | | | | | |							
+| | | * **Registry Run Keys / Startup Folder** | | * **Indirect Command Execution** | | | | | | | |							
 | | | Scheduled Task | | Install Root Certificate | | | | | | | |
 | | | Screensaver | | InstallUtil | | | | | | | |
 | | | Security Support Provider | | * **Masquerading** | | | | | | | | 							
@@ -106,7 +106,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | | System Firmware | | Obfuscated Files or Information | | | | | | | |		
 | | | * **Time Providers** | | Parent PID Spoofing | | | | | | | |
 | | | * **Valid Accounts** | | Process Doppelgänging | | | | | | | |			
-| | | Web Shell | | Process Hollowing | | | | | | | |	
+| | | Web Shell | | * **Process Hollowing** | | | | | | | |	
 | | | Windows Management Instrumentation Event Subscription | | Process Injection | | | | | | | |
 | | | Winlogon Helper DLL | | Redundant Access | | | | | | | |
 | | | | | Regsvcs/Regasm | | | | | | | |

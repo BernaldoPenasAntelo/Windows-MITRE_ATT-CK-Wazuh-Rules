@@ -49,6 +49,7 @@
 				<Image condition="end with">net1.exe</Image>
 				<Image condition="end with">wmic.exe</Image>
 				<Image condition="end with">bitsadmin.exe</Image>
+				<Image condition="end with">conhost.exe</Image>
 									  
 				<CommandLine condition="contains">*/stext*</CommandLine>
 				<CommandLine condition="contains">*/scomma*</CommandLine>
@@ -166,12 +167,29 @@
 			</RawAccessRead>
 		</RuleGroup>
 		
-		<RuleGroup name="" groupRelation="or">	
-			<!-- Event ID 10 == ProcessAccess. -->
+		<!-- Event ID 10 == ProcessAccess. -->
+		<RuleGroup name="" groupRelation="or">
+			<ProcessAccess onmatch="exclude">
+				<SourceImage condition="end with">wmiprvse.exe</SourceImage>
+				<SourceImage condition="end with">GoogleUpdate.exe</SourceImage>
+				<SourceImage condition="end with">LTSVC.exe</SourceImage>
+				<SourceImage condition="end with">VBoxService.exe</SourceImage> <!--# Virtual Box -->
+				<SourceImage condition="end with">vmtoolsd.exe</SourceImage>
+				<SourceImage condition="end with">\Citrix\System32\wfshell.exe</SourceImage> <!--#Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
+				<SourceImage condition="is">C:\Windows\System32\lsm.exe</SourceImage> <!--# System process under C:\Windows\System32\lsm.exe -->
+				<SourceImage condition="end with">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!--# Microsoft Azure AD Connect Health Sync Agent -->
+				<SourceImage condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- # Symantec -->
+			</ProcessAccess>
+		</RuleGroup>	
+		<RuleGroup name="" groupRelation="or">
 			<ProcessAccess onmatch="include">
 				<CallTrace condition="contains">dbghelp.dll</CallTrace>
 				<CallTrace condition="contains">dbgcore.dll</CallTrace>
 				<CallTrace condition="contains">mimikatz</CallTrace>
+				
+				<TargetImage condition="contains">lsass.exe</TargetImage>
+				
+				<GrantedAccess condition="is">0x800</GrantedAccess>
 			</ProcessAccess>
 		</RuleGroup>
 		
@@ -230,6 +248,8 @@
 				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
 				<TargetObject condition="is">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
 				<TargetObject condition="is">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
+				<TargetObject condition="contains">Windows\CurrentVersion\Run</TargetObject>
+				<TargetObject condition="contains">Windows\CurrentVersion\RunOnce</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 				
