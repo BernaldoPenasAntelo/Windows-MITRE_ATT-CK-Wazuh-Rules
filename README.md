@@ -52,6 +52,16 @@ In the two main files before each rule category it's a commented block with even
 > If you have already installed sysmon you can just merge your own rules with sysmon_config_events.xml and execute
 >
 >Sysmon64.exe -c <name_of_new_merged_file>
+>
+
+Remember to include in your wazuh agent configuration
+
+```
+<localfile>
+<location>Microsoft-Windows-Sysmon/Operational</location>
+<log_format>eventchannel</log_format>
+</localfile>
+```
 
 **Note that provided configuration it's using a 4.22 xml schema not compatible with all sysmon versions, this config it's tested for sysmon v.10.42 and above**
 
