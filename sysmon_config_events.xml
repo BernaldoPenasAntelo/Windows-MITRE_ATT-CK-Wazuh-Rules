@@ -89,6 +89,7 @@
 				<CommandLine condition="contains">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
 				<CommandLine condition="contains">reg SAVE HKLM\SYSTEM </CommandLine>
 				<CommandLine condition="contains">*transport=dt_socket,address=*</CommandLine>
+				<CommandLine condition="contains" name="T1089">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
 		  
 				<ParentImage condition="end with">mshta.exe</ParentImage>
 				<ParentImage condition="contains">WinrsHost.exe</ParentImage>
@@ -103,9 +104,12 @@
 				<ParentImage condition="end with">mmc.exe</ParentImage>
 				<ParentImage condition="contains">cscript.exe</ParentImage>
 				<ParentImage condition="contains">wscript.exe</ParentImage>
+				<ParentImage condition="end with">msiexec.exe</ParentImage>
 			  
 				<ParentCommandLine condition="is">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
-				<ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>		  
+				<ParentCommandLine condition="contains">\\.\pipe</ParentCommandLine>
+				<ParentCommandLine condition="contains">ftp -s:</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1218">pcalua.exe -a</ParentCommandLine>
 			</ProcessCreate>
 		</RuleGroup>
 		

@@ -95,7 +95,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | * **Scheduled Task** | Hooking | Process Injection | Execution Guardrails | Two-Factor Authentication Interception | System Network Configuration Discovery | | |	Standard Cryptographic Protocol | | | 
 | | * **Scripting** | Hypervisor | Scheduled Task | Exploitation for Defense Evasion | | System Network Connections Discovery | | | Standard Non-Application Layer Protocol | | | | 
 | | Service Execution | Image File Execution Options Injection | Service Registry Permissions Weakness | Extra Window Memory Injection | | System Owner/User Discovery | | | Uncommonly Used Port | | | | 
-| | Signed Binary Proxy Execution | Logon Scripts | SID-History Injection | * **File and Directory Permissions Modification** | | System Service Discovery | | | Web Service | | |
+| | * **Signed Binary Proxy Execution** | Logon Scripts | SID-History Injection | * **File and Directory Permissions Modification** | | System Service Discovery | | | Web Service | | |
 | | Signed Script Proxy Execution | LSASS Driver | Valid Accounts | File Deletion | | System Time Discovery | | | | |				
 | |	Third-party Software | Modify Existing Service | Web Shell | File System Logical Offsets | | Virtualization/Sandbox Evasion | | | | |
 | | Trusted Developer Utilities | Netsh Helper DLL | | Group Policy Modification | | | | | | | 				
@@ -115,7 +115,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | | SIP and Trust Provider Hijacking | | NTFS File Attributes | | | | | | | |		
 | | | System Firmware | | Obfuscated Files or Information | | | | | | | |		
 | | | * **Time Providers** | | Parent PID Spoofing | | | | | | | |
-| | | * **Valid Accounts** | | Process Doppelgänging | | | | | | | |			
+| | | * **Valid Accounts** | | * **Process Doppelgänging** | | | | | | | |			
 | | | Web Shell | | * **Process Hollowing** | | | | | | | |	
 | | | Windows Management Instrumentation Event Subscription | | Process Injection | | | | | | | |
 | | | Winlogon Helper DLL | | Redundant Access | | | | | | | |
