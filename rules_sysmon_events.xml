@@ -1301,7 +1301,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	 <rule id="101501" level="12">
 		<if_sid>100108</if_sid>
 		<field name="win.eventdata.commandline">shadowcopy delete</field>
-		<description>Mitre ATT&CK >scrcons.exe, Impact, Inhibit System Recovery, Windows Management Instrumentation deleting shadowcopies</description>
+		<description>Mitre ATT&CK T1490, Impact, Inhibit System Recovery, Windows Management Instrumentation deleting shadowcopies</description>
 		<options>no_full_log</options>
     </rule>
 	<!--
@@ -1317,4 +1317,3 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>	
 
 </group>
-
