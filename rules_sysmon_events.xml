@@ -413,6 +413,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	Must change sysmon configuration to include TargetObject in section
 	<NetworkConnect onmatch="include">
 		<DestinationPort condition="is">3389</DestinationPort>
+		<DestinationPort condition="is">445</DestinationPort>
 	</NetworkConnect>
 	-->
 	<rule id="100702" level="12">
@@ -736,6 +737,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
 	 
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"File created"},"eventdata":{"subjectUserSid":"S-1-5-18","RuleName":"","UtcTime":"2019-03-19 20:58:20.974","ProcessGuid":"{365abb72-57ec-5c91-0000-001097810900}","ProcessId":"2848","Image":"C:\\Windows\\system32\\sdbinst.exe","TargetFilename":"C:\\Windows\\AppPatch\\Custom\\{3ad6ed23-adf8-4bc1-a898-4d695f482c64}.sdb","CreationUtcTime":"2019-03-19 20:58:20.974"}}}
+ 
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Registry value set"},"eventdata":{"subjectUserSid":"S-1-5-18","RuleName":"","EventType":"SetValue","UtcTime":"2019-03-19 20:58:20.984","ProcessGuid":"{365abb72-57ec-5c91-0000-001097810900}","ProcessId":"2848","Image":"C:\\Windows\\system32\\sdbinst.exe","TargetObject":"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\InstalledSDB\\{3ad6ed23-adf8-4bc1-a898-4d695f482c64}\\DatabasePath","Details":"C:\\Windows\\AppPatch\\Custom\\{3ad6ed23-adf8-4bc1-a898-4d695f482c64}.sdb"}}}
+	
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"13","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry value set."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"technique_id=T1088,technique_name=Bypass User Account Control","EventType":"SetValue","UtcTime":"2019-05-16 14:17:15.758","ProcessGuid":"{dfae8213-70eb-5cdd-0000-0010f66d0a00}","ProcessId":"3788","Image":"C:\\Windows\\system32\\reg.exe","TargetObject":"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\DisplaySwitch.exe\\Debugger","Details":"DWORD (0x00000000)"}}}
+
 	-->
 	<!-- PERSISTENCE 101000-->
 	<!--
@@ -780,6 +787,45 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">Windows\\CurrentVersion\\Run||Windows\\CurrentVersion\\RunOnce</field>
 		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename> 
+	</FileCreate>
+	-->
+	<rule id="101003" level="12">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">^C:\\Windows\\AppPatch\\Custom(\.*)</field>
+		<description>Mitre ATT&CK T1138, Persistence, Application Shimming, Installed Shim</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> 
+		<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101004" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom||\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\InstalledSDB</field>
+		<description>Mitre ATT&CK T1138, Persistence, Application Shimming, Installed Shim</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">	
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe\Debugger</TargetObject>
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Magnify.exe\Debugger</TargetObject>
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe\Debugger</TargetObject>
+		<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe\Debugger</TargetObject>
+	</RegistryEvent>
+	-->	
+	<rule id="101005" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\sethc.exe\\Debugger||\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\sethc.exe\\Debugger||\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\osk.exe\\Debugger||\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Magnify.exe\\Debugger||\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Narrator.exe\\Debugger||\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\DisplaySwitch.exe\\Debugger</field>
+		<description>Mitre ATT&CK T1015, Persistence, Accessibility Features, Modify the way program $(win.eventdata.image) is launched</description>
 		<options>no_full_log</options>
 	</rule>
 	
@@ -993,6 +1039,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<!--
 	<ProcessCreate onmatch="include">
 		<Image condition="end with">powershell.exe</Image>
+		<Image condition="contains">.ps1</Image>
+		<Image condition="contains">.ps2</Image>
 	</ProcessCreate>
 	-->
 	<rule id="101315" level="12">
@@ -1249,12 +1297,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- IMPACT 101500-->
+
 	 <rule id="101501" level="12">
 		<if_sid>100108</if_sid>
 		<field name="win.eventdata.commandline">shadowcopy delete</field>
-		<description>Mitre ATT&CK T1490, Impact, Inhibit System Recovery, Windows Management Instrumentation deleting shadowcopies</description>
+		<description>Mitre ATT&CK >scrcons.exe, Impact, Inhibit System Recovery, Windows Management Instrumentation deleting shadowcopies</description>
 		<options>no_full_log</options>
     </rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<CommandLine condition="contains">*vssadmin.exe Delete Shadows*</CommandLine>
+	</ProcessCreate>
+	-->
 	<rule id="101502" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.commandline">vssadmin.exe Delete Shadows</field>
