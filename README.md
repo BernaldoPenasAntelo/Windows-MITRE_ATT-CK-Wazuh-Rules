@@ -41,13 +41,13 @@ For now the binary **ossec-logtest** didn't works properly with eventchannel eve
 
 In file **/var/ossec/ruleset/rules/0575-win-base_rules.xml** you must set the rule **60000** to use json decoder instead of ossec decoder.
 
-> <rule id="60000" level="0">
-> 	<!--    <category>ossec</category> -->
-> 	<decoded_as>json</decoded_as>
-> 	<field name="win.system.providerName">\.+</field>
-> 	<options>no_full_log</options>
-> 	<description>Group of windows rules</description>
-> </rule>
+>  <rule id="60000" level="0">
+>    <!--    <category>ossec</category> -->
+>    <decoded_as>json</decoded_as>
+>    <field name="win.system.providerName">\.+</field>
+>    <options>no_full_log</options>
+>    <description>Group of windows rules</description>
+>  </rule>
 
 -----------------------------------------------------
 
