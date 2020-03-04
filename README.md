@@ -31,10 +31,23 @@ The idea is to work with two main files:
 >      EventID != 4670 and EventID != 4690 and EventID != 4703 and EventID != 4907]</query>
 >  </localfile>
 
+### Also notice that in many cases the events depends on GPO to be triggered, so those GPO's must be enabled. 
 
 2. The second one **rules_sysmon_events.txt** consist on rules based on sysmon events, to use them you must first install and configure sysmon.
 
 In the two main files before each rule category it's a commented block with events in order to test each rule with **ossec-logtest**.
+
+For now the binary **ossec-logtest** didn't works properly with eventchannel events, so to test those events that i include, you must have to do the following config:
+
+In file **/var/ossec/ruleset/rules/0575-win-base_rules.xml** you must set the rule **60000** to use json decoder instead of ossec decoder.
+
+> <rule id="60000" level="0">
+> 	<!--    <category>ossec</category> -->
+> 	<decoded_as>json</decoded_as>
+> 	<field name="win.system.providerName">\.+</field>
+> 	<options>no_full_log</options>
+> 	<description>Group of windows rules</description>
+> </rule>
 
 -----------------------------------------------------
 
