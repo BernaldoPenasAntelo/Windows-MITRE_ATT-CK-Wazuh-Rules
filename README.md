@@ -23,13 +23,16 @@ The idea is to work with two main files:
 1. The first one **rules_regular_events.txt** consist on rules that one can obtain just with regular windows events 
 
 ### Notice that in many cases you must enable specific event gathering in wazuh agent config
->  <localfile>
->    <location>Security</location>
->    <log_format>eventchannel</log_format>
->    <query>Event/System[EventID != 5145 and EventID != 5156 and EventID != 5447 and
->      EventID != 4656 and EventID != 4658 and EventID != 4663 and EventID != 4660 and
->      EventID != 4670 and EventID != 4690 and EventID != 4703 and EventID != 4907]</query>
->  </localfile>
+
+```
+<localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID != 5145 and EventID != 5156 and EventID != 5447 and
+      EventID != 4656 and EventID != 4658 and EventID != 4663 and EventID != 4660 and
+      EventID != 4670 and EventID != 4690 and EventID != 4703 and EventID != 4907]</query>
+  </localfile>
+```
 
 ### Also notice that in many cases the events depends on GPO to be triggered, so those GPO's must be enabled. 
 
@@ -41,13 +44,15 @@ For now the binary **ossec-logtest** didn't works properly with eventchannel eve
 
 In file **/var/ossec/ruleset/rules/0575-win-base_rules.xml** you must set the rule **60000** to use json decoder instead of ossec decoder.
 
->  <rule id="60000" level="0">
->    <!--    <category>ossec</category> -->
->    <decoded_as>json</decoded_as>
->    <field name="win.system.providerName">\.+</field>
->    <options>no_full_log</options>
->    <description>Group of windows rules</description>
->  </rule>
+```
+   <rule id="60000" level="0">
+      <!--    <category>ossec</category> -->
+     <decoded_as>json</decoded_as>
+     <field name="win.system.providerName">\.+</field>
+     <options>no_full_log</options>
+     <description>Group of windows rules</description>
+   </rule>
+```
 
 -----------------------------------------------------
 
