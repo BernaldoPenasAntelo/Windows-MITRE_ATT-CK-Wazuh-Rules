@@ -145,7 +145,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
-
+	
 	<rule id="101601" level="0">
 		<if_sid>18100</if_sid>
 		<match>Microsoft-Windows-Sysmon/Operational: INFORMATION(19)</match>
@@ -170,34 +170,47 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Sysmon - Event 22</description>
 		<group>sysmon_event_22,</group>
 	</rule>
-
 	<rule id="101605" level="0">
+		<if_sid>18100</if_sid>
+		<match>Microsoft-Windows-Sysmon/Operational: INFORMATION(16)</match>
+		<description>Sysmon - Event 16</description>
+		<group>sysmon_event_16,</group>
+	</rule>
+
+	<rule id="101606" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^19$</field>
 		<description>Sysmon - Event 19: WmiEventFilter</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_19,</group>
 	</rule>
-	<rule id="101606" level="0">
+	<rule id="101607" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^20$</field>
 		<description>Sysmon - Event 20: WmiEventConsumer</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_20,</group>
 	</rule>
-	<rule id="101607" level="0">
+	<rule id="101608" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^21$</field>
 		<description>Sysmon - Event 21: WmiEventConsumerToFilter</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_21,</group>
 	</rule>
-	<rule id="101608" level="0">
+	<rule id="101609" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^22$</field>
 		<description>Sysmon - Event 22: DNS Query</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_22,</group>
+	</rule>
+	<rule id="101610" level="0">
+		<if_sid>61600</if_sid>
+		<field name="win.system.eventID">^16$</field>
+		<description>Sysmon - Event 16: Sysmon config state changed</description>
+		<options>no_full_log</options>
+		<group>sysmon_event_16,</group>
 	</rule>
 
 	<!------------------------------------------------------------------------------------------------------------------------------->
@@ -647,11 +660,11 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 
 	<!-- You can define your own local networks setting vars like local_net_x and creating OR in rule -->
-	<var name="local_net_1">192.168.0.0/16</var>
+	<var name="local_net_1">192.168.1</var>
 
 	<rule id="100915" level="12">
 		<if_sid>100104</if_sid>
-		<match>!$local_net_1</match>
+		<match>!"DestinationIp":"$local_net_1</match>
 		<description>Mitre ATT&CK T1085, Defense Evasion, Rundll32, Detects a rundll32 that communicates with public IP addresses</description>
 		<options>no_full_log</options>
 	</rule>
@@ -722,7 +735,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1093, Defense Evasion, Process Hollowing, Proccess accessed with suspend access from $(win.eventdata.SourceImage)</description>
 		<options>no_full_log</options>
 	</rule>
-		<!--
+	<!--
 	<ProcessCreate onmatch="include">
 		<CommandLine condition="contains">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</ParentCommandLine>
 	<ProcessCreate
@@ -731,6 +744,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*winpm.exe|cscript.exe|wscript.exe\.*//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</field>
 		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, jscript9.dll AMSI bypass</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100922" level="12">
+		<if_group>sysmon_event_16</if_group>
+		<field name="win.system.eventID">^16$</field>
+		<description>Mitre ATT&CK T1089,  Defense Evasion, Change in Sysmon configuration</description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
@@ -828,7 +847,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1015, Persistence, Accessibility Features, Modify the way program $(win.eventdata.image) is launched</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\startup</TargetObject>
+		<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\startup</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101006" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\\startup||\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\startup</field>
+		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	
@@ -1080,6 +1110,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*cmstp.exe /s\.*</field>
 		<description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass applicatioeven whitelisting</description>
+		<options>no_full_log</options>
 	</rule>
 	<!--
 	<ProcessCreate onmatch="include">
@@ -1092,6 +1123,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*schtasks.exe\.*/create\.*c:\\users\.*|\.*schtasks.exe\.*/create\.* c:\\programdata\.*|\.*schtasks.exe\.*/create\.* c:\\windows\\temp\.*</field>
 		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Scheduled Task running programs from suspicious locations or scripting utilities</description>
+		<options>no_full_log</options>
 	</rule>
 	<!-- Excel.Application (AppId = {00020812-0000-0000-C000-000000000046})
 	Word.Application (AppId = {00020906-0000-0000-C000-000000000046})
@@ -1294,7 +1326,24 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1056,  Collection, Input Capture, Keylogger abusing NirSoft Tools</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<rule id="101402" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.commandline">\.*.ost\.*|\.*.pst\.*</field>
+		<description>Mitre ATT&CK T1114, Collection, Email Collection, Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101403" level="12">
+		<if_sid>101316</if_sid>
+		<field name="win.eventdata.commandline">\.*.ost\.*|\.*.pst\.*</field>
+		<description>Mitre ATT&CK T1114, Collection, Email Collection, Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101404" level="12">
+		<if_sid>101316</if_sid>
+		<field name="win.eventdata.commandline">\.*WindowsAudioDevice-Powershell-Cmdlet\.*</field>
+		<description>Mitre ATT&CK T1123, Collection, Audio Capture, Powershell Audio Capture cmdlet execution</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- IMPACT 101500-->
 
