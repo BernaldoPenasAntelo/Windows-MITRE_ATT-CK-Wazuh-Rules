@@ -92,6 +92,7 @@
 				<CommandLine condition="contains" name="T1089">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
 				<CommandLine condition="contains" name="T1490">*shadowcopy delete*</CommandLine>
 				<CommandLine condition="contains" name="T1490">*vssadmin.exe Delete Shadows*</CommandLine>
+				<CommandLine condition="contains" name="T1089">WindowsSoundRecorder</CommandLine>
 		  
 				<ParentImage condition="end with" name="T1170">mshta.exe</ParentImage>
 				<ParentImage condition="end with" name="T1028">wsmprovhost.exe</ParentImage>
@@ -259,6 +260,8 @@
 				<TargetObject condition="is" name="T1130">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
 				<TargetObject condition="contains" name="T1060">Windows\CurrentVersion\Run</TargetObject>
 				<TargetObject condition="contains" name="T1060">Windows\CurrentVersion\RunOnce</TargetObject>
+				<TargetObject condition="contains" name="T1060">\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\startup</TargetObject>
+				<TargetObject condition="contains" name="T1060">\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\startup</TargetObject>
 				<TargetObject condition="begin with" name="T1138,AppCompatShim">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 				<TargetObject condition="begin with" name="T1138,AppCompatShim">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
 				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
