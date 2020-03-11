@@ -894,7 +894,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1023, Persistence, Shortcut Modification, Modification of system startup shorcuts folder</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename>
+		<TargetFilename condition="begin with">C:\Windows\system32\Tasks</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="101008" level="12">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">^C:\\Windows\\Tasks\\|^C:\\Windows\\system32\\Tasks</field>
+		<description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Folders related with scheduled tasks were modified</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	

@@ -203,7 +203,7 @@
 				
 				<TargetImage condition="contains" name="T1003 -4">lsass.exe</TargetImage>
 				
-				<GrantedAccess condition="is" name="T1093 -5">0x800</GrantedAccess>
+				<GrantedAccess condition="is" name="T1093 -6">0x800</GrantedAccess>
 			</ProcessAccess>
 		</RuleGroup>
 		
@@ -244,7 +244,9 @@
 				<TargetFilename condition="contains" name="T1088 -32">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1088 -33">*\AppData\Local\Temp\GdiPlus.dll</TargetFilename>
 				<TargetFilename condition="begin with" name="T1138 -34">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
-				<TargetFilename condition="contains" name="T1023 -35">\Start Menu</TargetFilename>				
+				<TargetFilename condition="contains" name="T1023 -35">\Start Menu</TargetFilename>
+				<TargetFilename condition="begin with" name="T1053 -36">C:\Windows\Tasks\</TargetFilename>
+				<TargetFilename condition="begin with" name="T1053 -37">C:\Windows\system32\Tasks</TargetFilename>
 			</FileCreate>
 		</RuleGroup>
 		
