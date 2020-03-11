@@ -7,111 +7,113 @@
 		<RuleGroup name="" groupRelation="or">		
 			<!-- Event ID 1 == Process Creation. -->
 			<ProcessCreate onmatch="include">
-				<Image condition="end with" name="T1086">powershell.exe</Image>
-				<Image condition="contains" name="T1086">.ps1</Image>
-				<Image condition="contains" name="T1086">.ps2</Image>
-				<Image condition="end with" name="T1059">cmd.exe</Image>
-				<Image condition="end with" name="T1117">regsvr32.exe</Image>
-				<Image condition="end with" name="T1059">vshadow.exe</Image>
-				<Image condition="end with" name="T1202">forfiles.exe</Image>
-				<Image condition="end with" name="T1085">rundll32.exe</Image>
-				<Image condition="image" name="T1117">regsvr32.exe</Image>
-				<Image condition="end with" name="T1085">dllhost.exe</Image>
-				<Image condition="end with" name="T1059">cscript.exe</Image>
-				<Image condition="end with" name="T1059">wscript.exe</Image>
-				<Image condition="end with" name="T1059">hh.exe</Image>
-				<Image condition="end with" name="T1059">bash.exe</Image>
-				<Image condition="end with" name="T1059">scrcons.exe</Image>
-				<Image condition="end with" name="T1059">schtasks.exe</Image>
-				<Image condition="end with" name="T1059">sh.exe</Image>
-				<Image condition="end with" name="S0160">certutil.exe</Image>
-				<Image condition="contains" name="T1036">*\PerfLogs\*</Image>
-				<Image condition="contains" name="T1036">*\$Recycle.bin\*</Image>
-				<Image condition="contains" name="T1036">*\Intel\Logs\*</Image>
-				<Image condition="contains" name="T1036">*\Users\All Users\*</Image>
-				<Image condition="contains" name="T1036">*\Users\Default\*</Image>
-				<Image condition="contains" name="T1036">*\Users\Public\*</Image>
-				<Image condition="contains" name="T1036">*\Users\NetworkService\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\Fonts\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\Debug\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\Media\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\IME\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\Help\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\addins\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\repair\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\security\*</Image>
-				<Image condition="contains" name="T1036">*\RSA\MachineKeys\*</Image>
-				<Image condition="contains" name="T1036">*\wwwroot\*</Image>
-				<Image condition="contains" name="T1036">*\wmpub\*</Image>
-				<Image condition="contains" name="T1036">*\htdocs\*</Image>
-				<Image condition="contains" name="T1036">*\Windows\system32\config\systemprofile\*</Image>
-				<Image condition="end with" name="T1135">net.exe</Image>
-				<Image condition="end with" name="T1135">net1.exe</Image>
-				<Image condition="end with" name="T1047">wmic.exe</Image>
-				<Image condition="end with" name="T1197">bitsadmin.exe</Image>
-				<Image condition="end with" name="T1059">conhost.exe</Image>
+				<Image condition="end with" name="T1086 -1">powershell.exe</Image>
+				<Image condition="contains" name="T1086 -2">.ps1</Image>
+				<Image condition="contains" name="T1086 -3">.ps2</Image>
+				<Image condition="end with" name="T1059 -4">cmd.exe</Image>
+				<Image condition="end with" name="T1117 -5">regsvr32.exe</Image>
+				<Image condition="end with" name="T1059 -6">vshadow.exe</Image>
+				<Image condition="end with" name="T1202 -7">forfiles.exe</Image>
+				<Image condition="end with" name="T1085 -8">rundll32.exe</Image>
+				<Image condition="image" name="T1117 -9">regsvr32.exe</Image>
+				<Image condition="end with" name="T1085 -10">dllhost.exe</Image>
+				<Image condition="end with" name="T1059 -11">cscript.exe</Image>
+				<Image condition="end with" name="T1059 -12">wscript.exe</Image>
+				<Image condition="end with" name="T1059 -13">hh.exe</Image>
+				<Image condition="end with" name="T1059 -14">bash.exe</Image>
+				<Image condition="end with" name="T1059 -15">scrcons.exe</Image>
+				<Image condition="end with" name="T1059 -16">schtasks.exe</Image>
+				<Image condition="end with" name="T1059 -17">sh.exe</Image>
+				<Image condition="end with" name="S0160 -18">certutil.exe</Image>
+				<Image condition="contains" name="T1036 -19">*\PerfLogs\*</Image>
+				<Image condition="contains" name="T1036 -20">*\$Recycle.bin\*</Image>
+				<Image condition="contains" name="T1036 -21">*\Intel\Logs\*</Image>
+				<Image condition="contains" name="T1036 -22">*\Users\All Users\*</Image>
+				<Image condition="contains" name="T1036 -23">*\Users\Default\*</Image>
+				<Image condition="contains" name="T1036 -24">*\Users\Public\*</Image>
+				<Image condition="contains" name="T1036 -25">*\Users\NetworkService\*</Image>
+				<Image condition="contains" name="T1036 -26">*\Windows\Fonts\*</Image>
+				<Image condition="contains" name="T1036 -27">*\Windows\Debug\*</Image>
+				<Image condition="contains" name="T1036 -28">*\Windows\Media\*</Image>
+				<Image condition="contains" name="T1036 -29">*\Windows\IME\*</Image>
+				<Image condition="contains" name="T1036 -30">*\Windows\Help\*</Image>
+				<Image condition="contains" name="T1036 -31">*\Windows\addins\*</Image>
+				<Image condition="contains" name="T1036 -32">*\Windows\repair\*</Image>
+				<Image condition="contains" name="T1036 -33">*\Windows\security\*</Image>
+				<Image condition="contains" name="T1036 -34">*\RSA\MachineKeys\*</Image>
+				<Image condition="contains" name="T1036 -35">*\wwwroot\*</Image>
+				<Image condition="contains" name="T1036 -36">*\wmpub\*</Image>
+				<Image condition="contains" name="T1036 -37">*\htdocs\*</Image>
+				<Image condition="contains" name="T1036 -38">*\Windows\system32\config\systemprofile\*</Image>
+				<Image condition="end with" name="T1135 -39">net.exe</Image>
+				<Image condition="end with" name="T1135 -40">net1.exe</Image>
+				<Image condition="end with" name="T1047 -41">wmic.exe</Image>
+				<Image condition="end with" name="T1197 -42">bitsadmin.exe</Image>
+				<Image condition="end with" name="T1059 -43">conhost.exe</Image>
+				<Image condition="end with" name="T1489 -44">sc.exe</Image>
 									  
-				<CommandLine condition="contains" name="T1056">*/stext*</CommandLine>
-				<CommandLine condition="contains" name="T1056">*/scomma*</CommandLine>
-				<CommandLine condition="contains" name="T1191">*cmstp.exe*/s*</CommandLine>
-				<CommandLine condition="contains" name="T1088">*cmstp.exe*/au*</CommandLine>
-				<CommandLine condition="contains" name="T1090">*netsh*connectp=3389*</CommandLine>
-				<CommandLine condition="contains" name="T1158">attrib +h</CommandLine>
-				<CommandLine condition="contains" name="T1089">*unload*sysmon*</CommandLine>
-				<CommandLine condition="contains" name="T1053">*schtasks.exe*/create*c:\users\*</CommandLine>
-				<CommandLine condition="contains" name="T1053">*schtasks.exe*/create*c:\programdata\*</CommandLine>
-				<CommandLine condition="contains" name="T1053">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
-				<CommandLine condition="contains" name="T1086">*new-object system.net.webclient).downloadstring(*</CommandLine>
-				<CommandLine condition="contains" name="T1086">*new-object system.net.webclient).downloadfile(*</CommandLine>
-				<CommandLine condition="contains" name="T1086"> -enc </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -EncodedCommand </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -w hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -window hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -windowstyle hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -noni </CommandLine>
-				<CommandLine condition="contains" name="T1086"> -noninteractive </CommandLine>		  
-				<CommandLine condition="contains" name="T1140">*\certutil.exe * -decode *</CommandLine>
-				<CommandLine condition="contains" name="T1140">*\certutil.exe * -decodehex *</CommandLine>
-				<CommandLine condition="contains" name="T1105">*\certutil.exe *-urlcache* http*</CommandLine>
-				<CommandLine condition="contains" name="T1105">*\certutil.exe *-urlcache* ftp*</CommandLine>
-				<CommandLine condition="contains" name="T1105">*\certutil.exe *-URL*</CommandLine>
-				<CommandLine condition="contains" name="T1105">*\certutil.exe *-ping*</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*group*</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*localgroup*</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*view*</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*share</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*account*</CommandLine>
-				<CommandLine condition="contains" name="T1087">net*use*</CommandLine>
-				<CommandLine condition="contains" name="T1059">vssadmin.exe Delete Shadows</CommandLine>
-				<CommandLine condition="contains" name="T1059">vssadmin create shadow /for=*:</CommandLine>
-				<CommandLine condition="contains" name="T1059">vssadmin delete shadows /for=*:</CommandLine>
-				<CommandLine condition="contains" name="T1059">copy \\?\GLOBALROOT\Device\*\windows\ntds\ntds.dit</CommandLine>
-				<CommandLine condition="contains" name="T1059">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
-				<CommandLine condition="contains" name="T1059">reg SAVE HKLM\SYSTEM </CommandLine>
-				<CommandLine condition="contains" name="T1210">*transport=dt_socket,address=*</CommandLine>
-				<CommandLine condition="contains" name="T1089">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
-				<CommandLine condition="contains" name="T1490">*shadowcopy delete*</CommandLine>
-				<CommandLine condition="contains" name="T1490">*vssadmin.exe Delete Shadows*</CommandLine>
-				<CommandLine condition="contains" name="T1089">WindowsSoundRecorder</CommandLine>
+				<CommandLine condition="contains" name="T1056 -45">*/stext*</CommandLine>
+				<CommandLine condition="contains" name="T1056 -46">*/scomma*</CommandLine>
+				<CommandLine condition="contains" name="T1191 -47">*cmstp.exe*/s*</CommandLine>
+				<CommandLine condition="contains" name="T1088 -48">*cmstp.exe*/au*</CommandLine>
+				<CommandLine condition="contains" name="T1090 -49">*netsh*connectp=3389*</CommandLine>
+				<CommandLine condition="contains" name="T1158 -50">attrib +h</CommandLine>
+				<CommandLine condition="contains" name="T1089 -51">*unload*sysmon*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -52">*schtasks.exe*/create*c:\users\*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -53">*schtasks.exe*/create*c:\programdata\*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -54">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -55">*new-object system.net.webclient).downloadstring(*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -56">*new-object system.net.webclient).downloadfile(*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -57"> -enc </CommandLine>
+				<CommandLine condition="contains" name="T1086 -58"> -EncodedCommand </CommandLine>
+				<CommandLine condition="contains" name="T1086 -59"> -w hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -60"> -window hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -61"> -windowstyle hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -62"> -noni </CommandLine>
+				<CommandLine condition="contains" name="T1086 -63"> -noninteractive </CommandLine>		  
+				<CommandLine condition="contains" name="T1140 -64">*\certutil.exe * -decode *</CommandLine>
+				<CommandLine condition="contains" name="T1140 -65">*\certutil.exe * -decodehex *</CommandLine>
+				<CommandLine condition="contains" name="T1105 -66">*\certutil.exe *-urlcache* http*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -67">*\certutil.exe *-urlcache* ftp*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -68">*\certutil.exe *-URL*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -69">*\certutil.exe *-ping*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -70">net*group*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -71">net*localgroup*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -72">net*view*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -73">net*share</CommandLine>
+				<CommandLine condition="contains" name="T1087 -74">net*account*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -75">net*use*</CommandLine>
+				<CommandLine condition="contains" name="T1059 -76">vssadmin.exe Delete Shadows</CommandLine>
+				<CommandLine condition="contains" name="T1059 -77">vssadmin create shadow /for=*:</CommandLine>
+				<CommandLine condition="contains" name="T1059 -78">vssadmin delete shadows /for=*:</CommandLine>
+				<CommandLine condition="contains" name="T1059 -79">copy \\?\GLOBALROOT\Device\*\windows\ntds\ntds.dit</CommandLine>
+				<CommandLine condition="contains" name="T1059 -80">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
+				<CommandLine condition="contains" name="T1059 -81">reg SAVE HKLM\SYSTEM </CommandLine>
+				<CommandLine condition="contains" name="T1210 -82">*transport=dt_socket,address=*</CommandLine>
+				<CommandLine condition="contains" name="T1089 -83">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
+				<CommandLine condition="contains" name="T1490 -84">*shadowcopy delete*</CommandLine>
+				<CommandLine condition="contains" name="T1490 -85">*vssadmin.exe Delete Shadows*</CommandLine>
+				<CommandLine condition="contains" name="T1089 -86">WindowsSoundRecorder</CommandLine>
+
 		  
-				<ParentImage condition="end with" name="T1170">mshta.exe</ParentImage>
-				<ParentImage condition="end with" name="T1028">wsmprovhost.exe</ParentImage>
-				<ParentImage condition="contains" name="T1028">WinrsHost.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059">WINWORD.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059">EXCEL.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059">POWERPNT.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059">MSPUB.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059">VISIO.exe</ParentImage>
-				<ParentImage condition="end with" name="T1085">control.exe</ParentImage>
-				<ParentImage condition="end with" name="T1175">mmc.exe</ParentImage>
-				<ParentImage condition="contains" name="T1059">cscript.exe</ParentImage>
-				<ParentImage condition="contains" name="T1059">wscript.exe</ParentImage>
-				<ParentImage condition="end with" name="T1218">msiexec.exe</ParentImage>
+				<ParentImage condition="end with" name="T1170 -87">mshta.exe</ParentImage>
+				<ParentImage condition="end with" name="T1028 -88">wsmprovhost.exe</ParentImage>
+				<ParentImage condition="contains" name="T1028 -89">WinrsHost.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -90">WINWORD.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -91">EXCEL.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -92">POWERPNT.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -93">MSPUB.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -94">VISIO.exe</ParentImage>
+				<ParentImage condition="end with" name="T1085 -95">control.exe</ParentImage>
+				<ParentImage condition="end with" name="T1175 -96">mmc.exe</ParentImage>
+				<ParentImage condition="contains" name="T1059 -97">cscript.exe</ParentImage>
+				<ParentImage condition="contains" name="T1059 -98">wscript.exe</ParentImage>
+				<ParentImage condition="end with" name="T1218 -99">msiexec.exe</ParentImage>
 			  
-				<ParentCommandLine condition="is" name="T1088">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1055">\\.\pipe</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1218">ftp -s:</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1218">pcalua.exe -a</ParentCommandLine>
+				<ParentCommandLine condition="is" name="T1088 -100">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1055 -101">\\.\pipe</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1218 -102">ftp -s:</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1218 -103">pcalua.exe -a</ParentCommandLine>
 			</ProcessCreate>
 		</RuleGroup>
 		
@@ -125,17 +127,21 @@
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 3 == Network Connection. -->
 			<NetworkConnect onmatch="include">
-				<Image condition="image" name="T1175">mshta.exe</Image>
-				<Image condition="image" name="T1059">certutil.exe</Image>
-				<Image condition="image" name="T1117">regsvr32.exe</Image>
-				<Image condition="end with" name="T1085">rundll32.exe</Image>
-				<Image condition="image" name="T1086">powershell.exe</Image>
+				<Image condition="image" name="T1175 -1">mshta.exe</Image>
+				<Image condition="image" name="T1059 -2">certutil.exe</Image>
+				<Image condition="image" name="T1117 -3">regsvr32.exe</Image>
+				<Image condition="end with" name="T1085 -4">rundll32.exe</Image>
+				<Image condition="image" name="T1086 -5">powershell.exe</Image>
 				
-				<DestinationIp condition="is" name="T1090">127.0.0.1</DestinationIp>
-				<DestinationIp condition="is" name="T1090">::1</DestinationIp>
+				<DestinationIp condition="is" name="T1090 -6">127.0.0.1</DestinationIp>
+				<DestinationIp condition="is" name="T1090 -7">::1</DestinationIp>
 				
-				<DestinationPort condition="is" name="T1090">3389</DestinationPort>
-				<DestinationPort condition="is" name="T1090">445</DestinationPort>
+				<DestinationPort condition="is" name="T1090 -8">3389</DestinationPort>
+				<DestinationPort condition="is" name="T1090 -9">445</DestinationPort>
+				
+				<DestinationPort condition="is" name="T1090 -10">1723</DestinationPort> <!--Tor protocol-->
+				<DestinationPort condition="is" name="T1090 -11">9001</DestinationPort> <!--Tor protocol-->
+				<DestinationPort condition="is" name="T1090 -12">9030</DestinationPort> <!--Tor protocol-->
 			</NetworkConnect>
 		</RuleGroup>	
 			
@@ -151,21 +157,21 @@
 			<!-- Event ID 6 == Driver Loaded. -->
 			<!--TECHNICAL:	If exclude it's used Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
 			<DriverLoad onmatch="include">
-				<ImageLoaded condition="contains" name="T1014">\Temp</ImageLoaded>
+				<ImageLoaded condition="contains" name="T1014 -1">\Temp</ImageLoaded>
 			</DriverLoad>		
 		</RuleGroup>
 		
 		<RuleGroup name="" groupRelation="or">	
 			<!-- Event ID 7 == Image Load-->
 			<ImageLoad onmatch="include">
-				<Signed condition="is" name="T1073">false</Signed>
+				<Signed condition="is" name="T1073 -1">false</Signed>
 			</ImageLoad>
 		</RuleGroup>
 		
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 8 == CreateRemoteThread. -->
 			<CreateRemoteThread onmatch="include">
-				<TargetImage condition="is" name="S0121">C:\Windows\system32\lsass.exe</TargetImage>
+				<TargetImage condition="is" name="S0121 -1">C:\Windows\system32\lsass.exe</TargetImage>
 			</CreateRemoteThread>
 		</RuleGroup>
 		
@@ -178,98 +184,99 @@
 		<!-- Event ID 10 == ProcessAccess. -->
 		<RuleGroup name="" groupRelation="or">
 			<ProcessAccess onmatch="exclude">
-				<SourceImage condition="end with" name="T1003">wmiprvse.exe</SourceImage>
-				<SourceImage condition="end with" name="T1003">GoogleUpdate.exe</SourceImage>
-				<SourceImage condition="end with" name="T1003">LTSVC.exe</SourceImage>
-				<SourceImage condition="end with" name="T1003">VBoxService.exe</SourceImage> <!--# Virtual Box -->
-				<SourceImage condition="end with" name="T1003">vmtoolsd.exe</SourceImage>
-				<SourceImage condition="end with" name="T1003">\Citrix\System32\wfshell.exe</SourceImage> <!--#Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
-				<SourceImage condition="is" name="T1003">C:\Windows\System32\lsm.exe</SourceImage> <!--# System process under C:\Windows\System32\lsm.exe -->
-				<SourceImage condition="end with" name="T1003">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!--# Microsoft Azure AD Connect Health Sync Agent -->
-				<SourceImage condition="begin with" name="T1003">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- # Symantec -->
+				<SourceImage condition="end with" name="T1003 - exclude - 1">wmiprvse.exe</SourceImage>
+				<SourceImage condition="end with" name="T1003 - exclude -2">GoogleUpdate.exe</SourceImage>
+				<SourceImage condition="end with" name="T1003 - exclude -3">LTSVC.exe</SourceImage>
+				<SourceImage condition="end with" name="T1003 - exclude -4">VBoxService.exe</SourceImage> <!--# Virtual Box -->
+				<SourceImage condition="end with" name="T1003 - exclude -5">vmtoolsd.exe</SourceImage>
+				<SourceImage condition="end with" name="T1003 - exclude -6">\Citrix\System32\wfshell.exe</SourceImage> <!--#Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
+				<SourceImage condition="is" name="T1003 - exclude -7">C:\Windows\System32\lsm.exe</SourceImage> <!--# System process under C:\Windows\System32\lsm.exe -->
+				<SourceImage condition="end with" name="T1003 - exclude -8">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!--# Microsoft Azure AD Connect Health Sync Agent -->
+				<SourceImage condition="begin with" name="T1003 - exclude -9">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- # Symantec -->
 			</ProcessAccess>
 		</RuleGroup>	
 		<RuleGroup name="" groupRelation="or">
 			<ProcessAccess onmatch="include">
-				<CallTrace condition="contains" name="T1003">dbghelp.dll</CallTrace>
-				<CallTrace condition="contains" name="T1003">dbgcore.dll</CallTrace>
-				<CallTrace condition="contains" name="T1003">mimikatz</CallTrace>
+				<CallTrace condition="contains" name="T1003 -1">dbghelp.dll</CallTrace>
+				<CallTrace condition="contains" name="T1003 -2">dbgcore.dll</CallTrace>
+				<CallTrace condition="contains" name="T1003 -3">mimikatz</CallTrace>
 				
-				<TargetImage condition="contains" name="T1003">lsass.exe</TargetImage>
+				<TargetImage condition="contains" name="T1003 -4">lsass.exe</TargetImage>
 				
-				<GrantedAccess condition="is" name="T1093">0x800</GrantedAccess>
+				<GrantedAccess condition="is" name="T1093 -5">0x800</GrantedAccess>
 			</ProcessAccess>
 		</RuleGroup>
 		
 		<RuleGroup name="" groupRelation="or">	
 			<!-- Event ID 11 == FileCreate. -->
 			<FileCreate onmatch="include">
-				<TargetFilename condition="is" name="T1088">*\AppData\Local\Temp\comctl32.dll</TargetFilename>
-				<TargetFilename condition="is" name="T1088">*\AppData\Local\Temp\dismcore.dll</TargetFilename>
-				<TargetFilename condition="is" name="T1088">*\AppData\Local\Temp\wow64log.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">aitagent.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">DiagTrackRunner.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">CompatTelRunner.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">acproxy.dl</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">wsqmcons.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">lpremove.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">srrstr.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">wermgr.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">sdclt.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">appidcertstorecheck.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">AppHostRegistrationVerifier.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">MicTray64.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">usoclient.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">dsregcmd.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">sihclient.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">dimsjob.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">Lracengn.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">HotstartUserAgent.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">MsCtfMonitor.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">PlaySndSrv.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">AdobeARM.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053">GoogleUpdate.exe</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\cscript.exe.log</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\wscript.exe.log</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\mshta.log</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\wmic.log</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\regsvr32.exe.log</TargetFilename>
-				<TargetFilename condition="end with" name="T1129">\UsageLogs\svchost.log</TargetFilename>
-				<TargetFilename condition="contains" name="T1088">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1088">*\AppData\Local\Temp\GdiPlus.dll</TargetFilename>
-				<TargetFilename condition="begin with" name="T1138">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+				<TargetFilename condition="is" name="T1088 -1">*\AppData\Local\Temp\comctl32.dll</TargetFilename>
+				<TargetFilename condition="is" name="T1088 -2">*\AppData\Local\Temp\dismcore.dll</TargetFilename>
+				<TargetFilename condition="is" name="T1088 -3">*\AppData\Local\Temp\wow64log.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -4">aitagent.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -5">DiagTrackRunner.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -6">CompatTelRunner.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -7">acproxy.dl</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -8">wsqmcons.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -9">lpremove.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -10">srrstr.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -11">wermgr.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -12">sdclt.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -13">appidcertstorecheck.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -14">AppHostRegistrationVerifier.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -15">MicTray64.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -16">usoclient.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -17">dsregcmd.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -18">sihclient.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -19">dimsjob.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -20">Lracengn.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -21">HotstartUserAgent.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -22">MsCtfMonitor.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -23">PlaySndSrv.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -24">AdobeARM.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -25">GoogleUpdate.exe</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -26">\UsageLogs\cscript.exe.log</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -27">\UsageLogs\wscript.exe.log</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -28">\UsageLogs\mshta.log</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -29">\UsageLogs\wmic.log</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -30">\UsageLogs\regsvr32.exe.log</TargetFilename>
+				<TargetFilename condition="end with" name="T1129 -31">\UsageLogs\svchost.log</TargetFilename>
+				<TargetFilename condition="contains" name="T1088 -32">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
+				<TargetFilename condition="contains" name="T1088 -33">*\AppData\Local\Temp\GdiPlus.dll</TargetFilename>
+				<TargetFilename condition="begin with" name="T1138 -34">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+				<TargetFilename condition="contains" name="T1023 -35">\Start Menu</TargetFilename>				
 			</FileCreate>
 		</RuleGroup>
 		
 		<RuleGroup name="" groupRelation="or">	
 			<!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
 			<RegistryEvent onmatch="include">
-				<TargetObject condition="is" name="T1088">HKU\*\exefile\shell\runas\command\IsolatedCommand</TargetObject>
-				<TargetObject condition="is" name="T1088">HKU\*\ms-settings\shell\open\command\DelegateExecute</TargetObject>
-				<TargetObject condition="is" name="T1088">HKU\*\ms-settings\shell\open\command\(Default)</TargetObject>
-				<TargetObject condition="is" name="T1088">HKU\*\ms-settings\shell\open\command</TargetObject>
-				<TargetObject condition="is" name="T1089">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
-				<TargetObject condition="is" name="T1088">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
-				<TargetObject condition="is" name="T1089">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
-				<TargetObject condition="is" name="T1089">HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
-				<TargetObject condition="is" name="T1089">HKU\*\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="is" name="T1089">HKU\*\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="is" name="T1089">HKU\*\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="is" name="T1089">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="is" name="T1089">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="is" name="T1130">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
-				<TargetObject condition="contains" name="T1060">Windows\CurrentVersion\Run</TargetObject>
-				<TargetObject condition="contains" name="T1060">Windows\CurrentVersion\RunOnce</TargetObject>
-				<TargetObject condition="contains" name="T1060">\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\startup</TargetObject>
-				<TargetObject condition="contains" name="T1060">\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\startup</TargetObject>
-				<TargetObject condition="begin with" name="T1138,AppCompatShim">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
-				<TargetObject condition="begin with" name="T1138,AppCompatShim">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe\Debugger</TargetObject>
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Magnify.exe\Debugger</TargetObject>
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe\Debugger</TargetObject>
-				<TargetObject condition="contains" name="T1015">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe\Debugger</TargetObject>
+				<TargetObject condition="is" name="T1088 -1">HKU\*\exefile\shell\runas\command\IsolatedCommand</TargetObject>
+				<TargetObject condition="is" name="T1088 -2">HKU\*\ms-settings\shell\open\command\DelegateExecute</TargetObject>
+				<TargetObject condition="is" name="T1088 -3">HKU\*\ms-settings\shell\open\command\(Default)</TargetObject>
+				<TargetObject condition="is" name="T1088 -4">HKU\*\ms-settings\shell\open\command</TargetObject>
+				<TargetObject condition="is" name="T1089 -5">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
+				<TargetObject condition="is" name="T1088 -6">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
+				<TargetObject condition="is" name="T1089 -7">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
+				<TargetObject condition="is" name="T1089 -8">HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+				<TargetObject condition="is" name="T1089 -9">HKU\*\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is" name="T1089 -10">HKU\*\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is" name="T1089 -11">HKU\*\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is" name="T1089 -12">HKU\*\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is" name="T1089 -13">HKU\*\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="is" name="T1130 -14">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
+				<TargetObject condition="contains" name="T1060 -15">Windows\CurrentVersion\Run</TargetObject>
+				<TargetObject condition="contains" name="T1060 -16">Windows\CurrentVersion\RunOnce</TargetObject>
+				<TargetObject condition="contains" name="T1060 -17">\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\startup</TargetObject>
+				<TargetObject condition="contains" name="T1060 -18">\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\startup</TargetObject>
+				<TargetObject condition="begin with" name="T1138,AppCompatShim -19">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+				<TargetObject condition="begin with" name="T1138,AppCompatShim -20">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
+				<TargetObject condition="contains" name="T1015 -21">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -22">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -23">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -24">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Magnify.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -25">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -26">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe\Debugger</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 				
@@ -288,7 +295,7 @@
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 19,20,21, == WmiEvent. Log WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter creation activity-->
 			<WmiEvent onmatch="include">
-				<Operation condition="is" name="T1047">Created</Operation>
+				<Operation condition="is" name="T1047 -1">Created</Operation>
 			</WmiEvent>
 		</RuleGroup>
 		

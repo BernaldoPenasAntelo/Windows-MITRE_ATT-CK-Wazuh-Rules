@@ -176,36 +176,42 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Sysmon - Event 16</description>
 		<group>sysmon_event_16,</group>
 	</rule>
-
 	<rule id="101606" level="0">
+		<if_sid>18100</if_sid>
+		<match>Microsoft-Windows-Sysmon/Operational: INFORMATION(4)</match>
+		<description>Sysmon - Event 4</description>
+		<group>sysmon_event_4,</group>
+	</rule>
+
+	<rule id="101607" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^19$</field>
 		<description>Sysmon - Event 19: WmiEventFilter</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_19,</group>
 	</rule>
-	<rule id="101607" level="0">
+	<rule id="101608" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^20$</field>
 		<description>Sysmon - Event 20: WmiEventConsumer</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_20,</group>
 	</rule>
-	<rule id="101608" level="0">
+	<rule id="101609" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^21$</field>
 		<description>Sysmon - Event 21: WmiEventConsumerToFilter</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_21,</group>
 	</rule>
-	<rule id="101609" level="0">
+	<rule id="101610" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^22$</field>
 		<description>Sysmon - Event 22: DNS Query</description>
 		<options>no_full_log</options>
 		<group>sysmon_event_22,</group>
 	</rule>
-	<rule id="101610" level="0">
+	<rule id="101611" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^16$</field>
 		<description>Sysmon - Event 16: Sysmon config state changed</description>
@@ -437,7 +443,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP & SMB Tunneling using SECFORCE/Tunna</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is" name="T1090">1723</DestinationPort>
+		<DestinationPort condition="is" name="T1090">9001</DestinationPort> 
+		<DestinationPort condition="is" name="T1090">9030</DestinationPort> 
+	</NetworkConnect>
+	-->
+	<rule id="100703" level="12">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">^1723$|^9001$|^9030$</field>   
+		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, traffic with destination to kwown TOR ports</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- DISCOVERY 100800-->
 	<!--
@@ -752,6 +770,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1089,  Defense Evasion, Change in Sysmon configuration</description>
 		<options>no_full_log</options>
 	</rule>
+	<rule id="100923" level="12">
+		<if_sid>61606</if_sid>
+		<field name="win.eventdata.State">Stopped</field>
+		<description>Mitre ATT&CK T1089,  Defense Evasion, Sysmon Status Changed To $(win.eventdata.State)</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -859,6 +883,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="contains">\Start Menu</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="101007" level="12">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">\\Start Menu</field>
+		<description>Mitre ATT&CK T1023, Persistence, Shortcut Modification, Modification of system startup shorcuts folder</description>
+		<options>no_full_log</options>
+	</rule>
+	
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	
@@ -1385,6 +1421,16 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.commandline">vssadmin.exe Delete Shadows</field>
 		<description>Mitre ATT&CK T1490, Impact, Inhibit System Recovery, Windows Management Instrumentation deleting shadowcopies</description>
 		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with" name="T1489">sc.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="101503" level="12">
+		<if_sid>61603</if_sid>
+		<field name="win.eventdata.commandline">\.*sc.exe\.* stop\.*|\.*sc\.* stop\.*|\.*sc.exe\.*config *disabled\.*|\.*sc\.*config *disabled\.*</field>
+		<description>Mitre ATT&CK T1489, Impact, Service Stop, Service stopped with SC.EXE</description>
+		<options>no_full_log</options>
 	</rule>	
-
 </group>
