@@ -51,69 +51,71 @@
 				<Image condition="end with" name="T1197 -42">bitsadmin.exe</Image>
 				<Image condition="end with" name="T1059 -43">conhost.exe</Image>
 				<Image condition="end with" name="T1489 -44">sc.exe</Image>
+				<Image condition="end with" name="T1082 -45">appcmd.exe</Image>
 									  
-				<CommandLine condition="contains" name="T1056 -45">*/stext*</CommandLine>
-				<CommandLine condition="contains" name="T1056 -46">*/scomma*</CommandLine>
-				<CommandLine condition="contains" name="T1191 -47">*cmstp.exe*/s*</CommandLine>
-				<CommandLine condition="contains" name="T1088 -48">*cmstp.exe*/au*</CommandLine>
-				<CommandLine condition="contains" name="T1090 -49">*netsh*connectp=3389*</CommandLine>
-				<CommandLine condition="contains" name="T1158 -50">attrib +h</CommandLine>
-				<CommandLine condition="contains" name="T1089 -51">*unload*sysmon*</CommandLine>
-				<CommandLine condition="contains" name="T1053 -52">*schtasks.exe*/create*c:\users\*</CommandLine>
-				<CommandLine condition="contains" name="T1053 -53">*schtasks.exe*/create*c:\programdata\*</CommandLine>
-				<CommandLine condition="contains" name="T1053 -54">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
-				<CommandLine condition="contains" name="T1086 -55">*new-object system.net.webclient).downloadstring(*</CommandLine>
-				<CommandLine condition="contains" name="T1086 -56">*new-object system.net.webclient).downloadfile(*</CommandLine>
-				<CommandLine condition="contains" name="T1086 -57"> -enc </CommandLine>
-				<CommandLine condition="contains" name="T1086 -58"> -EncodedCommand </CommandLine>
-				<CommandLine condition="contains" name="T1086 -59"> -w hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086 -60"> -window hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086 -61"> -windowstyle hidden </CommandLine>
-				<CommandLine condition="contains" name="T1086 -62"> -noni </CommandLine>
-				<CommandLine condition="contains" name="T1086 -63"> -noninteractive </CommandLine>		  
-				<CommandLine condition="contains" name="T1140 -64">*\certutil.exe * -decode *</CommandLine>
-				<CommandLine condition="contains" name="T1140 -65">*\certutil.exe * -decodehex *</CommandLine>
-				<CommandLine condition="contains" name="T1105 -66">*\certutil.exe *-urlcache* http*</CommandLine>
-				<CommandLine condition="contains" name="T1105 -67">*\certutil.exe *-urlcache* ftp*</CommandLine>
-				<CommandLine condition="contains" name="T1105 -68">*\certutil.exe *-URL*</CommandLine>
-				<CommandLine condition="contains" name="T1105 -69">*\certutil.exe *-ping*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -70">net*group*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -71">net*localgroup*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -72">net*view*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -73">net*share</CommandLine>
-				<CommandLine condition="contains" name="T1087 -74">net*account*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -75">net*use*</CommandLine>
-				<CommandLine condition="contains" name="T1059 -76">vssadmin.exe Delete Shadows</CommandLine>
-				<CommandLine condition="contains" name="T1059 -77">vssadmin create shadow /for=*:</CommandLine>
-				<CommandLine condition="contains" name="T1059 -78">vssadmin delete shadows /for=*:</CommandLine>
-				<CommandLine condition="contains" name="T1059 -79">copy \\?\GLOBALROOT\Device\*\windows\ntds\ntds.dit</CommandLine>
-				<CommandLine condition="contains" name="T1059 -80">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
-				<CommandLine condition="contains" name="T1059 -81">reg SAVE HKLM\SYSTEM </CommandLine>
-				<CommandLine condition="contains" name="T1210 -82">*transport=dt_socket,address=*</CommandLine>
-				<CommandLine condition="contains" name="T1089 -83">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
-				<CommandLine condition="contains" name="T1490 -84">*shadowcopy delete*</CommandLine>
-				<CommandLine condition="contains" name="T1490 -85">*vssadmin.exe Delete Shadows*</CommandLine>
-				<CommandLine condition="contains" name="T1089 -86">WindowsSoundRecorder</CommandLine>
+				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
+				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
+				<CommandLine condition="contains" name="T1191 -48">*cmstp.exe*/s*</CommandLine>
+				<CommandLine condition="contains" name="T1088 -49">*cmstp.exe*/au*</CommandLine>
+				<CommandLine condition="contains" name="T1090 -50">*netsh*connectp=3389*</CommandLine>
+				<CommandLine condition="contains" name="T1158 -51">attrib +h</CommandLine>
+				<CommandLine condition="contains" name="T1089 -52">*unload*sysmon*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -53">*schtasks.exe*/create*c:\users\*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -54">*schtasks.exe*/create*c:\programdata\*</CommandLine>
+				<CommandLine condition="contains" name="T1053 -55">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -56">*new-object system.net.webclient).downloadstring(*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -57">*new-object system.net.webclient).downloadfile(*</CommandLine>
+				<CommandLine condition="contains" name="T1086 -58"> -enc </CommandLine>
+				<CommandLine condition="contains" name="T1086 -59"> -EncodedCommand </CommandLine>
+				<CommandLine condition="contains" name="T1086 -60"> -w hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -61"> -window hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -62"> -windowstyle hidden </CommandLine>
+				<CommandLine condition="contains" name="T1086 -63"> -noni </CommandLine>
+				<CommandLine condition="contains" name="T1086 -64"> -noninteractive </CommandLine>		  
+				<CommandLine condition="contains" name="T1140 -65">*\certutil.exe * -decode *</CommandLine>
+				<CommandLine condition="contains" name="T1140 -66">*\certutil.exe * -decodehex *</CommandLine>
+				<CommandLine condition="contains" name="T1105 -67">*\certutil.exe *-urlcache* http*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -68">*\certutil.exe *-urlcache* ftp*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -69">*\certutil.exe *-URL*</CommandLine>
+				<CommandLine condition="contains" name="T1105 -70">*\certutil.exe *-ping*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -71">net*group*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -72">net*localgroup*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -73">net*view*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -74">net*share</CommandLine>
+				<CommandLine condition="contains" name="T1087 -75">net*account*</CommandLine>
+				<CommandLine condition="contains" name="T1087 -76">net*use*</CommandLine>
+				<CommandLine condition="contains" name="T1059 -77">vssadmin.exe Delete Shadows</CommandLine>
+				<CommandLine condition="contains" name="T1059 -78">vssadmin create shadow /for=*:</CommandLine>
+				<CommandLine condition="contains" name="T1059 -79">vssadmin delete shadows /for=*:</CommandLine>
+				<CommandLine condition="contains" name="T1059 -80">copy \\?\GLOBALROOT\Device\*\windows\ntds\ntds.dit</CommandLine>
+				<CommandLine condition="contains" name="T1059 -81">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
+				<CommandLine condition="contains" name="T1059 -82">reg SAVE HKLM\SYSTEM </CommandLine>
+				<CommandLine condition="contains" name="T1210 -83">*transport=dt_socket,address=*</CommandLine>
+				<CommandLine condition="contains" name="T1089 -84">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
+				<CommandLine condition="contains" name="T1490 -85">*shadowcopy delete*</CommandLine>
+				<CommandLine condition="contains" name="T1490 -86">*vssadmin.exe Delete Shadows*</CommandLine>
+				<CommandLine condition="contains" name="T1089 -87">WindowsSoundRecorder</CommandLine>
 
 		  
-				<ParentImage condition="end with" name="T1170 -87">mshta.exe</ParentImage>
-				<ParentImage condition="end with" name="T1028 -88">wsmprovhost.exe</ParentImage>
-				<ParentImage condition="contains" name="T1028 -89">WinrsHost.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059 -90">WINWORD.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059 -91">EXCEL.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059 -92">POWERPNT.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059 -93">MSPUB.exe</ParentImage>
-				<ParentImage condition="end with" name="T1059 -94">VISIO.exe</ParentImage>
-				<ParentImage condition="end with" name="T1085 -95">control.exe</ParentImage>
-				<ParentImage condition="end with" name="T1175 -96">mmc.exe</ParentImage>
-				<ParentImage condition="contains" name="T1059 -97">cscript.exe</ParentImage>
-				<ParentImage condition="contains" name="T1059 -98">wscript.exe</ParentImage>
-				<ParentImage condition="end with" name="T1218 -99">msiexec.exe</ParentImage>
+				<ParentImage condition="end with" name="T1170 -88">mshta.exe</ParentImage>
+				<ParentImage condition="end with" name="T1028 -89">wsmprovhost.exe</ParentImage>
+				<ParentImage condition="contains" name="T1028 -90">WinrsHost.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -91">WINWORD.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -92">EXCEL.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -93">POWERPNT.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -94">MSPUB.exe</ParentImage>
+				<ParentImage condition="end with" name="T1059 -95">VISIO.exe</ParentImage>
+				<ParentImage condition="end with" name="T1085 -96">control.exe</ParentImage>
+				<ParentImage condition="end with" name="T1175 -97">mmc.exe</ParentImage>
+				<ParentImage condition="contains" name="T1059 -98">cscript.exe</ParentImage>
+				<ParentImage condition="contains" name="T1059 -99">wscript.exe</ParentImage>
+				<ParentImage condition="end with" name="T1218 -100">msiexec.exe</ParentImage>
 			  
-				<ParentCommandLine condition="is" name="T1088 -100">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1055 -101">\\.\pipe</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1218 -102">ftp -s:</ParentCommandLine>
-				<ParentCommandLine condition="contains" name="T1218 -103">pcalua.exe -a</ParentCommandLine>
+				<ParentCommandLine condition="is" name="T1088 -101">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1055 -102">\\.\pipe</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1218 -103">ftp -s:</ParentCommandLine>
+				<ParentCommandLine condition="contains" name="T1218 -104">pcalua.exe -a</ParentCommandLine>
+				
 			</ProcessCreate>
 		</RuleGroup>
 		
@@ -158,6 +160,7 @@
 			<!--TECHNICAL:	If exclude it's used Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
 			<DriverLoad onmatch="include">
 				<ImageLoaded condition="contains" name="T1014 -1">\Temp</ImageLoaded>
+				<ImageLoaded condition="end with" name="T1082 -2">\RwDrv.sys</ImageLoaded>
 			</DriverLoad>		
 		</RuleGroup>
 		
@@ -279,6 +282,7 @@
 				<TargetObject condition="contains" name="T1015 -24">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Magnify.exe\Debugger</TargetObject>
 				<TargetObject condition="contains" name="T1015 -25">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Narrator.exe\Debugger</TargetObject>
 				<TargetObject condition="contains" name="T1015 -26">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe\Debugger</TargetObject>
+				<TargetObject condition="contains" name="T1015 -27">\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 				

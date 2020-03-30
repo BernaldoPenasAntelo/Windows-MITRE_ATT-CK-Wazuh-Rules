@@ -138,11 +138,21 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100111" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">conhost.exe</field>
+		<field name="win.eventdata.Image">\\conhost.exe</field>
 		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface execution $(win.eventdata.parentimage)</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with" name="T1082">appcmd.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100112" level="0">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">\\appcmd.exe</field>
+		<description>Mitre ATT&CK T1082, Discovery, System Information Discovery, Appcmd command IIS password and configuration discovery</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
 	
@@ -224,17 +234,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-14 01:29:00.318","ProcessGuid":"{365abb72-19e0-5cda-0000-001006711000}","ProcessId":"1932","Image":"C:\\Windows\\System32\\mshta.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"false","SourceIsIpv6":"false","SourceIp":"10.0.2.16","SourceHostname":"IEWIN7","SourcePort":"49168","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"10.0.2.17","DestinationHostname":"","DestinationPort":"55683","DestinationPortName":""}}}
 	-->
 	<!-- LATERAL MOVEMENT 100500-->
-	<!--
-	<NetworkConnect onmatch="include">
-		<Image condition="image">mshta.exe</Image>
-	</NetworkConnect>
-	-->
-	<rule id="100501" level="12">
-		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.Image">\\mshta.exe</field>
-		<description>Mitre ATT&CK T1175, Lateral Movement, Component Object Model and Distributed COM, LethalHTA</description>
-		<options>no_full_log</options>
-	</rule>
+
 	<!--
 	 <ProcessCreate onmatch="include">
 		<ParentImage condition="end with">wsmprovhost.exe</ParentImage>
@@ -490,6 +490,29 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_sid>100108</if_sid>
 		<field name="win.eventdata.commandline">AntiVirusProduct get||FirewallProduct get</field>
 		<description>Mitre ATT&CK T1010, Discovery, Application Window Discovery , Discovery through Windows Management Instrumentation</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<DriverLoad onmatch="include">
+		<ImageLoaded condition="end with" name="T1082">RwDrv.sys</ImageLoaded>
+	</DriverLoad>
+	-->
+	<rule id="100804" level="12">
+		<if_group>sysmon_event6</if_group>
+		<field name="win.eventdata.imageLoaded">\\RwDrv.sys</field>
+		<description>Mitre ATT&CK T1082, Discovery, System Information Discovery, Discovery UEFI Settings rweverything</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<CommandLine condition="contains">\appcmd.exe  list</CommandLine>
+		<CommandLine condition="contains">AppCmd  list</CommandLine>
+	</ProcessCreate>
+	-->
+	<rule id="100805" level="12">
+		<if_sid>100112</if_sid>
+		<field name="win.eventdata.commandline">\.*\\appcmd.exe  list\.*|\.*AppCmd list\.*</field>
+		<description>Mitre ATT&CK T1082, Discovery, System Information Discovery, Appcmd command IIS password and configuration discovery</description>
 		<options>no_full_log</options>
 	</rule>
 	
@@ -906,6 +929,17 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Folders related with scheduled tasks were modified</description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101009" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Shell</field>
+		<description>Mitre ATT&CK T1060, Persistence, Persistence via winlogon shell</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	
@@ -1134,7 +1168,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101316" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.Image">\\powershell.exe</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell Execution</description>
+		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell Net Execution</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1156,7 +1190,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101318" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*cmstp.exe /s\.*</field>
-		<description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass applicatioeven whitelisting</description>
+		<description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass application whitelisting</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1353,12 +1387,25 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<ProcessCreate
 	-->
 	<rule id="101337" level="12">
-		<if_group>sysmon_event1</if_group>
+		<if_gMar 24 06:42:00 172.26.26.253 1,2020/03/24 06:41:59,016201012733,THREAT,vulnerability,2049,2020/03/24 06:41:59,5.101.0.209,212.170.32.253,5.101.0.209,172.28.20.55,Acceso Inet a 212.170.32.253 L4,,,web-browsing,vsys1,UNTRUST,DMZ_CORP,ae2,ae3,VIGO-Forwarding_Logs,2020/03/24 06:41:59,578366,1,40006,80,40006,80,0x80402000,tcp,reset-both,"index.php",ThinkPHP Remote Code Execution Vulnerability(54825),unknown,critical,client-to-server,123244745,0x2000000000000000,Russian Federation,Spain,0,,1205664087569087493,,,1,,,,,,,,0,0,0,0,0,,COPL-1A0401PAFW,,,,,0,,0,,N/A,code-execution,AppThreat-8251-6016,0x4,0,4294967295,
+roup>sysmon_event1</if_group>
 		<field name="win.eventdata.ParentCommandLine">\.*pcalua.exe -a\.*</field>
 		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, Program Compatibility Assistant (pcalua.exe) has executed $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
-
+	<!--
+	<NetworkConnect onmatch="include">
+		<Image condition="image">mshta.exe</Image>
+	</NetworkConnect>
+	-->
+	<rule id="101338" level="12">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.Image">\\mshta.exe</field>
+		<description>Mitre ATT&CK T1170, Execution, Mshta</description>
+		<options>no_full_log</options>
+	</rule>
+	
+	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1089","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}
