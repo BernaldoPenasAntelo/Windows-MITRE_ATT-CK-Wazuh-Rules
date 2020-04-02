@@ -538,7 +538,7 @@
 	<rule id="100341" level="5">
 		<if_sid>60122</if_sid>
 		<field name="win.system.eventID">^4625$</field>
-		<field name="win.eventdata.Status">0xC0000064|0xC000006A</field>
+		<field name="win.eventdata.Status">0xC0000064|0xC000006A|0xc000006d</field>
 		<description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, An account failed to log on</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
