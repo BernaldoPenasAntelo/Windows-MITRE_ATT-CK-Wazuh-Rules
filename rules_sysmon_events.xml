@@ -153,6 +153,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1082, Discovery, System Information Discovery, Appcmd command IIS password and configuration discovery</description>
 		<options>no_full_log</options>
 	</rule>
+		<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">powershell.exe</Image>
+		<Image condition="contains">.ps1</Image>
+		<Image condition="contains">.ps2</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100113" level="10">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image">\\powershell.exe||\\.ps1||\\.ps2</field>
+		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell or Script Execution: $(win.eventdata.CommandLine)</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
 	
@@ -940,6 +953,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1060, Persistence, Persistence via winlogon shell</description>
 		<options>no_full_log</options>
 	</rule>
+	<rule id="101010" level="12">
+		<if_sid>100113</if_sid>
+		<field name="win.eventdata.commandline">Start-BitsTransfer</field>
+		<description>Mitre ATT&CK T1197, Defense Evasion, BITS Jobs, Detects usage of bitsadmin downloading a file</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->
 	
@@ -1147,19 +1166,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Powershell Without Powershell.exe</description>
 		<options>no_full_log</options>
 	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<Image condition="end with">powershell.exe</Image>
-		<Image condition="contains">.ps1</Image>
-		<Image condition="contains">.ps2</Image>
-	</ProcessCreate>
-	-->
-	<rule id="101315" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\powershell.exe||\\.ps1||\\.ps2</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell or Script Execution: $(win.eventdata.image)</description>
-		<options>no_full_log</options>
-	</rule>
+
 	<!--
 	<NetworkConnect onmatch="include">
 		<Image condition="image">powershell.exe</Image>
@@ -1179,7 +1186,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101317" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.image">\\cmd.exe</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Command-Line Interface Execution: $(win.eventdata.image)</description>
+		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Command-Line Interface Execution: $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1278,7 +1285,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</ProcessCreate>
 	-->
 	<rule id="101326" level="12">
-		<if_sid>101315</if_sid>
+		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">DownloadString||downloadfile</field>
 		<description>Mitre ATT&CK T1086, Execution, PowerShell, PowerShell scripts that download content from the Internet</description>
 		<options>no_full_log</options>
@@ -1295,7 +1302,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</ProcessCreate>
 	-->
 	<rule id="101327" level="12">
-		<if_sid>101315</if_sid>
+		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">EncodedCommand||-w hidden||-window hidden||-windowstyle hidden||-enc||-noni||noninteractive</field>
 		<description>Mitre ATT&CK T1086, Execution, PowerShell, Detects suspicious PowerShell invocation command parameters</description>
 		<options>no_full_log</options>
@@ -1330,6 +1337,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1117, Execution, Regsvr32, Execution of powershel through rundll32</description>
 		<options>no_full_log</options>
 	</rule>
+
 	<!--
 	<ProcessCreate onmatch="include">
 		<CommandLine condition="contains">vssadmin.exe Delete Shadows</CommandLine>
@@ -1349,7 +1357,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101333" level="12">
 		<if_sid>100108</if_sid>
 		<field name="win.eventdata.commandline">process call create</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Windows management Instrumentation command execution</description>
+		<description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, $(win.eventdata.Image) has executed $(win.eventdata.commandline)</description>
 		<options>no_full_log</options>
 	</rule>	
 	<rule id="101334" level="12">
@@ -1403,8 +1411,48 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1170, Execution, Mshta</description>
 		<options>no_full_log</options>
 	</rule>
-	
-	
+	<rule id="101339" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">mshta.exe</field>
+		<description>Mitre ATT&CK T1170, Microsoft HTML Application execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101340" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">regsvr32.exe</field>
+		<description>Mitre ATT&CK T1117, Execution, Regsvr32 execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101341" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">rundll32.exe</field>
+		<description>Mitre ATT&CK T1085, Execution, Rundll32 execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+		<rule id="101342" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">SCHTASKS|schtasks</field>
+		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Creation of scheduled task</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101343" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">AT\s\d\d:\d\d|\sat\s\d\d:\d\d</field>
+		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Creation of scheduled task</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101344" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">C:\\Windows\\TEMP|C:\\Windows\\temp</field>
+		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, execution from temporary folder</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101345" level="12">
+		<if_sid>101317</if_sid>
+		<field name="win.eventdata.CommandLine">msiexec.exe</field>
+		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, Msiexec.exe has been executed via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1089","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}
@@ -1459,6 +1507,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1123, Collection, Audio Capture, Command Line Audio Sound Recorder launched</description>
 		<options>no_full_log</options>
 	</rule> 
+	<!-- 101315 EMPTY -->
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- IMPACT 101500-->
 
