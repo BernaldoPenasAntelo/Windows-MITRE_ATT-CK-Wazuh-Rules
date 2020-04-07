@@ -405,7 +405,7 @@
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100306" level="10">
-		<if_sid>60110</if_sid>
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4738$</field>
 		<field name="win.eventdata.OldUacValue">0x10|0x11|0x15</field>
 		<field name="win.eventdata.NewUacValue">0x210</field>
@@ -468,7 +468,7 @@
 	 <rule id="100314" level="10">
 		<if_sid>60109</if_sid>
 		<field name="win.system.eventID">^4720$</field>
-		<field name="win.eventdata.SubjectUserSid">^S-1-5-18-\.*</field>
+		<field name="win.eventdata.SubjectUserSid">^S-1-5-18-|^S-1-5-21-</field>
 		<description>Mitre ATT&CK T1136, Persistence, Create Account, Local account was created</description>
 		<options>no_full_log</options>
 	</rule>

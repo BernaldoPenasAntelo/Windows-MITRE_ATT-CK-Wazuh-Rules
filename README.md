@@ -130,7 +130,7 @@ Valid Accounts | InstallUtil | Component Firmware | Hooking | * **Connection Pro
 | | | Server Software Component | | Modify Registry | | | | | | | |				
 | | | Service Registry Permissions Weakness | | Mshta | | | | | | | |			
 | | | * **Shortcut Modification** | | Network Share Connection Removal | | | | | | | |						
-| | | SIP and Trust Provider Hijacking | | NTFS File Attributes | | | | | | | |		
+| | | SIP and Trust Provider Hijacking | | * **NTFS File Attributes** | | | | | | | |		
 | | | System Firmware | | Obfuscated Files or Information | | | | | | | |		
 | | | * **Time Providers** | | Parent PID Spoofing | | | | | | | |
 | | | * **Valid Accounts** | | * **Process Doppelgänging** | | | | | | | |			

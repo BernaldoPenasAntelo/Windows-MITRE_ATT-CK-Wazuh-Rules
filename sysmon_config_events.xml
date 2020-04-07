@@ -288,8 +288,9 @@
 				
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 15 == FileStream Created. -->
-			<FileCreateStreamHash onmatch="include">
+			<FileCreateStreamHash onmatch="exclude">
 			</FileCreateStreamHash>
+
 		</RuleGroup>
 		
 		<RuleGroup name="" groupRelation="or">
