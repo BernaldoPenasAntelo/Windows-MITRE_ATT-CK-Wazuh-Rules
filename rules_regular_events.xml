@@ -26,7 +26,7 @@
 		<description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="100201" level="7">5152
+	<rule id="100201" level="7">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5142$</field>
 		<description>Mitre ATT&CK T1105, Lateral movement, Remote File Copy, Net Share drive</description>
@@ -152,7 +152,7 @@
 	</rule>
 	<rule id="100246" level="10">
 		<if_sid>60103</if_sid>
-		<field name="win.system.eventID">5158</field>
+		<field name="win.system.eventID">^5158$</field>
 		<field name="win.eventdata.SourcePort">3389</field>
 		<match>!"win.eventdata.Application":(\.*)"\\System32\\svchost.exe"</match>
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, VNC Traffic</description>
@@ -548,7 +548,7 @@
 		<if_matched_sid>100340</if_matched_sid>
 		<field name="win.system.eventID">^4771$</field>
 		<same_field>win.eventdata.ipAddress</same_field>
-		<description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress)</description>
+		<description>Mitre ATT&CK T1110,  Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress) posible Kerberos spaying</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 	</rule>
@@ -735,6 +735,26 @@
 		<options>no_full_log</options>
 		<group> MITRE ATT&CK, </group>
 	</rule>
-
+	
+	<!-- IMPACT -->
+	<!-- -->
+	<rule id="100420" level="7">
+		<if_sid>61100</if_sid>
+		<field name="win.system.eventID">^6006$|^6008$</field>
+		<description>Mitre ATT&CK T1529,  Impact, System Shutdown/Reboot</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100421" level="7">
+		<if_sid>61100</if_sid>
+		<field name="win.system.eventID">^1074$</field>
+		<description>Mitre ATT&CK T1529,  Impact, System Shutdown/Reboot, An application forces the system to reboot</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100422" level="7">
+		<if_sid>61100</if_sid>
+		<field name="win.system.eventID">^41$</field>
+		<description>Mitre ATT&CK T1529,  Impact, System Shutdown/Reboot, The system has rebooted without cleanly shutting down first.</description>
+		<options>no_full_log</options>
+	</rule>
 </group> 
 
