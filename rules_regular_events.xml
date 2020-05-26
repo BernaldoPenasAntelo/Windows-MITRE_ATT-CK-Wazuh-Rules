@@ -54,13 +54,13 @@
 		<description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="100205" level="7">
+	<rule id="100205" level="10">
 		<if_sid>60106</if_sid>
 		<field name="win.system.eventID">^4624$</field>
 		<field name="win.eventdata.LogonType">9</field>
-		<field name="win.eventdata.AuthenticationPackageName">Negotiate</field>
-		<field name="win.eventdata.LogonProcessName">seclogo</field>
-		<description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash</description>
+		<field name="win.eventdata.authenticationPackageName">Negotiate</field>
+		<field name="win.eventdata.logonProcessName">seclogo</field>
+		<description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash by user $(win.eventdata.targetUserName)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -72,7 +72,7 @@
 	-->
 	<!-- PRIVILEGE ESCALATION -->
 
-	<rule id="100220" level="10">
+	<rule id="100220" level="7">
 		<if_sid>60106</if_sid>
 		<field name="win.system.eventID">^4624$</field>
 		<field name="win.eventdata.LogonType">9</field>
@@ -113,7 +113,7 @@
 		<field name="win.eventdata.IpAddress">127.0.0.1</field>
 		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
-	</rule>
+	<11>
 	<rule id="100241" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5156$</field>
@@ -751,7 +751,7 @@
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100422" level="7">
-		<if_sid>61100</if_sid>
+		<if_sid>61103</if_sid>
 		<field name="win.system.eventID">^41$</field>
 		<description>Mitre ATT&CK T1529,  Impact, System Shutdown/Reboot, The system has rebooted without cleanly shutting down first.</description>
 		<options>no_full_log</options>

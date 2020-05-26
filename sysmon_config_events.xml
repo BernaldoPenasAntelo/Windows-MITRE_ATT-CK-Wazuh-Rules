@@ -118,6 +118,14 @@
 				<ParentCommandLine condition="contains" name="T1218 -103">ftp -s:</ParentCommandLine>
 				<ParentCommandLine condition="contains" name="T1218 -104">pcalua.exe -a</ParentCommandLine>
 				
+				<ParentImage name="T1015 -1" condition="image">sethc.exe</ParentImage>
+				<ParentImage name="T1015 -2" condition="image">utilman.exe</ParentImage>
+				<ParentImage name="T1015 -3" condition="image">osk.exe</ParentImage>
+				<ParentImage name="T1015 -4" condition="image">Magnify.exe</ParentImage>
+				<ParentImage name="T1015 -5" condition="image">DisplaySwitch.exe</ParentImage>
+				<ParentImage name="T1015 -6" condition="image">Narrator.exe</ParentImage>
+				<ParentImage name="T1015 -7" condition="image">AtBroker.exe</ParentImage>
+				
 			</ProcessCreate>
 		</RuleGroup>
 		
@@ -153,6 +161,8 @@
 				<DestinationPort condition="is" name="T1090 -11">9001</DestinationPort> <!--Tor protocol-->
 				<DestinationPort condition="is" name="T1090 -12">9030</DestinationPort> <!--Tor protocol-->
 				<Image condition="image" name="T1112 -1b">reg.exe</Image>
+				<DestinationPort condition="is" name="T1048 -13">21</DestinationPort>
+				<SourcePort condition="is" name="T1048 -14">21</SourcePort>
 			</NetworkConnect>
 		</RuleGroup>	
 			
