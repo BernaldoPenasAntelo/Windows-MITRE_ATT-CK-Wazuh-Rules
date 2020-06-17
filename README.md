@@ -4,6 +4,7 @@
 1. [Regular rule files](#Regular-rule-files)
 2. [Sysmon Management](#Sysmon-Management)
 3. [ATT&CK Matrix with tactics covered by the rules](#ATT_CK-Matrix-with-tactics-covered-by-the-rules)
+4. [Other configs](#Other-Configs)
 
 
 
@@ -84,7 +85,17 @@ Remember to include in your wazuh agent configuration
 **Note that provided configuration it's using a 4.22 xml schema not compatible with all sysmon versions, this config it's tested for sysmon v.10.42 and above**
 
 -----------------------------------------------------
+## Other Configs
 
+To enable regular reboot/restart rules to work **only-future-events** tag must be enabled in agents config
+```
+	<localfile>
+		<location>System</location>
+		<log_format>eventchannel</log_format>
+		<only-future-events>no</only-future-events>
+	</localfile>
+```
+-----------------------------------------------------
 
 ## ATT_CK Matrix with tactics covered by the rules
 
