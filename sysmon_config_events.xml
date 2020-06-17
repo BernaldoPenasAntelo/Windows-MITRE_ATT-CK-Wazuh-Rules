@@ -96,7 +96,9 @@
 				<CommandLine condition="contains" name="T1490 -85">*shadowcopy delete*</CommandLine>
 				<CommandLine condition="contains" name="T1490 -86">*vssadmin.exe Delete Shadows*</CommandLine>
 				<CommandLine condition="contains" name="T1089 -87">WindowsSoundRecorder</CommandLine>
-				
+				<CommandLine condition="contains" name="T1002 -1">Compress-Archive</CommandLine>
+				<CommandLine condition="contains" name="T1002 -2">System.IO.Compression.FileSystem</CommandLine>
+				<CommandLine condition="contains" name="T1059 -105">mimikatz.exe</CommandLine>
 
 		  
 				<ParentImage condition="end with" name="T1170 -88">mshta.exe</ParentImage>
@@ -113,6 +115,7 @@
 				<ParentImage condition="contains" name="T1059 -99">wscript.exe</ParentImage>
 				<ParentImage condition="end with" name="T1218 -100">msiexec.exe</ParentImage>
 			  
+				
 				<ParentCommandLine condition="is" name="T1088 -101">C:\Windows\System32\eventvwr.exe</ParentCommandLine>
 				<ParentCommandLine condition="contains" name="T1055 -102">\\.\pipe</ParentCommandLine>
 				<ParentCommandLine condition="contains" name="T1218 -103">ftp -s:</ParentCommandLine>
@@ -215,6 +218,7 @@
 				<SourceImage condition="is" name="T1003 - exclude -7">C:\Windows\System32\lsm.exe</SourceImage> <!--# System process under C:\Windows\System32\lsm.exe -->
 				<SourceImage condition="end with" name="T1003 - exclude -8">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!--# Microsoft Azure AD Connect Health Sync Agent -->
 				<SourceImage condition="begin with" name="T1003 - exclude -9">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- # Symantec -->
+				<SourceImage condition="contains" name="T1003 - exclude -10">Windows Defender</SourceImage">
 			</ProcessAccess>
 		</RuleGroup>	
 		<RuleGroup name="" groupRelation="or">
@@ -235,28 +239,28 @@
 				<TargetFilename condition="is" name="T1088 -1">*\AppData\Local\Temp\comctl32.dll</TargetFilename>
 				<TargetFilename condition="is" name="T1088 -2">*\AppData\Local\Temp\dismcore.dll</TargetFilename>
 				<TargetFilename condition="is" name="T1088 -3">*\AppData\Local\Temp\wow64log.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -4">aitagent.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -5">DiagTrackRunner.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -6">CompatTelRunner.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -7">acproxy.dl</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -8">wsqmcons.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -4">\System32\aitagent.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -5">\compattel\DiagTrackRunner.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -6">\system32\CompatTelRunner.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -7">\System32\acproxy.dl</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -8">\system32\wsqmcons.exe</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -9">lpremove.exe</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -10">srrstr.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -11">wermgr.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -12">sdclt.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -13">appidcertstorecheck.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -14">AppHostRegistrationVerifier.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -15">MicTray64.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -16">usoclient.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -17">dsregcmd.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -18">sihclient.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -11">\system32\wermgr.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -12">\System32\sdclt.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -13">\system32\appidcertstorecheck.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -14">\system32\AppHostRegistrationVerifier.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -15">\System32\MicTray64.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -16">\system32\usoclient.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -17">\System32\dsregcmd.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -18">\System32\sihclient.exe</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -19">dimsjob.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -20">Lracengn.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -21">HotstartUserAgent.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -22">MsCtfMonitor.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1053 -23">PlaySndSrv.dll</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -24">AdobeARM.exe</TargetFilename>
-				<TargetFilename condition="contains" name="T1053 -25">GoogleUpdate.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -24">\Adobe\ARM\*\AdobeARM.exe</TargetFilename>
+				<TargetFilename condition="contains" name="T1053 -25">\Google\Update\GoogleUpdate.exe</TargetFilename>
 				<TargetFilename condition="end with" name="T1129 -26">\UsageLogs\cscript.exe.log</TargetFilename>
 				<TargetFilename condition="end with" name="T1129 -27">\UsageLogs\wscript.exe.log</TargetFilename>
 				<TargetFilename condition="end with" name="T1129 -28">\UsageLogs\mshta.log</TargetFilename>
@@ -306,6 +310,10 @@
 				<TargetObject condition="contains" name="Change of keyboard layout -29">\Keyboard Layout\Substitutes</TargetObject> <!-- https://twitter.com/cyb3rops/status/1183431685402234880 -->
 				<TargetObject condition="contains" name="T1013 -30">*CurrentControlSet*\Control\Print\Monitors\*</TargetObject>
 				<TargetObject condition="contains" name="T1209 -31">*CurrentControlSet\Services\W32Time\TimeProviders\*</TargetObject>
+				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\SCRNSAVE.EXE</TargetObject>
+				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
+				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
+				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 				
