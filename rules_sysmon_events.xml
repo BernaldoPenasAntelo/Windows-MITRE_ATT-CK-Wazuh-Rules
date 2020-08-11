@@ -38,7 +38,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100102" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.ParentImage">\\WINWORD.EXE||\\EXCEL.EXE||\\POWERPNT.exe||\\MSPUB.exe||\\VISIO.exe</field>
-		<description>Mitre ATT&CK T1059, MS Word - Ms EXCEL run</description>
+		<description>Mitre ATT&CK T1059, Command and Scripting Interpreter, MS Word - Ms EXCEL run</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -83,7 +83,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100106" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.parentImage">\\wscript.exe||\\cscript.exe</field>
-		<description>Mitre ATT&CK T1059, Execution , Command-Line Interface, wscript/cscript.exe</description>
+		<description>Mitre ATT&CK T1059, Execution , Command and Scripting Interpreter, wscript/cscript.exe</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -128,7 +128,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100110" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.parentImage">\\mmc.exe</field>
-		<description>Mitre ATT&CK T1175, Lateral Movement, Component Object Model and Distributed COM</description>
+		<description>Mitre ATT&CK T1559.001, Execution, Inter-Process Communication: Component Object Model</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -139,7 +139,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100111" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\conhost.exe</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface execution $(win.eventdata.parentimage)</description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter execution $(win.eventdata.parentimage)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -163,7 +163,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100113" level="10">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.image">\\powershell.exe||\\.ps1||\\.ps2</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell or Script Execution: $(win.eventdata.CommandLine)</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Powershell or Script Execution: $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -203,9 +203,10 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100117" level="10">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.image">\\cmd.exe</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Command-Line Interface Execution: $(win.eventdata.CommandLine)</description>
+		<description>Mitre ATT&CK T1059.003, Execution, Command and Scripting Interpreter: Windows Command Shell, Command-Line Interface Execution: $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
+
 
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
@@ -313,31 +314,6 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 	<!--
 	<ProcessCreate onmatch="include">
-		<CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
-		<CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
-		<CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
-		<CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
-	</ProcessCreate>
-	-->
-	<rule id="100504" level="12">
-		<if_sid>100105</if_sid>
-		<field name="win.eventdata.commandline">URL||urlcache||ping</field>
-		<description>Mitre ATT&CK T1105, Lateral Movement, Remote File Copy, Detetcs a suspicious Microsoft certutil execution with sub commands</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<ParentImage condition="end with">mmc.exe</ParentImage>
-	</ProcessCreate>
-	-->
-	<rule id="100505" level="12">
-		<if_sid>100110</if_sid>
-		<field name="win.eventdata.image">\\cmd.exe||\\powershell.exe</field>
-		<description>Mitre ATT&CK T1175, Lateral Movement, Component Object Model and Distributed COM, Processes started by MMC could by a sign of lateral movement using MMC application COM object</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
 		<CommandLine condition="contains">*transport=dt_socket,address=*</CommandLine>
 	</ProcessCreate>
 	-->
@@ -360,6 +336,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
         <description>Mitre ATT&CK T1077, Lateral movement, Windows admin shares using powershell</description>
         <options>no_full_log</options>
 	</rule>
+	<rule id="100509" timeframe="60" frequency="6" level="10">
+		<if_matched_sid>100116</if_matched_sid>
+		<same_field>win.eventdata.ProcessId</same_field>
+		<description>Mitre ATT&CK T1076, Lateral Movement, Remote Desktop Protocol, RDP Brute force from $(win.eventdata.SourceIp)</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- PRIVILEGE ESCALATION 100600-->
 	<!--
@@ -370,7 +352,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100601" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\exefile\\\\shell\\\\runas\\\\command\\\\IsolatedCommand</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control,  Fileless UAC Bypass using sdclt.exe</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control,  Fileless UAC Bypass using sdclt.exe</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -383,7 +365,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100602" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\ms-settings\\\\shell\\\\open\\\\command\\\\DelegateExecute|\\\\ms-settings\\\\shell\\\\open\\\\command\\\\(Default)|\\\\ms-settings\\\\shell\\\\open\\\\command</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control,  UAC Bypass – Fodhelper - UACME 33</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control,  UAC Bypass – Fodhelper - UACME 33</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -394,7 +376,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100603" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.ParentCommandLine">C:\\Windows\\System32\\eventvwr.exe</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, Fileless UAC Bypass Using eventvwr.exe</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, Fileless UAC Bypass Using eventvwr.exe</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -405,7 +387,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100604" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\AppData\\\\Local\\\\Temp\\\\comctl32.dll</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 22</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 22</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -416,7 +398,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100605" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\AppData\\\\Local\\\\Temp\\\\dismcore.dll</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 23</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 23</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -427,7 +409,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100606" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\AppData\\\\Local\\\\Temp\\\\wow64log.dll</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 32</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 32</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -438,7 +420,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100607" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\AppData\\\\Local\\\\Temp\\\\mscoree.dll</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 36</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 36</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -449,7 +431,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100608" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\AppData\\\\Local\\\\Temp\\\\GdiPlus.dll</field>
-		<description>Mitre ATT&CK T1088, Privilege Escalation, Bypass User Account Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 37</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, UACME (Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor) technique 37</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -470,15 +452,15 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100610" level="12">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.CommandLine">\.*cmstp.exe /au\.*</field>
-		<description>Mitre ATT&CK T1088,  Privilege Escalation, Bypass User Account Control, CMSTP bypass user account control</description>
+		<field name="win.eventdata.CommandLine">cmstp.exe /au</field>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, CMSTP bypass user account control</description>
 		<options>no_full_log</options>
 	</rule>
 	
 	<rule id="100611" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">NOUACCHECK</field>
-		<description>Mitre ATT&CK T1088,  Privilege Escalation, Bypass User Account Control, Manually turned off UAC</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, Manually turned off UAC</description>
 		<options>no_full_log</options>
 	</rule>
 	
@@ -495,10 +477,11 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<DestinationIp condition="is">::1</DestinationPort>
 	</NetworkConnect>
 	-->
-	<rule id="100701" level="12">
+	<rule id="100701" level="10">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.SourceIp">127.\.*|::1</field>
-		<field name="win.eventdata.DestinationIp">127.\.*|::1</field>   
+		<field name="win.eventdata.DestinationIp">127.\.*|::1</field>
+		<field name="win.eventdata.DestinationPort">^3389$|^445$</field>
 		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
@@ -570,7 +553,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Telnet conection detected (insecure protocol)</description>
 		<options>no_full_log</options>
 	</rule>
-		<!--
+	<!--
 	<NetworkConnect onmatch="include">
 		<DestinationPort condition="is">22</DestinationPort>
 	</NetworkConnect>
@@ -579,6 +562,52 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.DestinationPort">^22$</field>   
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, SSH conection detected</description>
+		<options>no_full_log</options>
+	</rule>
+	
+	<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is" name="T1043 -1">80</DestinationPort>
+		<DestinationPort condition="is" name="T1043 -2">443</DestinationPort>
+		<DestinationPort condition="is" name="T1043 -3">53</DestinationPort>
+		<DestinationPort condition="is" name="T1043 -3">135</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="100709" level="3">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">^80$|^443$|^53$|^135$</field>   
+		<description>Mitre ATT&CK T1043, Command and Control, Commonly Used Port, connection to $(win.eventdata.DestinationPort)</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1092 -1z">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Enum\USB\</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="100710" level="0">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">SYSTEM\\\\CurrentControlSet\\\\Enum\\\\USB\\\\</field>
+		<description>Mitre ATT&CK T1092, Command And Control, Communication Through Removable Media, mounted USB</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100711" level="3">
+		<if_sid>100710</if_sid>
+		<field name="win.eventdata.TargetObject">\\\\Device Parameters\\\\Ceip\\\\DeviceInformation</field>
+		<description>Mitre ATT&CK T1092, Command And Control, Communication Through Removable Media, mounted USB</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<CommandLine condition="contains">*\certutil.exe *-urlcache* http*</CommandLine>
+		<CommandLine condition="contains">*\certutil.exe *-urlcache* ftp*</CommandLine>
+		<CommandLine condition="contains">*\certutil.exe *-URL*</CommandLine>
+		<CommandLine condition="contains">*\certutil.exe *-ping*</CommandLine>
+	</ProcessCreate>
+	-->
+	<rule id="100712" level="12">
+		<if_sid>100105</if_sid>
+		<field name="win.eventdata.commandline">URL||urlcache||ping</field>
+		<description>Mitre ATT&CK T1105, Command And Control , Ingress Tool Transfer, Detetcs a suspicious Microsoft certutil execution with sub commands</description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
@@ -596,7 +625,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.parentImage">\\net.exe||\\net1.exe</field>
 		<field name="win.eventdata.commandline">group||localgroup||user||view||accounts||use</field>
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, Detects execution of Net.exe whether suspicious or benign</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, Detects execution of Net.exe whether suspicious or benign</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -660,6 +689,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1033, Discovery, System Owner/User Discovery, use of whoami via $(win.eventdata.image)</description>
 		<options>no_full_log</options>
 	</rule>
+	
+
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"12","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry object added or deleted."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"Defense Evasion - PowerShell CLM Setting Changed","EventType":"DeleteValue","UtcTime":"2019-05-16 13:10:13.759","ProcessGuid":"{dfae8213-5b49-5cdd-0000-0010ee520500}","ProcessId":"3580","Image":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","TargetObject":"HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy"}}}
@@ -687,14 +718,14 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<!-- DEFENSE EVASION 100900-->
 	<!--
 	Must change sysmon configuration to include TargetObject in section
-	<RegistryEvent onmatch="include" name="Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled">
+	<RegistryEvent onmatch="include" name="Mitre ATT&CK T1562.001, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled">
 	   <TargetObject condition="is">HKLM\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
 	</RegistryEvent>
 	-->
 	<rule id="100901" level="12">
 		<if_group>sysmon_event_12</if_group>
 		<field name="win.eventdata.TargetObject">HKLM\\\\System\\\\CurrentControlSet\\\\Control\\\\SESSION MANAGER\\\\Environment\\\\__PSLockdownPolicy</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Powershell Constrained Language Mode disabled</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Powershell Constrained Language Mode disabled</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -709,7 +740,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
 		<field name="win.eventdata.Details">DWORD (0x00000000)</field>
 	-->   
-		<description>Mitre ATT&CK T1088, Defense Evasion, Bypass User Account Control,  Disabled UAC if Details field has value 0x00000000D</description>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control,  Disabled UAC if Details field has value 0x00000000D</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -721,7 +752,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event7</if_group>
 		<field name="win.eventdata.Signed">false</field>
 		<field name="win.eventdata.ImageLoaded">\.*\.dll$</field>
-		<description>Mitre ATT&CK T1073, Defense Evasion, DLL Side-Loading, DLL not signed loaded</description>
+		<description>Mitre ATT&CK T1574.002, Defense Evasion, Hijack Execution Flow: DLL Side-Loading, DLL not signed loaded</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -736,7 +767,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<!--  YOU CANNOT FILTER ON THE "Details" ATTRIBUTE, DUE TO PERFORMANCE ISSUES 
 		<field name="win.eventdata.Details">DWORD (0x00000000)</field>
 	-->   
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, disabled PowerShell Audit Settings if Details field has value 0x00000000</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, disabled PowerShell Audit Settings if Details field has value 0x00000000</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -748,7 +779,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100905" level="10">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">attrib +h|attrib +s|attrib.exe +s|attrib.exe +h</field>
-		<description>Mitre ATT&CK T1158, Defense Evasion, Hidden Files and Directories, hiding files via attrib cmdlet</description>
+		<description>Mitre ATT&CK T1564.001, Defense Evasion, Hide Artifacts: Hidden Files and Directories, hiding files via attrib cmdlet</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -772,7 +803,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100907" level="10">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">HKLM\\\\SOFTWARE\\\\Microsoft\\\\PowerShell\\\\1\\\\ShellIds\\\\Microsoft.PowerShell\\\\ExecutionPolicy</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Change in Powershell execution policy</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Change in Powershell execution policy</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -788,7 +819,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100908" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Software\\\\Microsoft\\\\Office\\\\\.*\\\\Excel\\\\Security\\\\AccessVBOM|\\\\Software\\\\Microsoft\\\\Office\\\\\.*\\\\PowerPoint\\\\Security\\\\AccessVBOM|\\\\Software\\\\Microsoft\\\\Office\\\\\.*\\\\Word\\\\Security\\\\AccessVBOM|\\\\Software\\\\Microsoft\\\\Office\\\\\.*\\\\Access\\\\Security\\\\AccessVBOM|\\\\Software\\\\Microsoft\\\\Office\\\\\.*\\\\Outlook\\\\Security\\\\AccessVBOM</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Disable Trust access for VBA into Office</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Disable Trust access for VBA into Office</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -812,13 +843,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\fltmc.exe</field>
 		<field name="win.eventdata.CommandLine">\.*unload\.*sysmon\.*</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, Sysmon driver unloaded via Filter Manager Control Program</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Sysmon driver unloaded via Filter Manager Control Program</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100911" level="12">
 		<field name="win.system.eventID">^255$</field>
 		<field name="win.eventdata.ID">DriverCommunication</field>
-		<description>Mitre ATT&CK T1089,  Defense Evasion, Disabling Security Tools, Posible sysmon driver unloading</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Posible sysmon driver unloading</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -929,19 +960,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100921" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*winpm.exe|cscript.exe|wscript.exe\.*//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools, jscript9.dll AMSI bypass</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, jscript9.dll AMSI bypass</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100922" level="10">
 		<if_group>sysmon_event_16</if_group>
 		<field name="win.system.eventID">^16$</field>
-		<description>Mitre ATT&CK T1089,  Defense Evasion, Change in Sysmon configuration</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Change in Sysmon configuration</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100923" level="10">
 		<if_sid>61606</if_sid>
 		<field name="win.eventdata.State">Stopped</field>
-		<description>Mitre ATT&CK T1089,  Defense Evasion, Sysmon Status Changed To $(win.eventdata.State)</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools, Sysmon Status Changed To $(win.eventdata.State)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -952,25 +983,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event_15</if_group>
 		<field name="win.system.eventID">^15$</field>
 		<field name="win.system.TargetFilename">\w:\\\.*:\.*$</field>
-		<description>Mitre ATT&CK T1096,  Defense Evasion, NTFS File Attributes, Creation of ADS (alternate data stream) $(win.eventdata.targetFilename)</description>
+		<description>Mitre ATT&CK T1564.004,  Defense Evasion, Hide Artifacts: NTFS File Attributes , Creation of ADS (alternate data stream) $(win.eventdata.targetFilename)</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101925" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">Start-BitsTransfer</field>
 		<description>Mitre ATT&CK T1197, Defense Evasion, BITS Jobs, Detects usage of bitsadmin downloading a file</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101926" level="12">
-		<if_sid>100114</if_sid>
-		<field name="win.eventdata.commandline">save HKLM\\SAM|SAVE HKLM\\SAM|save HKLM\\SYSTEM|SAVE HKLM\\SYSTEM</field>
-		<description>Mitre ATT&CK T1112, Defense Evasion, Modify Registry, manual copy of important registry hives</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101927" timeframe="60" frequency="6" level="10">
-		<if_matched_sid>100116</if_matched_sid>
-		<same_field>win.eventdata.ProcessId</same_field>
-		<description>Mitre ATT&CK T1076, Lateral Movement, Remote Desktop Protocol, RDP Brute force from $(win.eventdata.SourceIp)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -987,13 +1006,77 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100929" level="10">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">Set-Acl</field>
-		<description>Mitre ATT&CK T1222, Defense Evasion, File and Directory Permissions Modification with Set-Acl powershell cmdlet</description>
+		<description>Mitre ATT&CK T1222.001, Defense Evasion, File and Directory Permissions Modification: Windows File and Directory Permissions Modification  with Set-Acl powershell cmdlet</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100930" level="10">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">-ExecutionPolicy Bypass</field>
-		<description>Mitre ATT&CK T1089, Defense Evasion, Disabling Security Tools,powershell command to bypass execution policy</description>
+		<description>Mitre ATT&CK T1562.001, Defense Evasion, Impair Defenses: Disable or Modify Tools,powershell command to bypass execution policy</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100931" level="10">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.commandline">wevtutil cl\s|wevtutil.exe cl\s</field>
+		<description>Mitre ATT&CK T1070.001, Defense Evasion, Indicator Removal on Host: Clear Windows Event Logs , Clearing Windows Event Logs with wevtutil</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100932" level="10">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.commandline">fsutil usn deletejournal</field>
+		<description>Mitre ATT&CK T1070.001, Defense Evasion, Indicator Removal on Host: Clear Windows Event Logs , Clearing Windows Event Logs with FSutil</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1122 -1">\InprocServer32\scrobj</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="100933" level="10">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\InprocServer32\\\\scrobj</field>
+		<description>Mitre ATT&CK T1546.015, Defense Evasion, Event Triggered Execution: Component Object Model Hijacking </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100934" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">net.exe|net1.exe</field>
+		<field name="win.eventdata.commandline">/d</field>
+		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal via net.exe</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100935" level="7">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.commandline">net*/d</field>
+		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal with net.exe via command line</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100936" level="7">
+		<if_sid>100113</if_sid>
+		<field name="win.eventdata.commandline">net*/d</field>
+		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal with net.exe via powershell</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1574.007 -1">\Environment\Path</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="100937" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Environment\\\\Path</field>
+		<description>Mitre ATT&CK T1574.007, Defense Evasion, Hijack Execution Flow: Path Interception by PATH Environment Variable</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1574.012 -1">\Environment\COR_PROFILER</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="100938" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Environment\\\\COR_PROFILER</field>
+		<description>Mitre ATT&CK T1574.012, Defense Evasion, Hijack Execution Flow: COR_PROFILER </description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
@@ -1052,7 +1135,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101002" level="6">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">Windows\\\\CurrentVersion\\\\Run||Windows\\\\CurrentVersion\\\\RunOnce</field>
-		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1063,7 +1146,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101003" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">C:\\\\Windows\\\\AppPatch\\\\Custom</field>
-		<description>Mitre ATT&CK T1138, Persistence, Application Shimming, Installed Shim</description>
+		<description>Mitre ATT&CK T1546.011, Persistence, Event Triggered Execution: Application Shimming, Installed Shim</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1075,7 +1158,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101004" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\AppCompatFlags\\\\Custom||\\\\Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\AppCompatFlags\\\\InstalledSDB</field>
-		<description>Mitre ATT&CK T1138, Persistence, Application Shimming, Installed Shim</description>
+		<description>Mitre ATT&CK T1546.011, Persistence, Event Triggered Execution: Application Shimming, Installed Shim</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1103,7 +1186,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101006" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\User Shell Folders\\\\startup||\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Shell Folders\\\\startup</field>
-		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys / Startup Folder</description>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1137,13 +1220,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101009" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Winlogon\\\\Shell</field>
-		<description>Mitre ATT&CK T1060, Persistence, Persistence via winlogon shell</description>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101010" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandLine">New-Service</field>
-		<description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system with powershell cmdlet New-Service</description>
+		<description>Mitre ATT&CK T1543.003, Persistence, Create or Modify System Process: Windows Service, A service was installed in the system with powershell cmdlet New-Service</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101011" level="12">
@@ -1160,7 +1243,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101012" level="12">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">CurrentControlSet\\\\Services\\\\W32Time\\\\TimeProviders\\\\</field>
-		<description>Mitre ATT&CK T1209, Persistence, Time providers</description>
+		<description>Mitre ATT&CK T1547.003, Persistence, Boot or Logon Autostart Execution: Time Providers</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1177,19 +1260,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101013" level="7">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.ParentImage">sethc.exe|utilman.exe|osk.exe|Magnify.exe|DisplaySwitch.exe|Narrator.exe|AtBroker.exe</field>
-		<description>Mitre ATT&CK T1015, Persistence, Accessibility Features</description>
+		<description>Mitre ATT&CK T1546.008, Persistence, Event Triggered Execution: Accessibility Features</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101014" level="7">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandLine">assoc\s</field>
-		<description>Mitre ATT&CK T1042, Persistence, Change Default File Association via $(win.eventdata.Image)</description>
+		<description>Mitre ATT&CK T1546.001, Persistence, Event Triggered Execution: Change Default File Association via $(win.eventdata.Image)</description>
 		<options>no_full_log</options>		
 	</rule>
-		<rule id="101015" level="7">
+	<rule id="101015" level="7">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.commandLine">assoc\s</field>
-		<description>Mitre ATT&CK T1042, Persistence, Change Default File Association via $(win.eventdata.Image)</description>
+		<description>Mitre ATT&CK T1546.001, Persistence, Event Triggered Execution: Change Default File Association via $(win.eventdata.Image)</description>
 		<options>no_full_log</options>		
 	</rule>
 	<!--
@@ -1203,7 +1286,47 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101016" level="10">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\SCRNSAVE.EXE|\\\\Control Panel\\\\Desktop\\\\ScreenSaveActive|\\\\Control Panel\\\\Desktop\\\\ScreenSaverIsSecure|\\\\Control Panel\\\\Desktop\\\\ScreenSaveTimeout</field>
-		<description>Mitre ATT&CK T1180, Persistence, Screensaver</description>
+		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver </description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1182 -1">\Control\Session Manager\AppCertDLLs\</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101017" level="3">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Control\\\\Session Manager\\\\AppCertDLLs\\\\</field>
+		<description>Mitre ATT&CK T1546.009, Persistence, Event Triggered Execution: AppCert DLLs </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101018" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider I</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101019" level="12">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\Security Package</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider II</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101020" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Environment\\\\UserInitMprLogonScript</field>
+		<description>Mitre ATT&CK T1037.001, Persistence, Boot or Logon Initialization Scripts: Logon Script</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1546.010 -1">\Windows NT\CurrentVersion\Windows\AppInit_DLLs</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101021" level="3">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\Windows\\\\AppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
@@ -1269,6 +1392,66 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.TargetImage">lsass.exe</field>
 		<field name="win.eventdata.CallTrace">C:\\\\windows\\\\SYSTEM32\\\\ntdll.dll</field>
 		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Posible password dump using mimikatz (sekurlsa::logonpasswords)</description>
+		<options>no_full_log</options>
+	</rule>	
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="image" name="T1003 -event1">vaultcmd.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="101205" level="10">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">\\vaultcmd.exe</field>
+		<field name="win.eventdata.CommandLine">/list</field>
+		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101206" level="10">
+		<if_sid>100113</if_sid>
+		<field name="win.eventdata.CommandLine">vaultcmd.exe*/list</field>
+		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials via powershell</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101207" level="10">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.CommandLine">vaultcmd.exe*/list</field>
+		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials via cmd</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is" name="T1557.001 -1">5355</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="101208" level="2">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">5355</field>
+		<field name="win.eventdata.DestinationIp">224.0.0.252|ff01:0:0:0:0|ff02:0:0:0:0</field>
+		<description>Mitre ATT&CK T1557.001, Credential Access, Man-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay, LLMNR Multicast traffic</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is" name="T1557.001 -2">137</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="101209" level="2">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">137</field>
+		<field name="win.eventdata.DestinationIp">.255$</field>
+		<description>Mitre ATT&CK T1557.001, Credential Access, Man-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay, NBNS Broadcast</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--				
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is" name="T1557.001 -3">5353</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="101210" level="2">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">5353</field>
+		<field name="win.eventdata.DestinationIp">224.0.0.251</field>
+		<description>Mitre ATT&CK T1557.001, Credential Access, Man-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay, mDNS traffic</description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
@@ -1363,7 +1546,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\vshadow.exe</field>
 		<field name="win.eventdata.CommandLine">\.*vshadow.exe -nw -exec\.*</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land Abusing the Volume Shadow for execution</description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land Abusing the Volume Shadow for execution</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1393,7 +1576,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101312" level="12">
 		<if_sid>100101</if_sid>
 		<field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\reg.exe||\\regsvr32.exe||\\BITSADMIN*</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land Microsoft HTML Application command line execution </description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land Microsoft HTML Application command line execution </description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1404,7 +1587,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101313" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.Image">\\certutil.exe</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Living off the land possible misuse of certutil downloading capabilities</description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land possible misuse of certutil downloading capabilities</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101314" level="12">
@@ -1423,7 +1606,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101316" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.Image">\\powershell.exe</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Powershell Net Execution</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Powershell Net Execution</description>
 		<options>no_full_log</options>
 	</rule>
 
@@ -1433,7 +1616,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</ProcessCreate>
 	-->
 	<rule id="101318" level="12">
-		<if_sid>100117</if_sid>
+		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">cmstp.exe /s</field>
 		<description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass application whitelisting</description>
 		<options>no_full_log</options>
@@ -1513,7 +1696,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101325" level="12">
 		<if_sid>100102</if_sid>
 		<field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\scrcons.exe||\\schtasks.exe||\\regsvr32.exe||\\hh.exe||\\csc.exe</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Microsoft Office Product Spawning Windows Shell</description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Microsoft Office Product Spawning Windows Shell</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1525,7 +1708,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101326" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">DownloadString||downloadfile</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, PowerShell scripts that download content from the Internet</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, PowerShell scripts that download content from the Internet</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1542,7 +1725,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101327" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">EncodedCommand||-w hidden||-window hidden||-windowstyle hidden||-enc||-noni||noninteractive</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Detects suspicious PowerShell invocation command parameters</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Detects suspicious PowerShell invocation command parameters</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1560,7 +1743,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101329" level="10">
 		<if_sid>100106</if_sid>
 		<field name="win.eventdata.Image">\\powershell.exe||\\cmd.exe</field>
-		<description>Mitre ATT&CK T1059, Execution , Command-Line Interface, Detects suspicious powershell invocations from interpreters or unusual programs</description>
+		<description>Mitre ATT&CK T1059, Execution , Command and Scripting Interpreter, Detects suspicious command invocations from interpreters or unusual programs</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101330" level="12">
@@ -1589,7 +1772,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101332" level="10">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.commandline">vssadmin create shadow||GLOBALROOT||vssadmin delete shadows||reg SAVE HKLM\\SYSTEM||\\windows\\ntds\\ntds.dit</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Detects suspicious commands that could be related to activity that uses volume shadow copy</description>
+		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Detects suspicious commands that could be related to activity that uses volume shadow copy</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101333" level="10">
@@ -1601,7 +1784,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101334" level="12">
         <if_sid>100111</if_sid>
         <field name="win.eventdata.ParentImage">mimikatz.exe</field>
-        <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Mimikatz Detection Image: $(win.eventdata.parentimage)</description>
+        <description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Mimikatz Detection Image: $(win.eventdata.parentimage)</description>
 		<options>no_full_log</options>
     </rule>
 	<!--
@@ -1682,7 +1865,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101344" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">C:\\Windows\\TEMP|C:\\Windows\\temp</field>
-		<description>Mitre ATT&CK T1059, Execution, Command-Line Interface, execution from temporary folder</description>
+		<description>Mitre ATT&CK T1059.003, Execution, Command and Scripting Interpreter: Windows Command Shell, execution from temporary folder</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101345" level="12">
@@ -1704,12 +1887,22 @@ A robust detection can only begin once the data sources (process monitoring, fil
         <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Mimikatz execution</description>
 		<options>no_full_log</options>
     </rule>
-
+	<!--
+	<ProcessCreate onmatch="include">
+		<ParentImage condition="end with">mmc.exe</ParentImage>
+	</ProcessCreate>
+	-->
+	<rule id="101348" level="12">
+		<if_sid>100110</if_sid>
+		<field name="win.eventdata.image">\\cmd.exe||\\powershell.exe</field>
+		<description>Mitre ATT&CK T1559.001, Execution, Inter-Process Communication: Component Object Model, Processes started by MMC could by a sign of lateral movement using MMC application COM object</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
-	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1089","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1562.001","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}
 
-	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1089","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\cmd.exe","ParentCommandLine":"C:\\Windows\\System32\\cmd.exe"}}}
+	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1562.001","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\cmd.exe","ParentCommandLine":"C:\\Windows\\System32\\cmd.exe"}}}
 	-->
 	<!-- COLLECTION 101400-->
 	<!--
@@ -1721,19 +1914,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101401" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*/stext|/scomma\.*</field>
-		<description>Mitre ATT&CK T1056,  Collection, Input Capture, Keylogger abusing NirSoft Tools</description>
+		<description>Mitre ATT&CK T1056.001, Collection, Input Capture: Keylogging, Keylogger abusing NirSoft Tools</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101402" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.commandline">\.*.ost\.*|\.*.pst\.*</field>
-		<description>Mitre ATT&CK T1114, Collection, Email Collection, Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
+		<description>Mitre ATT&CK T1114.001, Collection, Email Collection: Local Email Collection , Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101403" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">\.*.ost\.*|\.*.pst\.*</field>
-		<description>Mitre ATT&CK T1114, Collection, Email Collection, Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
+		<description>Mitre ATT&CK T1114.001, Collection, Email Collection: Local Email Collection , Creation of storage or cache files .pst or .ost from $(win.eventdata.Image)</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101404" level="12">
@@ -1744,7 +1937,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 	<!--
 	<ProcessCreate onmatch="include">
-		<CommandLine condition="contains" name="T1089">WindowsSoundRecorder</CommandLine>
+		<CommandLine condition="contains" name="T1562.001">WindowsSoundRecorder</CommandLine>
 	</ProcessCreate>
 	--> 
   	<rule id="101405" level="6">
@@ -1759,6 +1952,24 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1123, Collection, Audio Capture, Command Line Audio Sound Recorder launched</description>
 		<options>no_full_log</options>
 	</rule> 
+	<rule id="101407" level="10">
+		<if_sid>100113</if_sid>
+		<field name="win.eventdata.commandline">Rar.exe|rar.exe|Compress-Archive</field>
+		<description>Mitre ATT&CK T1560.001, Collection, Archive Collected Data: Archive via Utility, data compressed using powershell</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101408" level="10">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.commandline">Rar.exe|rar.exe|Compress-Archive</field>
+		<description>Mitre ATT&CK T1560.001, Collection, Archive Collected Data: Archive via Utility, data compressed using command line</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101407" level="12">
+		<if_sid>100114</if_sid>
+		<field name="win.eventdata.commandline">save HKLM\\SAM|SAVE HKLM\\SAM|save HKLM\\SYSTEM|SAVE HKLM\\SYSTEM</field>
+		<description>Mitre ATT&CK T1005, Collection, Data from Local System, manual copy of important registry hives</description>
+		<options>no_full_log</options>
+	</rule>
 	<!-- 101315 EMPTY -->
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- IMPACT 101500-->
@@ -1792,28 +2003,17 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<options>no_full_log</options>
 	</rule>	
 	<!-- EXFILTRATION -->	
-	<rule id="101800" level="10">
-		<if_sid>100113</if_sid>
-		<field name="win.eventdata.commandline">Rar.exe|rar.exe|Compress-Archive</field>
-		<description>Mitre ATT&CK T1002, Exfiltration, Data Compressed, data compressed using powershell</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101801" level="10">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.commandline">Rar.exe|rar.exe|Compress-Archive</field>
-		<description>Mitre ATT&CK T1002, Exfiltration, Data Compressed, data compressed using command line</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101802" level="7">
+
+	<rule id="101800" level="7">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.DestinationPort">^21$</field>   
-		<description>Mitre ATT&CK T1048, Exfiltration, Exfiltration Over Alternative Protocol, outbound insecure ftp detected to $(win.eventdata.DestinationIp)</description>
+		<description>Mitre ATT&CK T1048.003, Exfiltration, Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol , outbound insecure ftp detected to $(win.eventdata.DestinationIp)</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101803" level="7">
+	<rule id="101801" level="7">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.SourcePort">^21$</field>   
-		<description>Mitre ATT&CK T1048, Exfiltration, Exfiltration Over Alternative Protocol, inbound insecure ftp detected from $(win.eventdata.SourceIp) </description>
+		<description>Mitre ATT&CK T1048.003, Exfiltration, Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol , inbound insecure ftp detected from $(win.eventdata.SourceIp) </description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- OTHER RULES -->

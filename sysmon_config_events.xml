@@ -53,14 +53,14 @@
 				<Image condition="end with" name="T1489 -44">sc.exe</Image>
 				<Image condition="end with" name="T1082 -45">appcmd.exe</Image>
 				<Image condition="image" name="T1112 -1a">reg.exe</Image>
+				<Image condition="image" name="T1003 -event1">vaultcmd.exe</Image>
 									  
 				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
 				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
-				<CommandLine condition="contains" name="T1191 -48">*cmstp.exe*/s*</CommandLine>
-				<CommandLine condition="contains" name="T1088 -49">*cmstp.exe*/au*</CommandLine>
+				<CommandLine condition="contains" name="T1191 -48">cmstp.exe</CommandLine>
 				<CommandLine condition="contains" name="T1090 -50">*netsh*connectp=3389*</CommandLine>
 				<CommandLine condition="contains" name="T1158 -51">attrib +h</CommandLine>
-				<CommandLine condition="contains" name="T1089 -52">*unload*sysmon*</CommandLine>
+				<CommandLine condition="contains" name="T1562.001 -52">*unload*sysmon*</CommandLine>
 				<CommandLine condition="contains" name="T1053 -53">*schtasks.exe*/create*c:\users\*</CommandLine>
 				<CommandLine condition="contains" name="T1053 -54">*schtasks.exe*/create*c:\programdata\*</CommandLine>
 				<CommandLine condition="contains" name="T1053 -55">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
@@ -92,10 +92,10 @@
 				<CommandLine condition="contains" name="T1059 -81">copy \\?\GLOBALROOT\Device\*\config\SAM</CommandLine>
 				<CommandLine condition="contains" name="T1059 -82">reg SAVE HKLM\SYSTEM</CommandLine>
 				<CommandLine condition="contains" name="T1210 -83">*transport=dt_socket,address=*</CommandLine>
-				<CommandLine condition="contains" name="T1089 -84">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
+				<CommandLine condition="contains" name="T1562.001 -84">//e:{16d51579-a30b-4c8b-a276-0ff4dc41e755}</CommandLine>
 				<CommandLine condition="contains" name="T1490 -85">*shadowcopy delete*</CommandLine>
 				<CommandLine condition="contains" name="T1490 -86">*vssadmin.exe Delete Shadows*</CommandLine>
-				<CommandLine condition="contains" name="T1089 -87">WindowsSoundRecorder</CommandLine>
+				<CommandLine condition="contains" name="T1562.001 -87">WindowsSoundRecorder</CommandLine>
 				<CommandLine condition="contains" name="T1002 -1">Compress-Archive</CommandLine>
 				<CommandLine condition="contains" name="T1002 -2">System.IO.Compression.FileSystem</CommandLine>
 				<CommandLine condition="contains" name="T1059 -105">mimikatz.exe</CommandLine>
@@ -166,6 +166,16 @@
 				<Image condition="image" name="T1112 -1b">reg.exe</Image>
 				<DestinationPort condition="is" name="T1048 -13">21</DestinationPort>
 				<SourcePort condition="is" name="T1048 -14">21</SourcePort>
+				
+				<DestinationPort condition="is" name="T1043 -1">80</DestinationPort>
+				<DestinationPort condition="is" name="T1043 -2">443</DestinationPort>
+				<DestinationPort condition="is" name="T1043 -3">53</DestinationPort>
+				<DestinationPort condition="is" name="T1043 -3">135</DestinationPort>
+				<DestinationPort condition="is" name="T1557.001 -1">5355</DestinationPort>
+				<DestinationPort condition="is" name="T1557.001 -2">137</DestinationPort>
+				<DestinationPort condition="is" name="T1557.001 -3">5353</DestinationPort>
+				
+				
 			</NetworkConnect>
 		</RuleGroup>	
 			
@@ -218,7 +228,7 @@
 				<SourceImage condition="is" name="T1003 - exclude -7">C:\Windows\System32\lsm.exe</SourceImage> <!--# System process under C:\Windows\System32\lsm.exe -->
 				<SourceImage condition="end with" name="T1003 - exclude -8">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!--# Microsoft Azure AD Connect Health Sync Agent -->
 				<SourceImage condition="begin with" name="T1003 - exclude -9">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- # Symantec -->
-				<SourceImage condition="contains" name="T1003 - exclude -10">Windows Defender</SourceImage">
+				<SourceImage condition="contains" name="T1003 - exclude -10">Windows Defender</SourceImage>
 			</ProcessAccess>
 		</RuleGroup>	
 		<RuleGroup name="" groupRelation="or">
@@ -269,7 +279,7 @@
 				<TargetFilename condition="end with" name="T1129 -31">\UsageLogs\svchost.log</TargetFilename>
 				<TargetFilename condition="contains" name="T1088 -32">*\AppData\Local\Temp\mscoree.dll</TargetFilename>
 				<TargetFilename condition="contains" name="T1088 -33">*\AppData\Local\Temp\GdiPlus.dll</TargetFilename>
-				<TargetFilename condition="begin with" name="T1138 -34">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+				<TargetFilename condition="begin with" name="T1546.011 -1">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 				<TargetFilename condition="contains" name="T1023 -35">\Start Menu</TargetFilename>
 				<TargetFilename condition="begin with" name="T1053 -36">C:\Windows\Tasks\</TargetFilename>
 				<TargetFilename condition="begin with" name="T1053 -37">C:\Windows\system32\Tasks</TargetFilename>
@@ -283,15 +293,15 @@
 				<TargetObject condition="contains" name="T1088 -2">\ms-settings\shell\open\command\DelegateExecute</TargetObject>
 				<TargetObject condition="contains" name="T1088 -3">\ms-settings\shell\open\command\(Default)</TargetObject>
 				<TargetObject condition="contains" name="T1088 -4">\ms-settings\shell\open\command</TargetObject>
-				<TargetObject condition="contains" name="T1089 -5">\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -5">\System\CurrentControlSet\Control\SESSION MANAGER\Environment\__PSLockdownPolicy</TargetObject>
 				<TargetObject condition="contains" name="T1088 -6">\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\EnableLUA</TargetObject>
-				<TargetObject condition="contains" name="T1089 -7">\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
-				<TargetObject condition="contains" name="T1089 -8">\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
-				<TargetObject condition="contains" name="T1089 -9">\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="contains" name="T1089 -10">\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="contains" name="T1089 -11">\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="contains" name="T1089 -12">\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
-				<TargetObject condition="contains" name="T1089 -13">\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -7">\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -8">\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -9">\Software\Microsoft\Office\*\Excel\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -10">\Software\Microsoft\Office\*\PowerPoint\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -11">\Software\Microsoft\Office\*\Word\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -12">\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
+				<TargetObject condition="contains" name="T1562.001 -13">\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
 				<TargetObject condition="contains" name="T1130 -14">\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
 				<TargetObject condition="contains" name="T1060 -15">Windows\CurrentVersion\Run</TargetObject>
 				<TargetObject condition="contains" name="T1060 -16">Windows\CurrentVersion\RunOnce</TargetObject>
@@ -314,6 +324,15 @@
 				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
 				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
 				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
+				<TargetObject condition="contains" name="T1092 -1">\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
+				<TargetObject condition="contains" name="T1182 -1">\Control\Session Manager\AppCertDLLs\</TargetObject>
+				<TargetObject condition="contains" name="T1546.015 -1">\InprocServer32\scrobj</TargetObject>
+				<TargetObject condition="contains" name="T1547.002 -1">\CurrentControlSet\Control\Lsa\Security Package</TargetObject>
+				<TargetObject condition="contains" name="T1547.002 -2">\CurrentControlSet\Control\Lsa\OSConfig\Security Packages</TargetObject>
+				<TargetObject condition="contains" name="T1037.001 -1">\Environment\UserInitMprLogonScript</TargetObject>
+				<TargetObject condition="contains" name="T1546.010 -1">\Windows NT\CurrentVersion\Windows\AppInit_DLLs</TargetObject>
+				<TargetObject condition="contains" name="T1574.007 -1">\Environment\Path</TargetObject>
+				<TargetObject condition="contains" name="T1574.012 -1">\Environment\COR_PROFILER</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 				

@@ -29,7 +29,7 @@
 	<rule id="100201" level="7">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5142$</field>
-		<description>Mitre ATT&CK T1105, Lateral movement, Remote File Copy, Net Share drive</description>
+		<description>Mitre ATT&CK T1570,  Lateral Movement, Lateral Tool Transfer, Net Share drive</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100202" level="10">
@@ -54,7 +54,7 @@
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100205" level="10" timeframe="60" frequency="6">
-		<if_sid>100204</if_sid>
+		<if_matched_sid>100204</if_matched_sid>
 		<description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
 		<options>no_full_log</options>
 	</rule>
@@ -80,7 +80,7 @@
 		<if_sid>60106</if_sid>
 		<field name="win.system.eventID">^4624$</field>
 		<field name="win.eventdata.LogonType">9</field>
-		<description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, UAC Token Duplication</description>
+		<description>Mitre ATT&CK T1134.001, Privilege Escalation, Access Token Manipulation, Token Impersonation/Theft, UAC Token Duplication</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100221" level="10">
@@ -90,7 +90,7 @@
 		<field name="win.eventdata.TargetUserName">ANONYMOUS LOGON</field>
 		<field name="win.eventdata.TargetUserSid">S-1-5-7</field>
 		<field name="win.eventdata.IpAddress">127.0.0.1</field>
-		<description>Mitre ATT&CK T1134, Privilege Escalation, Access Token Manipulation, Juicy Potato</description>
+		<description>Mitre ATT&CK T1134.003, Privilege Escalation, Access Token Manipulation, Make and Impersonate Token, Juicy Potato</description>
 		<options>no_full_log</options>
 	</rule>
 
@@ -164,6 +164,7 @@
 		<options>no_full_log</options>
 	</rule>
 -->
+
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4799","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se enumeró la pertenencia a grupos locales con seguridad habilitada."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x2e47a","CallerProcessId":"0x5c0","CallerProcessName":"C:\\Windows\\System32\\net1.exe"}}}
 
@@ -177,13 +178,13 @@
 	<rule id="100260" level="3">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4799$</field>
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, A security-enabled local group membership was enumerated</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, A security-enabled local group membership was enumerated</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="100261" timeframe="20" frequency="3" level="10">
+	<rule id="100261" timeframe="20" frequency="3" level="6">
 		<if_matched_sid>100260</if_matched_sid>
 		<same_field>win.system.computer</same_field>
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, Various security-enabled local group membership was enumerated</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, Various security-enabled local group membership was enumerated</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- Due to the noisiness of the 4661 event it's recommended to enable it only if you need detailed auditing for SAM database object operations -->
@@ -192,14 +193,14 @@
 		<field name="win.system.eventID">^4661$</field>
 		<field name="win.eventdata.SourceUserName">(\.*)\$</field>
 		<field name="win.eventdata.ObjectName">(\.*)S-1-5-21-(\.*)-512|502|500|505|519|520|544|551|555(\.*)</field>
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, Audit SAM</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, A handle to an object was requested, Audit SAM</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100263" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4661$</field>
 		<field name="win.eventdata.ObjectType">(\.*)SAM(\.*)</field> 
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, A handle to an object was requested, known privileged AD accounts/groups enumeration</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, A handle to an object was requested, known privileged AD accounts/groups enumeration</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- To audit event 148 you must enable RDService Core audit
@@ -240,7 +241,7 @@
 		<if_sid>60010</if_sid>
 		<field name="win.system.eventID">^4104$</field>
 		<field name="win.eventdata.ScriptBlockText">(\.*)Get-(\.*)</field>
-		<description>Mitre ATT&CK T1087, Discovery, Account Discovery, Powershell</description>
+		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, Powershell</description>
 		<options>no_full_log</options>
 		<group> MITRE ATT&CK, </group>
 	</rule>
@@ -275,13 +276,13 @@
 	<rule id="100281" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^1102$</field>
-		<description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audit security registry deleted</description>
+		<description>Mitre ATT&CK T1070.001, Defense Evasion, Indicator Removal on Host: Clear Windows Event Logs, Audit security registry deleted</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100282" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^104$</field>
-		<description>Mitre ATT&CK T1146 , Defense Evasion, Clear Command History, Audit system registry deleted</description>
+		<description>Mitre ATT&CK T1070.001, Defense Evasion, Indicator Removal on Host: Clear Windows Event Logs, Audit system registry deleted</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100283" level="10">
@@ -307,7 +308,7 @@
 		<field name="win.eventdata.LogonHours">-</field>
 		<field name="win.eventdata.DnsHostName">-</field> 
 		<field name="win.eventdata.ServicePrincipalNames">-</field>
-		<description>Mitre ATT&CK T1222 , Defense Evasion, File and Directory Permissions Modification, DACL based attacks (manipulating ACEs and AD specific Objects's Rights)</description>
+		<description>Mitre ATT&CK T1222.001, Defense Evasion, File and Directory Permissions Modification: Windows File and Directory Permissions Modification , DACL based attacks (manipulating ACEs and AD specific Objects's Rights)</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100284" level="10">
@@ -331,6 +332,7 @@
 		<description>Mitre ATT&CK T1014 , Defense Evasion, Rootkit, Boot Configuration Data loaded allowing kernel debbuging</description>
 		<options>no_full_log</options>
 	</rule> 
+	<!--
 	<rule id="100287" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">4985</field>
@@ -338,7 +340,13 @@
 		<description>Mitre ATT&CK T1186, Defense Evasion, Proccess Doppelganging</description>
 		<options>no_full_log</options>
 	</rule>
-
+	-->
+	<rule id="100287" level="10">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^5025$</field>
+		<description>Mitre ATT&CK T1562.004 , Defense Evasion, Impair Defenses: Disable or Modify System Firewall</description>
+		<options>no_full_log</options>
+	</rule>
 	<!--
 
 	{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4756","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-09-22T11:22:05.201727100Z","eventRecordID":"191029","processID":"624","threadID":"4452","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"A member was added to a security-enabled local group."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","MemberName":"-","MemberSid":"S-1-5-21","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x27a10f", "PrivilegeList":"-"}}}
@@ -429,41 +437,41 @@
 		<if_sid>60109</if_sid>
 		<field name="win.system.eventID">^4720$</field>
 		<field name="win.eventdata.SamAccountName">(\.*)\$</field>
-		<description>Mitre ATT&CK T1136 , Persistence, Create Account, User account created with a name that mimic a machine account</description>
+		<description>Mitre ATT&CK T1136.001 , Persistence, Create Account: Local Account, User account created with a name that mimic a machine account</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100308" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4616$</field>
 		<field name="win.eventdata.ProcessName">(\.*)rundll.exe</field>
-		<description>Mitre ATT&CK T1209, Persistence, Time Providers, Time change outside the normal Windows Time Service.</description>
+		<description>Mitre ATT&CK T1547.003, Persistence, Boot or Logon Autostart Execution: Time Providers, Time change outside the normal Windows Time Service.</description>	
 		<options>no_full_log</options>
 	</rule>
 	<!-- If you enable System> Security System Extension in your Advanced Audit Policy GPO you will be able to see eventid 4697-->
 	<rule id="100309" level="8">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4697$</field>
-		<description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
+		<description>Mitre ATT&CK T1543.003, Persistence, Create or Modify System Process: Windows Service , A service was installed in the system</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100310" level="8">
 		<if_sid>61100</if_sid>
 		<field name="win.system.eventID">^7045$</field>
-		<description>Mitre ATT&CK T1050, Persistence, New Service, A service was installed in the system</description>
+		<description>Mitre ATT&CK T1543.003, Persistence, Create or Modify System Process: Windows Service , A service was installed in the system</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100311" level="8">
 		<if_sid>61100</if_sid>
 		<field name="win.system.eventID">^7045$</field>
 		<field name="win.eventdata.ServiceName">PSEXECSVC</field>
-		<description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+		<description>Mitre ATT&CK T1543.003, Persistence, Create or Modify System Process: Windows Service , PSEXEC Service created</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100312" level="8">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5145$</field>
 		<field name="win.eventdata.RelativeTargetName">\.*-stdin$|-stdout$|-stderr$</field>
-		<description>Mitre ATT&CK T1050, Persistence, New Service, PSEXEC Service created</description>
+		<description>Mitre ATT&CK T1543.003, Persistence, Create or Modify System Process: Windows Service , PSEXEC Service created</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -482,7 +490,7 @@
 		<if_sid>60109</if_sid>
 		<field name="win.system.eventID">^4720$</field>
 		<field name="win.eventdata.SubjectUserSid">^S-1-5-18-|^S-1-5-21-</field>
-		<description>Mitre ATT&CK T1136, Persistence, Create Account, Local account was created</description>
+		<description>Mitre ATT&CK T1136.001, Persistence, Create Account: Local Account , Local account was created</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- To audit Registry Run Keys / Startup Folder you must enable Shell-Core audit
@@ -495,16 +503,16 @@
 	<rule id="100315" level="5">
 		<if_sid>60009</if_sid>
 		<field name="win.system.eventID">^9708$</field>
-		<description>Mitre ATT&CK T1060, Persistence, Registry Run Keys/Startup Folder, Process execution at startup Run/RunOnce</description>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder, Process execution at startup Run/RunOnce</description>
 		<options>no_full_log</options>
 	</rule>
-	<!-- Collision with rule 60110 -->
 	<rule id="100316" level="7">
-		<if_sid>60103</if_sid>
+		<if_sid>60100</if_sid>
 		<field name="win.system.eventID">^4738$</field>
-		<description>Mitre ATT&CK T1098, Persistence, Account Manipulation, User account changed</description>
+		<description>Mitre ATT&CK T1098, Persistence, Account Manipulation, User $(win.eventdata.TargetUserName) account changed</description>
 		<options>no_full_log</options>
 	</rule>
+
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4964","version":"0","level":"0","task":"14080","opcode":"0","keywords":"0x8020000000000000","systemTime":"2015-09-30T00:11:56.547696700Z","eventRecordID":"1048009","processID":"520","threadID":"528","channel":"Security","computer":"DC1.insecurebank.local","severityValue":"AUDIT_SUCCESS","message":"Special groups have been assigned to a new logon."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserSid":"S-1-5-21-3457937927-2839227994-823803824-1104","SubjectUserName":"dadmin","SubjectDomainName":"CONTOSO","SubjectLogonId":"0xd972e","LogonGuid":"{00000000-0000-0000-0000-000000000000}","TargetUserSid":"S-1-5-21-3457937927-2839227994-823803824-500","TargetUserName":"ladmin","TargetDomainName":"CONTOSO","TargetLogonId":"0x139faf","TargetLogonGuid":"{B03B6192-09AE-E77F-DD10-2DC430766040}","SidList":"%{S-1-5-21-3457937927-2839227994-823803824-512}"}}}
 	-->
@@ -633,39 +641,32 @@
 	Tools → Local Security policy → Local Policies → Audit Policies, From here we can set the Audit Object Access policy to log successes and failures
 	Properties → Security → Advanced → Auditing → Click Add → Select Principal → Everyone
 	-->
-	<rule id="100349" level="7">
+	<rule id="100349" level="3">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4663$</field>
 		<field name="win.eventdata.ObjectName">(\.*)\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data(\.*)</field>
-		<description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Chrome, Verify that field ProcessName it's a process not related with chrome</description>
+		<description>Mitre ATT&CK T1555.003, Credential Access, Credentials from Password Stores: Credentials from Web Browsers,(Chrome) Verify that field ProcessName it's a process not related with chrome</description>
 		<options>no_full_log</options>
 	 </rule>
-	<rule id="100350" level="7">
+	<rule id="100350" level="3">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4663$</field>
 		<field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
-		<description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+		<description>Mitre ATT&CK T1555.003, Credential Access, Credentials from Password Stores: Credentials from Web Browsers, (Firefox) Verify that field ProcessName it's a process not related with firefox</description>
 		<options>no_full_log</options>
 	 </rule>
-	<rule id="100351" level="7">
-		<if_sid>60103</if_sid>
-		<field name="win.system.eventID">^4663$</field>
-		<field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\logins.json(\.*)</field>
-		<description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
-		<options>no_full_log</options>
-	 </rule>
-	<rule id="100352" level="7">
+	<rule id="100351" level="3">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4663$</field>
 		<field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\(\.*)\\key4.db(\.*)</field>
-		<description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Firefox, Verify that field ProcessName it's a process not related with firefox</description>
+		<description>Mitre ATT&CK T1555.003, Credential Access, Credentials from Password Stores: Credentials from Web Browsers, (Firefox) Verify that field ProcessName it's a process not related with firefox</description>
 		<options>no_full_log</options>
 	 </rule>
-	<rule id="100353" level="7">
+	<rule id="100352" level="3">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4663$</field>
 		<field name="win.eventdata.ObjectName">(\.*)\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data(\.*)</field>
-		<description>Mitre ATT&CK T1503, Credential Access, Credentials from Web Browser Opera, Verify that field ProcessName it's a process not related with opera browser</description>
+		<description>Mitre ATT&CK T1555.003, Credential Access, Credentials from Password Stores: Credentials from Web Browsers, (Opera) Verify that field ProcessName it's a process not related with opera browser</description>
 		<options>no_full_log</options>
 	</rule>
 
@@ -690,7 +691,7 @@
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5156$</field>
 		<field name="win.eventdata.Application">\.*PowerShell.exe\.*</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Remote powershell execution allowed</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Remote powershell execution allowed</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- event 4104 it's for Powershell 4 or above
@@ -710,26 +711,23 @@
 		<if_sid>60010</if_sid>
 		<field name="win.system.eventID">^4104$</field>
 		<field name="win.eventdata.ScriptBlockText">(\.*)iex|IEX(\.*)</field>
-		<description>Mitre ATT&CK T1086, Execution, Powershell, invoke execution call</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, invoke execution call</description>
 		<options>no_full_log</options>
-		<group> MITRE ATT&CK, </group>
 	</rule>
 	<!-- event 4103 must be enabled via GPO and must be noisy -->
 	<rule id="100374" level="12">
 		<if_sid>60009</if_sid>
 		<field name="win.system.eventID">^4103$</field>
 		<field name="win.eventdata.Payload">(\.*)mimikatz(\.*)</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Mimikatz powershell execution</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Mimikatz powershell execution</description>
 		<options>no_full_log</options>
-		<group> MITRE ATT&CK, </group>
 	</rule>
 	<rule id="100375" level="12">
 		<if_sid>60009</if_sid>
 		<field name="win.system.eventID">^4103$</field>
 		<field name="win.eventdata.Payload">(\.*)-enc(\.*)</field>
-		<description>Mitre ATT&CK T1086, Execution, PowerShell, Encripted powershell command</description>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Encripted powershell command</description>
 		<options>no_full_log</options>
-		<group> MITRE ATT&CK, </group>
 	</rule>
 
 
