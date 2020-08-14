@@ -54,6 +54,8 @@
 				<Image condition="end with" name="T1082 -45">appcmd.exe</Image>
 				<Image condition="image" name="T1112 -1a">reg.exe</Image>
 				<Image condition="image" name="T1003 -event1">vaultcmd.exe</Image>
+				<Image name="T1057 -1" condition="image">tasklist.exe</Image>
+				<Image name="T1057 -2" condition="image">qprocess.exe</Image>
 									  
 				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
 				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
@@ -99,6 +101,8 @@
 				<CommandLine condition="contains" name="T1002 -1">Compress-Archive</CommandLine>
 				<CommandLine condition="contains" name="T1002 -2">System.IO.Compression.FileSystem</CommandLine>
 				<CommandLine condition="contains" name="T1059 -105">mimikatz.exe</CommandLine>
+
+				
 
 		  
 				<ParentImage condition="end with" name="T1170 -88">mshta.exe</ParentImage>

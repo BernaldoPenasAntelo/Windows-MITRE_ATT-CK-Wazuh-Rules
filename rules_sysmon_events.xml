@@ -342,6 +342,29 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1076, Lateral Movement, Remote Desktop Protocol, RDP Brute force from $(win.eventdata.SourceIp)</description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is">5800</DestinationPort>
+		<DestinationPort condition="is">5900</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="100510" level="7">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">^5800|5900$</field>   
+		<description>Mitre ATT&CK T1021.005,  Lateral Movement, Remote Services: VNC, VNC Traffic</description>
+		<options>no_full_log</options>
+	</rule>
+		<!--
+	<NetworkConnect onmatch="include">
+		<DestinationPort condition="is">22</DestinationPort>
+	</NetworkConnect>
+	-->
+	<rule id="100511" level="7">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.DestinationPort">^22$</field>   
+		<description>Mitre ATT&CK T1021.004, Lateral Movement, Remote Services: SSH </description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- PRIVILEGE ESCALATION 100600-->
 	<!--
@@ -442,7 +465,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100609" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*\\\\.\\pipe\.*</field>
-		<description>Mitre ATT&CK T1055, Privilege Escalation, Process Injection, NamedPipeImpersonation</description>
+		<description>Mitre ATT&CK T1134.001, Privilege Escalation, Access Token Manipulation: Token Impersonation/Theft , NamedPipeImpersonation</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -482,7 +505,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.SourceIp">127.\.*|::1</field>
 		<field name="win.eventdata.DestinationIp">127.\.*|::1</field>
 		<field name="win.eventdata.DestinationPort">^3389$|^445$</field>
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -497,7 +520,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.Image">(\.*)\\w3wp.exe</field>
 		<field name="win.eventdata.DestinationPort">^3389$|^445$</field>
 		<field name="win.eventdata.DestinationIp">127.\.*|::1</field>   
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP & SMB Tunneling using SECFORCE/Tunna</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, RDP & SMB Tunneling using SECFORCE/Tunna</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -510,27 +533,16 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100703" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.DestinationPort">^1723$|^9001$|^9030$</field>   
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, traffic with destination to kwown TOR ports</description>
+		<description>Mitre ATT&CK T1090.002, Defense Evasion, Proxy: External Proxy, traffic with destination to kwown TOR ports</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100704" level="7">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">connectaddress=127\.0\.0\.1</field>   
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, Connection Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
-	<!--
-	<NetworkConnect onmatch="include">
-		<DestinationPort condition="is">5800</DestinationPort>
-		<DestinationPort condition="is">5900</DestinationPort>
-	</NetworkConnect>
-	-->
-	<rule id="100705" level="7">
-		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.DestinationPort">^5800|5900$</field>   
-		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, VNC Traffic</description>
-		<options>no_full_log</options>
-	</rule>
+
 	<!--
 	<NetworkConnect onmatch="include">
 		<DestinationPort condition="is">4444</DestinationPort>
@@ -553,17 +565,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Telnet conection detected (insecure protocol)</description>
 		<options>no_full_log</options>
 	</rule>
-	<!--
-	<NetworkConnect onmatch="include">
-		<DestinationPort condition="is">22</DestinationPort>
-	</NetworkConnect>
-	-->
-	<rule id="100708" level="7">
-		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.DestinationPort">^22$</field>   
-		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, SSH conection detected</description>
-		<options>no_full_log</options>
-	</rule>
+
 	
 	<!--
 	<NetworkConnect onmatch="include">
@@ -689,7 +691,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1033, Discovery, System Owner/User Discovery, use of whoami via $(win.eventdata.image)</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<ProcessCreate onmatch="include">
+	<Image name="T1057 -1" condition="image">tasklist.exe</Image>
+	<Image name="T1057 -2" condition="image">qprocess.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100809" level="5">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">tasklist.exe|qprocess.exe</field>
+		<description>Mitre ATT&CK T1057, Discovery, Process Discovery, use of tasklist or gpprocess to enumerate process</description>
+		<options>no_full_log</options>
+	</rule>
 
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
@@ -791,7 +804,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100906" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*netsh\.*connectp=3389\.*</field>
-		<description>Mitre ATT&CK T1090, Defense Evasion, Connection Proxy, RDP Port fordwarding via netsh</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, RDP Port fordwarding via netsh</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -997,6 +1010,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<DestinationPort condition="is" name="T1090 Metasploit">4444</DestinationPort>
 	</NetworkConnect>
 	-->	
+	<rule id="101926" level="7">
+		<if_sid>100114</if_sid>
+		<field name="win.eventdata.commandline">\sadd\s|\sdelete\s|\sADD\s|\sDELETE\s</field>
+		<description>Mitre ATT&CK T1112, Defense Evasion, Modify Registry, manually added or deleted registry keys</description>
+		<options>no_full_log</options>
+	</rule>
 	<rule id="100928" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.SourcePort">^4444$</field>
@@ -1209,7 +1228,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101008" level="6">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">C:\\\\Windows\\\\Tasks\\\\|^C:\\\\Windows\\\\system32\\\\Tasks</field>
-		<description>Mitre ATT&CK T1053, Persistence, Scheduled Task, Folders related with scheduled tasks were modified</description>
+		<description>Mitre ATT&CK T1053.005, Persistence, Scheduled Task/Job: Scheduled Task , Folders related with scheduled tasks were modified</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1349,7 +1368,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event_10</if_group>
 		<if_sid>100103</if_sid>
 		<field name="win.eventdata.CallTrace">\.*dbghelp.dll|dbgcore.dll\.*|</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Procdump or Taskmgr - memory dump</description>
+		<description>Mitre ATT&CK T1003.001, Credential Access, OS Credential Dumping: LSASS Memory, Procdump or Taskmgr - memory dump</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1361,13 +1380,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event_10</if_group>
 		<if_sid>100103</if_sid>
 		<field name="win.eventdata.CallTrace">\.*mimikatz\.*</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping , Sekursla mimikatz module memory dump</description>
+		<description>Mitre ATT&CK T1003.001, Credential Access, OS Credential Dumping: LSASS Memory, Sekursla mimikatz module memory dump</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101203" level="12">
 		<if_sid>100103</if_sid>
 		<field name="win.eventdata.startModule">null</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping ,Password Dumper Remote Thread in LSASS</description>
+		<description>Mitre ATT&CK T1003.001, Credential Access, OS Credential Dumping: LSASS Memory,Password Dumper Remote Thread in LSASS</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1386,14 +1405,16 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<TargetImage condition="contains">lsass.exe</TargetImage>
 	</ProcessAccess>
 	-->
+	<!-- Generates too many false positives
 	<rule id="101204" level="8">
 		<if_group>sysmon_event_10</if_group>
 		<field name="win.eventdata.GrantedAccess">^0x1010$|^0x1410$|^0x1438$|^0x143a$|^0x1418$</field>
 		<field name="win.eventdata.TargetImage">lsass.exe</field>
 		<field name="win.eventdata.CallTrace">C:\\\\windows\\\\SYSTEM32\\\\ntdll.dll</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Posible password dump using mimikatz (sekurlsa::logonpasswords)</description>
+		<description>Mitre ATT&CK T1003.001, Credential Access, OS Credential Dumping: LSASS Memory, Posible password dump using mimikatz (sekurlsa::logonpasswords)</description>
 		<options>no_full_log</options>
-	</rule>	
+	</rule>
+	-->
 	<!--
 	<ProcessCreate onmatch="include">
 		<Image condition="image" name="T1003 -event1">vaultcmd.exe</Image>
@@ -1403,19 +1424,19 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\vaultcmd.exe</field>
 		<field name="win.eventdata.CommandLine">/list</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials</description>
+		<description>Mitre ATT&CK T1555, Credential Access, Credentials from Password Stores, Credential Vault command line interface to enumerate a user’s saved credentials</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101206" level="10">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.CommandLine">vaultcmd.exe*/list</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials via powershell</description>
+		<description>Mitre ATT&CK T1555, Credential Access, Credentials from Password Stores, Credential Vault command line interface to enumerate a user’s saved credentials via powershell</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101207" level="10">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">vaultcmd.exe*/list</field>
-		<description>Mitre ATT&CK T1003, Credential Access, Credential Dumping, Credential Vault command line interface to enumerate a user’s saved credentials via cmd</description>
+		<description>Mitre ATT&CK T1555, Credential Access, Credentials from Password Stores, Credential Vault command line interface to enumerate a user’s saved credentials via cmd</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1964,7 +1985,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1560.001, Collection, Archive Collected Data: Archive via Utility, data compressed using command line</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101407" level="12">
+	<rule id="101409" level="12">
 		<if_sid>100114</if_sid>
 		<field name="win.eventdata.commandline">save HKLM\\SAM|SAVE HKLM\\SAM|save HKLM\\SYSTEM|SAVE HKLM\\SYSTEM</field>
 		<description>Mitre ATT&CK T1005, Collection, Data from Local System, manual copy of important registry hives</description>

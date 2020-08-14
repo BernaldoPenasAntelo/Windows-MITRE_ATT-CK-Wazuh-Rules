@@ -36,7 +36,7 @@
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4648$</field>
 		<field name="win.eventdata.ProcessName">C:\\Windows\\System32\\wbem\\WMIC.exe</field>
-		<description>Mitre ATT&CK T1021, Lateral movement, Remote services, WMI Remote Access</description>
+		<description>Mitre ATT&CK T1021.006, Lateral movement, Remote Services: Windows Remote Management, WMI Remote Access</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100203" level="10">
@@ -49,13 +49,13 @@
 	<rule id="100204" level="3">
 		<if_sid>60104</if_sid>
 		<field name="win.system.eventID">^5152$</field>
-		<field name="win.eventdata.DestPort">^3389$|^445$</field>
-		<description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
+		<field name="win.eventdata.DestPort">^445$</field>
+		<description>Mitre ATT&CK T1021.002, Lateral movement, Remote Services: SMB/Windows Admin Shares , Blocked Inbound packets to known Lateral Movement Ports</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100205" level="10" timeframe="60" frequency="6">
 		<if_matched_sid>100204</if_matched_sid>
-		<description>Mitre ATT&CK T1021, Lateral movement, Remote Services, Blocked Inbound packets to known Lateral Movement Ports</description>
+		<description>Mitre ATT&CK T1021.002, Lateral movement, Remote Services: SMB/Windows Admin Shares, Blocked Inbound packets to known Lateral Movement Ports</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100206" level="10">
@@ -65,6 +65,18 @@
 		<field name="win.eventdata.authenticationPackageName">Negotiate</field>
 		<field name="win.eventdata.logonProcessName">seclogo</field>
 		<description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash by user $(win.eventdata.targetUserName)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100207" level="3">
+		<if_sid>60104</if_sid>
+		<field name="win.system.eventID">^5152$</field>
+		<field name="win.eventdata.DestPort">^3389$</field>
+		<description>Mitre ATT&CK T1021.001, Lateral movement, Remote Services: Remote Desktop Protocol, Blocked Inbound packets to known Lateral Movement Ports</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100208" level="10" timeframe="60" frequency="6">
+		<if_matched_sid>100207</if_matched_sid>
+		<description>Mitre ATT&CK T1021.001, Lateral movement, emote Services: Remote Desktop Protocol, Blocked Inbound packets to known Lateral Movement Ports</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -115,7 +127,7 @@
 		<field name="win.system.eventID">^4624$</field>
 		<field name="win.eventdata.LogonType">10</field>
 		<field name="win.eventdata.IpAddress">127.0.0.1</field>
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100241" level="10">
@@ -123,7 +135,7 @@
 		<field name="win.system.eventID">^5156$</field>
 		<field name="win.eventdata.DestPort">^3389$</field>
 		<field name="win.eventdata.SourceAddress">127.0.0.1</field>
-		<description>Mitre ATT&CK T1090, Command and Control, Connection Proxy, RDP Tunneling via SSH</description>
+		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100242" level="10">
@@ -625,7 +637,7 @@
 		<if_matched_sid>60103</if_matched_sid>
 		<field name="win.system.eventID">^4662$</field>
 		<field name="win.eventdata.Properties">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2|9923a32a-3607-11d2-b9be-0000f87a36b2|1131f6ac-9c07-11d1-f79f-00c04fc2dcd2</field>
-		<description>Mitre ATT&CK T1003,  Credential Access, Credential Dumping, DCSyn</description>
+		<description>Mitre ATT&CK T1003.006,  Credential Access, OS Credential Dumping: DCSync</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100348" level="7">
