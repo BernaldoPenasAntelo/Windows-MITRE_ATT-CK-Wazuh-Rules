@@ -12,7 +12,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100100" level="0">
 		<if_group>sysmon_event1</if_group>	   
 		<field name="win.eventdata.Image">\\rundll32.exe</field>
-		<description>Mitre ATT&CK T1085, Rundll32,</description>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -23,7 +23,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100101" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.parentImage">\\mshta.exe</field>
-		<description>Mitre ATT&CK T1170, Microsoft HTML Application execution</description>
+		<description>Mitre ATT&CK T1218.005, Defense Evasion, Signed Binary Proxy Execution: Mshta, Microsoft HTML Application execution</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -48,7 +48,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100103" level="0">
 		<if_group>sysmon_event8</if_group>
-		<field name="win.eventdata.TargetImage">\\lsass.exe</field>
+		<field name="win.eventdata.TargetImage">lsass.exe</field>
 		<description>Mitre ATT&CK S0121, Credential Access</description>
 		<options>no_full_log</options>
 	</rule>
@@ -60,7 +60,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100104" level="0">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.image">rundll32.exe</field>
-		<description>Mitre ATT&CK T1085, Rundll32 Internet Connection</description>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Internet Connection from Rundll32</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -82,7 +82,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100106" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.parentImage">\\wscript.exe||\\cscript.exe</field>
+		<field name="win.eventdata.parentImage">wscript.exe|cscript.exe</field>
 		<description>Mitre ATT&CK T1059, Execution , Command and Scripting Interpreter, wscript/cscript.exe</description>
 		<options>no_full_log</options>
 	</rule>
@@ -93,8 +93,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100107" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\regsvr32.exe</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32</description>
+		<field name="win.eventdata.image">regsvr32.exe</field>
+		<description>Mitre ATT&CK T1218.010,  Defense Evasion, Signed Binary Proxy Execution: Regsvr32</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -104,7 +104,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100108" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\wmic.exe</field>
+		<field name="win.eventdata.image">wmic.exe</field>
 		<description>>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, Detects WMI execution</description>
 		<options>no_full_log</options>
 	</rule>
@@ -116,10 +116,9 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100109" level="0">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.image">bitsadmin.exe</field>
-		<description>Mitre ATT&CK T1197,  Defense Evasion, BITS Jobs</description>
+		<description>Mitre ATT&CK S0190, BITSAdmin</description>
 		<options>no_full_log</options>
-	</rule>
-	
+	</rule>	
 	<!--
 	<ProcessCreate onmatch="include">
 		<ParentImage condition="end with">mmc.exe</ParentImage>
@@ -127,7 +126,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100110" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.parentImage">\\mmc.exe</field>
+		<field name="win.eventdata.parentImage">mmc.exe</field>
 		<description>Mitre ATT&CK T1559.001, Execution, Inter-Process Communication: Component Object Model</description>
 		<options>no_full_log</options>
 	</rule>
@@ -138,7 +137,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100111" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">\\conhost.exe</field>
+		<field name="win.eventdata.Image">conhost.exe</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter execution $(win.eventdata.parentimage)</description>
 		<options>no_full_log</options>
 	</rule>
@@ -149,7 +148,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100112" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">\\appcmd.exe</field>
+		<field name="win.eventdata.Image">appcmd.exe</field>
 		<description>Mitre ATT&CK T1082, Discovery, System Information Discovery, Appcmd command IIS password and configuration discovery</description>
 		<options>no_full_log</options>
 	</rule>
@@ -173,8 +172,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100114" level="0">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\reg.exe</field>
-		<description>Mitre ATT&CK T1112, Defense Evasion, Modify Registry</description>
+		<field name="win.eventdata.image">reg.exe</field>
+		<description>Mitre ATT&CK S0075, Reg</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -184,8 +183,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100115" level="10">
 		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.image">\\reg.exe</field>
-		<description>Mitre ATT&CK T1112, Defense Evasion, Modify Registry over the network</description>
+		<field name="win.eventdata.image">reg.exe</field>
+		<description>Mitre ATT&CK S0075, Reg, used in network</description>
 		<options>no_full_log</options>
 	</rule>
 	
@@ -202,12 +201,27 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100117" level="10">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\cmd.exe</field>
+		<field name="win.eventdata.image">cmd.exe</field>
 		<description>Mitre ATT&CK T1059.003, Execution, Command and Scripting Interpreter: Windows Command Shell, Command-Line Interface Execution: $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
-
-
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">adfind.exe.exe</ParentImage>
+	</ProcessCreate>
+	-->
+	<rule id="100118" level="0">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">adfind.exe</field>
+		<description>Mitre ATT&CK T1087, Discovery, Account Discovery </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100119" level="0">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image">net.exe|net1.exe</field>
+		<description>Mitre ATT&CK S0039, Net</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- NEW RULES FOR SYSMON 19,20,21 EVENTS (101600)-->
 	
@@ -247,7 +261,6 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Sysmon - Event 4</description>
 		<group>sysmon_event_4,</group>
 	</rule>
-
 	<rule id="101607" level="0">
 		<if_sid>61600</if_sid>
 		<field name="win.system.eventID">^19$</field>
@@ -322,8 +335,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.commandline">transport=dt_socket,address=</field>
 		<description>Mitre ATT&CK T1210, Lateral Movement , Exploitation of Remote Services, Detects a JAVA process running with remote debugging allowing more than just localhost to connect</description>
 		<options>no_full_log</options>
-	</rule>
-	
+	</rule>	
 	<rule id="100507" level="10">
         <if_sid>100117</if_sid>
         <field name="win.eventdata.commandLine">net use\.*\\d\$|net use\.*\\admin\$|net use\.*\\c\$|net use\.*\\C\$|net use\.*\\ipc\$|net use\.*\\IPC\$</field>
@@ -350,7 +362,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100510" level="7">
 		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.DestinationPort">^5800|5900$</field>   
+		<field name="win.eventdata.DestinationPort">^5800$|^5900$</field>   
 		<description>Mitre ATT&CK T1021.005,  Lateral Movement, Remote Services: VNC, VNC Traffic</description>
 		<options>no_full_log</options>
 	</rule>
@@ -367,6 +379,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- PRIVILEGE ESCALATION 100600-->
+	
 	<!--
 	<RegistryEvent onmatch="include">
 	   <TargetObject condition="is">HKU\*\exefile\shell\runas\command\IsolatedCommand</TargetObject>
@@ -485,14 +498,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.CommandLine">NOUACCHECK</field>
 		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, Manually turned off UAC</description>
 		<options>no_full_log</options>
-	</rule>
-	
-	
+	</rule>	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-02 14:48:51.664","ProcessGuid":"{365abb72-0244-5ccb-0000-00109ae70b00}","ProcessId":"1508","Image":"C:\\Windows\\System32\\svchost.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"true","SourceIsIpv6":"false","SourceIp":"10.0.2.15","SourceHostname":"IEWIN7.home","SourcePort":"3389","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"127.0.0.1","DestinationHostname":"","DestinationPort":"443","DestinationPortName":"https"}}}
 	-->
 	<!-- COMMAND AND CONTROL 100700-->
+	
 	<!--
 	Must change sysmon configuration to include TargetObject in section
 	<NetworkConnect onmatch="include">
@@ -542,7 +554,6 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1090.001, Defense Evasion, Proxy: Internal Proxy, Connection Proxy, RDP Tunneling via SSH</description>
 		<options>no_full_log</options>
 	</rule>
-
 	<!--
 	<NetworkConnect onmatch="include">
 		<DestinationPort condition="is">4444</DestinationPort>
@@ -564,9 +575,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<field name="win.eventdata.DestinationPort">^23$</field>   
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Telnet conection detected (insecure protocol)</description>
 		<options>no_full_log</options>
-	</rule>
-
-	
+	</rule>	
 	<!--
 	<NetworkConnect onmatch="include">
 		<DestinationPort condition="is" name="T1043 -1">80</DestinationPort>
@@ -614,6 +623,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!-- DISCOVERY 100800-->
+	
 	<!--
 	<ProcessCreate onmatch="include">
 		<CommandLine condition="contains">net*group*</CommandLine>
@@ -624,9 +634,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</ProcessCreate>
 	-->
 	<rule id="100801" level="7">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.parentImage">\\net.exe||\\net1.exe</field>
-		<field name="win.eventdata.commandline">group||localgroup||user||view||accounts||use</field>
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">user|accounts|use</field>
 		<description>Mitre ATT&CK T1087.001, Discovery, Account Discovery, Local Account, Detects execution of Net.exe whether suspicious or benign</description>
 		<options>no_full_log</options>
 	</rule>
@@ -636,8 +645,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</ProcessCreate>
 	-->
 	<rule id="100802" level="7">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.parentImage">\\net.exe||\\net1.exe</field>
+		<if_sid>100119</if_sid>
 		<field name="win.eventdata.commandline">share</field>
 		<description>Mitre ATT&CK T1135, Discovery, Network Share Discovery, Detects execution of Net.exe whether suspicious or benign</description>
 		<options>no_full_log</options>
@@ -672,9 +680,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100806" level="10">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\cmd.exe|\\powershell.exe</field>
-		<field name="win.eventdata.commandline">net view|net share</field>
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">share</field>
 		<description>Mitre ATT&CK T1135, Discovery, Network Share Discovery, use of net view or net share to enumerate shares</description>
 		<options>no_full_log</options>
 	</rule>
@@ -703,7 +710,48 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1057, Discovery, Process Discovery, use of tasklist or gpprocess to enumerate process</description>
 		<options>no_full_log</options>
 	</rule>
-
+	<rule id="100810" level="7">
+		<if_sid>100118</if_sid>
+		<field name="win.eventdata.commandline">-f \(objectcategory=person\)</field>
+		<description>Mitre ATT&CK T1087.002, Discovery, Account Discovery: Domain Account, use of adfind to enumerate domain users</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100811" level="7">
+		<if_sid>100118</if_sid>
+		<field name="win.eventdata.commandline">-f \(objectcategory=computer\)</field>
+		<description>Mitre ATT&CK T1018, Discovery, Remote System Discovery, use of adfind to enumerate systems</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100812" level="7">
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">view</field>
+		<description>Mitre ATT&CK T1018, Discovery, Remote System Discovery, use of net to enumerate systems</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100813" level="7">
+		<if_sid>100118</if_sid>
+		<field name="win.eventdata.commandline">-f \(objectcategory=organizationalUnit\)</field>
+		<description>Mitre ATT&CK T1482, Discovery, Domain Trust Discovery, use of adfind to enumerate domain organizational units</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100814" level="7">
+		<if_sid>100118</if_sid>
+		<field name="win.eventdata.commandline">-gcb</field>
+		<description>Mitre ATT&CK T1482, Discovery, Domain Trust Discovery, use of adfind to enumerate domain organizational units</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100815" level="7">
+		<if_sid>100118</if_sid>
+		<field name="win.eventdata.commandline">-f \(objectcategory=subnet\)</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use of adfind to enumerate subnetworks</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100816" level="7">
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">group|localgroup</field>
+		<description>Mitre ATT&CK T1069.002, Discovery, Permission Groups Discovery: Domain Groups, use of binary net.exe to discover groups</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"12","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Registry object added or deleted."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"Defense Evasion - PowerShell CLM Setting Changed","EventType":"DeleteValue","UtcTime":"2019-05-16 13:10:13.759","ProcessGuid":"{dfae8213-5b49-5cdd-0000-0010ee520500}","ProcessId":"3580","Image":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","TargetObject":"HKLM\\System\\CurrentControlSet\\Control\\SESSION MANAGER\\Environment\\__PSLockdownPolicy"}}}
@@ -873,7 +921,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100912" level="5">
 		<if_group>sysmon_event_12</if_group>
 		<field name="win.eventdata.TargetObject">HKLM\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\SystemCertificates\\\\Root\\\\Certificates</field>
-		<description>Mitre ATT&CK T1130, Defense Evasion, Install Root Certificate</description>
+		<description>Mitre ATT&CK T1553.004, Defense Evasion, Subvert Trust Controls: Install Root Certificate</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100913" level="12">
@@ -895,7 +943,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100915" level="10">
 		<if_sid>100104</if_sid>
 		<match>!"DestinationIp":"$local_net_1</match>
-		<description>Mitre ATT&CK T1085, Defense Evasion, Rundll32, Detects a rundll32 that communicates with public IP addresses</description>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Detects a rundll32 that communicates with public IP addresses</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1016,6 +1064,17 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1112, Defense Evasion, Modify Registry, manually added or deleted registry keys</description>
 		<options>no_full_log</options>
 	</rule>
+		<!--
+	<ProcessCreate onmatch="include">
+		<ParentImage condition="end with">msiexec.exe</ParentImage>
+	<ProcessCreate
+	-->
+	<rule id="100927" level="6">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.ParentImage">msiexec.exe</field>
+		<description>Mitre ATT&CK T1218.007, Defense Evasion, Signed Binary Proxy Execution: Msiexec, Msiexec.exe has executed $(win.eventdata.CommandLine)</description>
+		<options>no_full_log</options>
+	</rule>
 	<rule id="100928" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.SourcePort">^4444$</field>
@@ -1058,22 +1117,9 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100934" level="7">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">net.exe|net1.exe</field>
-		<field name="win.eventdata.commandline">/d</field>
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">/d\s</field>
 		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal via net.exe</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="100935" level="7">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.commandline">net*/d</field>
-		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal with net.exe via command line</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="100936" level="7">
-		<if_sid>100113</if_sid>
-		<field name="win.eventdata.commandline">net*/d</field>
-		<description>Mitre ATT&CK T1070.005, Defense Evasion, Indicator Removal on Host: Network Share Connection Removal, Network Share Connection Removal with net.exe via powershell</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1098,6 +1144,268 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1574.012, Defense Evasion, Hijack Execution Flow: COR_PROFILER </description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="image">odbcconf.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100939" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">odbcconf.exe</field>
+		<field name="win.eventdata.CommandLine">-f</field>
+		<description>Mitre ATT&CK T1218.008, Defense Evasion, Signed Binary Proxy Execution: Odbcconf, Load DLL specified in target .RSP file</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100940" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">odbcconf.exe</field>
+		<field name="win.eventdata.CommandLine">/A -encodedCommand</field>
+		<description>Mitre ATT&CK T1218.008, Defense Evasion, Signed Binary Proxy Execution: Odbcconf, Execute DllREgisterServer from DLL</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="image">regasm.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100941" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">regasm.exe</field>
+		<field name="win.eventdata.CommandLine">/U</field>
+		<description>Mitre ATT&CK T1218.009, Defense Evasion, Signed Binary Proxy Execution: Regsvcs/Regasm, Loads the target .DLL</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="image">regsvcs.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="100942" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">regsvcs.exe</field>
+		<field name="win.eventdata.CommandLine">/U</field>
+		<description>Mitre ATT&CK T1218.009, Defense Evasion, Signed Binary Proxy Execution: Regsvcs/Regasm, Loads the target .DLL</description>
+		<options>no_full_log</options>
+	</rule>
+		<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">regsvr32.exe</Image>
+	</ProcessCreate>
+	--> 
+	<rule id="100943" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">\\regsvr32.exe</field>
+		<field name="win.eventdata.CommandLine">\.*regsvr32\.*/i\.*scrobj.dll</field>
+		<description>Mitre ATT&CK T1218.010,  Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Squiblydoo technique</description>
+		<options>no_full_log</options>
+	</rule>
+		<!--
+	<NetworkConnect onmatch="include">
+		<Image condition="image">regsvr32.exe</Image>
+	</NetworkConnect>
+	-->
+	<rule id="100944" level="12">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.Image">\\regsvr32.exe</field>
+		<description>Mitre ATT&CK T1218.010, Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Executing Regsvr32 Living off the Land Binaries</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<ParentCommandLine condition="contains">ftp -s:</ParentCommandLine>
+	<ProcessCreate
+	-->
+	<rule id="100945" level="10">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.ParentCommandLine">\.*ftp -s:\.*|\.*ftp.exe -s:\.*</field>
+		<field name="win.eventdata.commandline">\.*cmd.exe /C\.*</field>
+		<description>Mitre ATT&CK T1202, Defense Evasion, Indirect Command Execution, ftp.exe has executed $(win.eventdata.CommandLine)</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<ParentCommandLine condition="contains">pcalua.exe  -a</ParentCommandLine>
+	<ProcessCreate
+	-->
+	<rule id="100946" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.ParentCommandLine">\.*pcalua.exe -a\.*</field>
+		<description>Mitre ATT&CK T1202, Defense Evasion, Indirect Command Execution, Program Compatibility Assistant (pcalua.exe) has executed $(win.eventdata.CommandLine)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100947" level="10">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.commandline">control.exe\.*.cpl</field>
+		<description>Mitre ATT&CK T1218.002, Defense Evasion, Control Panel, control panel items</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
+	</ProcessCreate>
+	-->
+	<rule id="100948" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.CommandLine">cmstp.exe /s</field>
+		<description>Mitre ATT&CK T1218.003, Defense Evasion, Signed Binary Proxy Execution: CMSTP , CMSTP code execution - bypass application whitelisting</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100949" level="12">
+		<if_sid>100107</if_sid>
+		<field name="win.eventdata.commandline">\\Temp</field>
+		<description>Mitre ATT&CK T1218.010, Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Execution of regsvr32.exe from a temporal folder</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100950" level="12">
+		<if_sid>100107</if_sid>
+		<field name="win.eventdata.parentImage">powershell.exe</field>
+		<description>Mitre ATT&CK T1218.010, Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Execution of powershel through rundll32</description>
+		<options>no_full_log</options>
+	</rule>
+		<!--
+	<NetworkConnect onmatch="include">
+		<Image condition="image">mshta.exe</Image>
+	</NetworkConnect>
+	-->
+	<rule id="100951" level="10">
+		<if_group>sysmon_event3</if_group>
+		<field name="win.eventdata.Image">\\mshta.exe</field>
+		<description>Mitre ATT&CK T1218.005, Defense Evasion, Signed Binary Proxy Execution: Mshta, Mshta</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100952" level="12">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.CommandLine">mshta.exe</field>
+		<description>Mitre ATT&CK T1218.005, Defense Evasion, Signed Binary Proxy Execution: Mshta, Microsoft HTML Application execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100953" level="12">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.CommandLine">regsvr32.exe</field>
+		<description>Mitre ATT&CK T1218.010,  Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Regsvr32 execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100954" level="12">
+		<if_sid>100117</if_sid>
+		<field name="win.eventdata.CommandLine">rundll32.exe</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Rundll32 execution via $(win.eventdata.Image)</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100955" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*ieframe.dll|url.dll|shdocvw.dll,OpenURL\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100956" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, OpenURLA\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100957" level="12">
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.Image">\\rundll32.exe</field>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, FileProtocolHandler\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100958" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*zipfldr.dll, RouteTheCall\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100959" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*advpack.dll,RegisterOCX \.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100960" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*pcwutl.dll,LaunchApplication  \.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100961" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*Shell32.dll,Control_RunDLL\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100962" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*PowerShdll.dll,main\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Execution of Powershell Without Powershell.exe</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">rundll32.exe</Image>
+	</ProcessCreate>
+	--> 
+	<rule id="100963" level="12">
+		<if_group>sysmon_event1</if_group>
+		<if_sid>100100</if_sid>
+		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*rundll32.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*rundll32.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*rundll32.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*rundll32.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*rundll32.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*rundll32.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
+		<description>Mitre ATT&CKT1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Component Object Model and Distributed COM, </description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="end with">dllhost.exe</Image>
+	</ProcessCreate>
+	--> 
+	<rule id="100964" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">\\dllhost.exe</field>
+		<field name="win.eventdata.CommandLine">\.*dllhost.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*dllhost.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*dllhost.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*dllhost.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*dllhost.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*dllhost.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*dllhost.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Component Object Model and Distributed COM, </description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<ParentImage condition="end with">control.exe</ParentImage>
+	<ProcessCreate
+	-->
+	<rule id="100965" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.parentImage">\\System32\\control.exe</field>
+		<field name="win.eventdata.commandline">\\rundll32.exe</field>
+		<description>Mitre ATT&CK T1218.011, Defense Evasion, Signed Binary Proxy Execution: Rundll32, Detects suspicious Rundll32 execution from control.exe as used by Equation Group and Exploit Kits</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="end with" name="T1574 -2">\system32\fveapi.dll</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="100966" level="10">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">\\\\fveapi.dll</field>
+		<description>Mitre ATT&CK T1574, Defense Evasion, Hijack Execution Flow, Distributed Transaction Coordinator (MSDTC) Hijack by fveapi.dll crateation </description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="end with" name="T1574 -1">\system32\oci.dll</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="100967" level="10">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">\\\\oci.dll</field>
+		<description>Mitre ATT&CK T1574, Defense Evasion, Hijack Execution Flow, MSINFO Hijack by oci.dll creation</description>
+		<options>no_full_log</options>
+	</rule>
+	
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -1152,8 +1460,8 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</RegistryEvent>
 	-->
 	<rule id="101002" level="6">
-		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">Windows\\\\CurrentVersion\\\\Run||Windows\\\\CurrentVersion\\\\RunOnce</field>
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows\\\\CurrentVersion\\\\Run</field>
 		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1302,7 +1610,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 			<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
 	</RegistryEvent>
 	-->
-	<rule id="101016" level="10">
+	<rule id="101016" level="5">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\SCRNSAVE.EXE|\\\\Control Panel\\\\Desktop\\\\ScreenSaveActive|\\\\Control Panel\\\\Desktop\\\\ScreenSaverIsSecure|\\\\Control Panel\\\\Desktop\\\\ScreenSaveTimeout</field>
 		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver </description>
@@ -1348,10 +1656,94 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1547.004 -3">\CurrentVersion\Winlogon\Notify</TargetObject>
+	</RegistryEvent>
+	-->
+	
+	<rule id="101022" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentVersion\\\\Winlogon\\\\Notify</field>
+		<description>Mitre ATT&CK T1547.004, Persistence, Boot or Logon Autostart Execution: Winlogon Helper DLL, hive \CurrentVersion\Winlogon\Notify changed</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains" name="T1547.004 -2">\CurrentVersion\Winlogon\Userinit</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101023" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentVersion\\\\Winlogon\\\\Userinit</field>
+		<description>Mitre ATT&CK T1547.004, Persistence, Boot or Logon Autostart Execution: Winlogon Helper DLL, hive \CurrentVersion\Winlogon\Userinit changed</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+		<TargetObject condition="contains">Windows\CurrentVersion\Run</TargetObject>
+		<TargetObject condition="contains">Windows\CurrentVersion\RunOnce</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101024" level="6">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows\\\\CurrentVersion\\\\Run</field>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
+		<options>no_full_log</options>
+	</rule>
+		<rule id="101025" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider III</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101026" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\Security Package</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider IV</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<FileCreate>
+		<TargetFilename condition="end with" name="T1547.005">\system32\mimilsa.log</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="101027" level="12">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">mimilsa.log</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider, Creation of mimilsa.log that indicates usage of mimikatz to gather credentials</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent>
+		<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\WindowsAppInit_DLLs</TargetObject>
+	</RegistryEvent>
+	-->		
+	<rule id="101028" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101029" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent>
+		<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\Windows\LoadAppInit_DLLs</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101030" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\Windows\\\\LoadAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
-	<!-- INITIAL ACCESS 101100-->
-	
-	
+	<!-- INITIAL ACCESS 101100-->	
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"10","version":"3","level":"4","task":"20","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process accessed"},"eventdata":{"subjectUserSid":"S-1-5-18","RuleName":"","UtcTime":"2019-05-22 04:02:11.287","SourceProcessGUID":"{365abb72-c9c1-5ce4-0000-00100b222e00}","SourceProcessId":"3156","SourceThreadId":"828","SourceImage":"C:\\Windows\\system32\\lsass.exe","TargetProcessGUID":"{365abb72-c9c3-5ce4-0000-00101f422e00}","TargetProcessId":"2888","TargetImage":"C:\\Windows\\system32\\taskmgr.exe","GrantedAccess":"0x1010","CallTrace":"C:\\Windows\\system32\\iertutil.dll"}}}
 	-->
@@ -1475,6 +1867,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1557.001, Credential Access, Man-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay, mDNS traffic</description>
 		<options>no_full_log</options>
 	</rule>
+	<rule id="101211" level="10">
+		<if_sid>100114</if_sid>
+		<field name="win.eventdata.CommandLine">password</field>
+		<description>Mitre ATT&CK T1552.002, Credential Access, Unsecured Credentials: Credentials in Registry, reg.exe query for passwords in registry</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\taskmgr.exe","TargetFilename":"C:\\UsageLogs\\cscript.exe.log","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -1505,57 +1903,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101301" level="12">
 		<if_group>sysmon_event_11</if_group>
 		<field name="win.eventdata.TargetFilename">\\\\UsageLogs\\\\cscript.exe.log|wscript.exe.log|mshta.log|wmic.log|regsvr32.exe.log|svchost.log(\.*)</field>
-		<description>Mitre ATT&CK T1129, Execution, Execution through Module Load, .NET CLR Usage</description>
-		<options>no_full_log</options>
-	</rule>
-
-	<rule id="101302" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*ieframe.dll|url.dll|shdocvw.dll,OpenURL\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101303" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, OpenURLA\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101304" level="12">
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.Image">\\rundll32.exe</field>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*url.dll, FileProtocolHandler\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101305" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*zipfldr.dll, RouteTheCall\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101306" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*advpack.dll,RegisterOCX \.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101307" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*pcwutl.dll,LaunchApplication  \.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101308" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*Shell32.dll,Control_RunDLL\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Rundll32 Living off the Land Endpoint Detection and Response (EDR) evasion </description>
+		<description>Mitre ATT&CK T1129, Execution, Shared Modules, .NET CLR Usage</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1563,38 +1911,14 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<Image condition="end with">vshadow.exe</Image>
 	 </ProcessCreate>
 	-->
-	<rule id="101309" level="12">
+	<rule id="101302" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\vshadow.exe</field>
 		<field name="win.eventdata.CommandLine">\.*vshadow.exe -nw -exec\.*</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land Abusing the Volume Shadow for execution</description>
 		<options>no_full_log</options>
 	</rule>
-	<!--
-	<NetworkConnect onmatch="include">
-		<Image condition="image">regsvr32.exe</Image>
-	</NetworkConnect>
-	-->
-	<rule id="101310" level="12">
-		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.Image">\\regsvr32.exe</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32, Executing Regsvr32 Living off the Land Binaries</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<Image condition="end with">regsvr32.exe</Image>
-	</ProcessCreate>
-	--> 
-	<rule id="101311" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">\\regsvr32.exe</field>
-		<field name="win.eventdata.CommandLine">\.*regsvr32\.*/i\.*scrobj.dll</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32, Squiblydoo technique</description>
-		<options>no_full_log</options>
-	</rule>
-
-	<rule id="101312" level="12">
+	<rule id="101303" level="12">
 		<if_sid>100101</if_sid>
 		<field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\reg.exe||\\regsvr32.exe||\\BITSADMIN*</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land Microsoft HTML Application command line execution </description>
@@ -1605,41 +1929,21 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<Image condition="image">certutil.exe</Image>
 	</NetworkConnect>
 	-->
-	<rule id="101313" level="12">
+	<rule id="101304" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.Image">\\certutil.exe</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Living off the land possible misuse of certutil downloading capabilities</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101314" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*PowerShdll.dll,main\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Execution of Powershell Without Powershell.exe</description>
-		<options>no_full_log</options>
-	</rule>
-
 	<!--
 	<NetworkConnect onmatch="include">
 		<Image condition="image">powershell.exe</Image>
 	</NetworkConnect>
 	-->
-	<rule id="101316" level="12">
+	<rule id="101305" level="12">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.Image">\\powershell.exe</field>
 		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Powershell Net Execution</description>
-		<options>no_full_log</options>
-	</rule>
-
-	<!--
-	<ProcessCreate onmatch="include">
-		<CommandLine condition="contains">*cmstp.exe*/s*</CommandLine>
-	</ProcessCreate>
-	-->
-	<rule id="101318" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.CommandLine">cmstp.exe /s</field>
-		<description>Mitre ATT&CK T1191, Execution, CMSTP, CMSTP code execution - bypass application whitelisting</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1649,10 +1953,10 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<CommandLine condition="contains">*schtasks.exe*/create*c:\windows\temp\*</CommandLine>
 	</ProcessCreate>
 	-->
-	<rule id="101319" level="12">
+	<rule id="101306" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.CommandLine">\.*schtasks.exe\.*/create\.*c:\\users\.*|\.*schtasks.exe\.*/create\.* c:\\programdata\.*|\.*schtasks.exe\.*/create\.* c:\\windows\\temp\.*</field>
-		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Scheduled Task running programs from suspicious locations or scripting utilities</description>
+		<description>Mitre ATT&CK T1053.005, Execution, Scheduled Task/Job: Scheduled Task, Scheduled Task running programs from suspicious locations or scripting utilities</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- Excel.Application (AppId = {00020812-0000-0000-C000-000000000046})
@@ -1668,53 +1972,29 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	Shell.Application.1 (Clsid = {13709620-C279-11CE-A49E-444553540000})
 	-->
 	<!--
-	<ProcessCreate onmatch="include">
-		<Image condition="end with">rundll32.exe</Image>
-	</ProcessCreate>
-	--> 
-	<rule id="101320" level="12">
-		<if_group>sysmon_event1</if_group>
-		<if_sid>100100</if_sid>
-		<field name="win.eventdata.CommandLine">\.*rundll32.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*rundll32.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*rundll32.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*rundll32.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*rundll32.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*rundll32.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*rundll32.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*rundll32.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Component Object Model and Distributed COM, </description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<Image condition="end with">dllhost.exe</Image>
-	</ProcessCreate>
-	--> 
-	<rule id="101321" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.Image">\\dllhost.exe</field>
-		<field name="win.eventdata.CommandLine">\.*dllhost.exe\.*{00020812-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00020906-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{048EB43E-2059-422F-95E0-557DA96038AF}\.*|\.*dllhost.exe\.*{0006F04A-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{00021A20-0000-0000-C000-000000000046}\.*|\.*dllhost.exe\.*{9BA05972-F6A8-11CF-A42-00A0C90A8F39}\.*|\.*dllhost.exe\.*{c08afd90-f2a1-11d1-8455-00a0c91f3880}\.*|\.*dllhost.exe\.*{7e0423cd-11198-0928-900c-e6d4a52a0715}\.*|\.*dllhost.exe\.*{40AEEAB6-8FDA-41e3-9A5F-8350D4CFCA91}\.*|\.*dllhost.exe\.*{72C24DD5-D70A-438B-8A42-98424B88AFB8}\.*|\.*dllhost.exe\.*{13709620-C279-11CE-A49E-444553540000}\.*</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Component Object Model and Distributed COM, </description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
 	<WmiEvent onmatch="include">
 		<Operation condition="is">Created</Operation>
 	</WmiEvent>
 	-->
-	<rule id="101322" level="12">
+	<rule id="101307" level="12">
 		<if_group>sysmon_event_19</if_group>
 		<field name="win.eventdata.Operation">Created</field>
 		<description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101323" level="12">
+	<rule id="101308" level="12">
 		<if_group>sysmon_event_20</if_group>
 		<field name="win.eventdata.Operation">Created</field>
 		<description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101324" level="12">
+	<rule id="101309" level="12">
 		<if_group>sysmon_event_21</if_group>
 		<field name="win.eventdata.Operation">Created</field>
 		<description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, </description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101325" level="12">
+	<rule id="101310" level="12">
 		<if_sid>100102</if_sid>
 		<field name="win.eventdata.Image">\\cmd.exe||\\powershell.exe||\\wscript.exe||\\cscript.exe||\\sh.exe||\\bash.exe||\\scrcons.exe||\\schtasks.exe||\\regsvr32.exe||\\hh.exe||\\csc.exe</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Microsoft Office Product Spawning Windows Shell</description>
@@ -1726,7 +2006,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<CommandLine condition="contains">*new-object system.net.webclient).downloadfile(*</CommandLine>
 	</ProcessCreate>
 	-->
-	<rule id="101326" level="12">
+	<rule id="101311" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">DownloadString||downloadfile</field>
 		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, PowerShell scripts that download content from the Internet</description>
@@ -1743,43 +2023,18 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<CommandLine condition="contains"> -noninteractive </CommandLine>
 	</ProcessCreate>
 	-->
-	<rule id="101327" level="12">
+	<rule id="101312" level="12">
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">EncodedCommand||-w hidden||-window hidden||-windowstyle hidden||-enc||-noni||noninteractive</field>
 		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Detects suspicious PowerShell invocation command parameters</description>
 		<options>no_full_log</options>
 	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<ParentImage condition="end with">control.exe</ParentImage>
-	<ProcessCreate
-	-->
-	<rule id="101328" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.parentImage">\\System32\\control.exe</field>
-		<field name="win.eventdata.commandline">\\rundll32.exe</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32, Detects suspicious Rundll32 execution from control.exe as used by Equation Group and Exploit Kits</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101329" level="10">
+	<rule id="101313" level="10">
 		<if_sid>100106</if_sid>
 		<field name="win.eventdata.Image">\\powershell.exe||\\cmd.exe</field>
 		<description>Mitre ATT&CK T1059, Execution , Command and Scripting Interpreter, Detects suspicious command invocations from interpreters or unusual programs</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101330" level="12">
-		<if_sid>100107</if_sid>
-		<field name="win.eventdata.commandline">\\Temp</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32, Execution of regsvr32.exe from a temporal folder</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101331" level="12">
-		<if_sid>100107</if_sid>
-		<field name="win.eventdata.parentImage">powershell.exe</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32, Execution of powershel through rundll32</description>
-		<options>no_full_log</options>
-	</rule>
-
 	<!--
 	<ProcessCreate onmatch="include">
 		<CommandLine condition="contains">vssadmin.exe Delete Shadows</CommandLine>
@@ -1790,119 +2045,43 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<CommandLine condition="contains">reg SAVE HKLM\SYSTEM </CommandLine>
 	</ProcessCreate>
 	-->
-	<rule id="101332" level="10">
+	<rule id="101314" level="10">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.commandline">vssadmin create shadow||GLOBALROOT||vssadmin delete shadows||reg SAVE HKLM\\SYSTEM||\\windows\\ntds\\ntds.dit</field>
 		<description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Detects suspicious commands that could be related to activity that uses volume shadow copy</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101333" level="10">
+	<rule id="101315" level="10">
 		<if_sid>100108</if_sid>
 		<field name="win.eventdata.commandline">process call create</field>
 		<description>Mitre ATT&CK T1047, Execution, Windows Management Instrumentation, $(win.eventdata.Image) has executed $(win.eventdata.commandline)</description>
 		<options>no_full_log</options>
 	</rule>	
-	<rule id="101334" level="12">
+	<rule id="101316" level="12">
         <if_sid>100111</if_sid>
         <field name="win.eventdata.ParentImage">mimikatz.exe</field>
         <description>Mitre ATT&CK T1059, Execution, Command and Scripting Interpreter, Mimikatz Detection Image: $(win.eventdata.parentimage)</description>
 		<options>no_full_log</options>
     </rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<ParentImage condition="end with">msiexec.exe</ParentImage>
-	<ProcessCreate
-	-->
-	<rule id="101335" level="6">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.ParentImage">msiexec.exe</field>
-		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, Msiexec.exe has executed $(win.eventdata.CommandLine)</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<ParentCommandLine condition="contains">ftp -s:</ParentCommandLine>
-	<ProcessCreate
-	-->
-	<rule id="101336" level="10">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.ParentCommandLine">\.*ftp -s:\.*|\.*ftp.exe -s:\.*</field>
-		<field name="win.eventdata.commandline">\.*cmd.exe /C\.*</field>
-		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, ftp.exe has executed $(win.eventdata.CommandLine)</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<ProcessCreate onmatch="include">
-		<ParentCommandLine condition="contains">pcalua.exe  -a</ParentCommandLine>
-	<ProcessCreate
-	-->
-	<rule id="101337" level="12">
-		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.ParentCommandLine">\.*pcalua.exe -a\.*</field>
-		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, Program Compatibility Assistant (pcalua.exe) has executed $(win.eventdata.CommandLine)</description>
-		<options>no_full_log</options>
-	</rule>
-	<!--
-	<NetworkConnect onmatch="include">
-		<Image condition="image">mshta.exe</Image>
-	</NetworkConnect>
-	-->
-	<rule id="101338" level="10">
-		<if_group>sysmon_event3</if_group>
-		<field name="win.eventdata.Image">\\mshta.exe</field>
-		<description>Mitre ATT&CK T1170, Execution, Mshta</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101339" level="12">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.CommandLine">mshta.exe</field>
-		<description>Mitre ATT&CK T1170, Execution, Microsoft HTML Application execution via $(win.eventdata.Image)</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101340" level="12">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.CommandLine">regsvr32.exe</field>
-		<description>Mitre ATT&CK T1117, Execution, Regsvr32 execution via $(win.eventdata.Image)</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101341" level="12">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.CommandLine">rundll32.exe</field>
-		<description>Mitre ATT&CK T1085, Execution, Rundll32 execution via $(win.eventdata.Image)</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101342" level="12">
+	<rule id="101317" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">SCHTASKS|schtasks</field>
-		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Creation of scheduled task</description>
+		<description>Mitre ATT&CK T1053.005, Execution, Scheduled Task/Job: Scheduled Task , Creation of scheduled task</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101343" level="12">
+	<rule id="101318" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">AT\s\d\d:\d\d|\sat\s\d\d:\d\d</field>
-		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Creation of scheduled task</description>
+		<description>Mitre ATT&CK T1053.002, Execution, Scheduled Task/Job: At (Windows), Creation of scheduled task</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101344" level="12">
+	<rule id="101319" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.CommandLine">C:\\Windows\\TEMP|C:\\Windows\\temp</field>
 		<description>Mitre ATT&CK T1059.003, Execution, Command and Scripting Interpreter: Windows Command Shell, execution from temporary folder</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101345" level="12">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.CommandLine">msiexec.exe</field>
-		<description>Mitre ATT&CK T1218, Execution, Signed Binary Proxy Execution, Msiexec.exe has been executed via $(win.eventdata.Image)</description>
-		<options>no_full_log</options>
-	</rule>
-	<rule id="101346" level="10">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.commandline">control.exe\.*.cpl</field>
-		<description>Mitre ATT&CK T1196, Execution, Control Panel Items, control panel items</description>
-		<options>no_full_log</options>
-	</rule>
-	
-	<rule id="101347" level="12">
+	<rule id="101320" level="12">
         <if_group>sysmon_event1</if_group>
         <field name="win.eventdata.commandline">mimikatz.exe</field>
         <description>Mitre ATT&CK T1059, Execution, Command-Line Interface, Mimikatz execution</description>
@@ -1913,12 +2092,33 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<ParentImage condition="end with">mmc.exe</ParentImage>
 	</ProcessCreate>
 	-->
-	<rule id="101348" level="12">
+	<rule id="101321" level="12">
 		<if_sid>100110</if_sid>
 		<field name="win.eventdata.image">\\cmd.exe||\\powershell.exe</field>
 		<description>Mitre ATT&CK T1559.001, Execution, Inter-Process Communication: Component Object Model, Processes started by MMC could by a sign of lateral movement using MMC application COM object</description>
 		<options>no_full_log</options>
 	</rule>
+	<rule id="101322" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">sc.exe</field>
+		<field name="win.eventdata.CommandLine">create|start</field>
+		<description>Mitre ATT&CK T1569.002, Execution, System Services: Service Execution, Creation or Start of a service manually with sc.exe binary</description>
+		<options>no_full_log</options>
+	</rule>	
+	<rule id="101323" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">sc.exe</field>
+		<field name="win.eventdata.CommandLine">binPath</field>
+		<description>Mitre ATT&CK T1569.002, Execution, System Services: Service Execution, Modification of binary path</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="101324" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Services\\\\W32Time\\\\FailureCommand</field>
+		<description>Mitre ATT&CK T1569.002, Execution, System Services: Service Execution, Creation of FailureCommand registry hive</description>
+		<options>no_full_log</options>
+	</rule>
+
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1562.001","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}
@@ -2057,13 +2257,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1490, Impact, Inhibit System Recovery, CMD deleting shadowcopies</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="101703" level="12">
-		<if_sid>100117</if_sid>
-		<field name="win.eventdata.commandline">net.exe stop</field>
+	<rule id="101703" level="10">
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.commandline">stop</field>
 		<description>Mitre ATT&CK T1489, Impact, Service Stop, Stop service using net.exe</description>
 		<options>no_full_log</options>
 	</rule>
-		<rule id="101704" level="12">
+	<rule id="101704" level="12">
 		<if_sid>100117</if_sid>
 		<field name="win.eventdata.commandline">taskkill.exe</field>
 		<description>Mitre ATT&CK T1489, Impact, Service Stop,  Stop service by killing process</description>

@@ -1,4 +1,4 @@
-<Sysmon schemaversion="4.22">
+<Sysmon schemaversion="4.30">
 
 	<HashAlgorithms>md5,sha256</HashAlgorithms>
 	<CheckRevocation/>
@@ -56,6 +56,10 @@
 				<Image condition="image" name="T1003 -event1">vaultcmd.exe</Image>
 				<Image name="T1057 -1" condition="image">tasklist.exe</Image>
 				<Image name="T1057 -2" condition="image">qprocess.exe</Image>
+				<Image name="T1218.008" condition="image">odbcconf.exe</Image>
+				<Image name="T1218.009 -1" condition="image">regasm.exe</Image>
+				<Image name="T1218.009 -2" condition="image">regsvcs.exe</Image>
+				<Image name="T1087 -1" condition="image">adfind.exe</Image>
 									  
 				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
 				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
@@ -81,12 +85,6 @@
 				<CommandLine condition="contains" name="T1105 -68">*\certutil.exe *-urlcache* ftp*</CommandLine>
 				<CommandLine condition="contains" name="T1105 -69">*\certutil.exe *-URL*</CommandLine>
 				<CommandLine condition="contains" name="T1105 -70">*\certutil.exe *-ping*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -71">net*group*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -72">net*localgroup*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -73">net*view*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -74">net*share</CommandLine>
-				<CommandLine condition="contains" name="T1087 -75">net*account*</CommandLine>
-				<CommandLine condition="contains" name="T1087 -76">net*use*</CommandLine>
 				<CommandLine condition="contains" name="T1059 -77">vssadmin.exe Delete Shadows</CommandLine>
 				<CommandLine condition="contains" name="T1059 -78">vssadmin create shadow /for=*:</CommandLine>
 				<CommandLine condition="contains" name="T1059 -79">vssadmin delete shadows /for=*:</CommandLine>
@@ -286,7 +284,9 @@
 				<TargetFilename condition="begin with" name="T1546.011 -1">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 				<TargetFilename condition="contains" name="T1023 -35">\Start Menu</TargetFilename>
 				<TargetFilename condition="begin with" name="T1053 -36">C:\Windows\Tasks\</TargetFilename>
-				<TargetFilename condition="begin with" name="T1053 -37">C:\Windows\system32\Tasks</TargetFilename>
+				<TargetFilename condition="end with" name="T1574 -1">\system32\oci.dll</TargetFilename>
+				<TargetFilename condition="end with" name="T1574 -2">\system32\fveapi.dll</TargetFilename>
+				<TargetFilename condition="end with" name="T1547.005">\system32\mimilsa.log</TargetFilename>
 			</FileCreate>
 		</RuleGroup>
 		
@@ -307,8 +307,7 @@
 				<TargetObject condition="contains" name="T1562.001 -12">\Software\Microsoft\Office\*\Access\Security\AccessVBOM</TargetObject>
 				<TargetObject condition="contains" name="T1562.001 -13">\Software\Microsoft\Office\*\Outlook\Security\AccessVBOM</TargetObject>
 				<TargetObject condition="contains" name="T1130 -14">\SOFTWARE\Policies\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
-				<TargetObject condition="contains" name="T1060 -15">Windows\CurrentVersion\Run</TargetObject>
-				<TargetObject condition="contains" name="T1060 -16">Windows\CurrentVersion\RunOnce</TargetObject>
+				<TargetObject condition="contains" name="T1547.001 -15">Windows\CurrentVersion\Run</TargetObject>
 				<TargetObject condition="contains" name="T1060 -17">\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\startup</TargetObject>
 				<TargetObject condition="contains" name="T1060 -18">\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\startup</TargetObject>
 				<TargetObject condition="begin with" name="T1138,AppCompatShim -19">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
@@ -337,6 +336,13 @@
 				<TargetObject condition="contains" name="T1546.010 -1">\Windows NT\CurrentVersion\Windows\AppInit_DLLs</TargetObject>
 				<TargetObject condition="contains" name="T1574.007 -1">\Environment\Path</TargetObject>
 				<TargetObject condition="contains" name="T1574.012 -1">\Environment\COR_PROFILER</TargetObject>
+				<TargetObject condition="contains" name="T1547.004 -1">\CurrentVersion\Winlogon\Shell</TargetObject>
+				<TargetObject condition="contains" name="T1547.004 -2">\CurrentVersion\Winlogon\Userinit</TargetObject>
+				<TargetObject condition="contains" name="T1547.004 -3">\CurrentVersion\Winlogon\Notify</TargetObject>
+				<TargetObject condition="contains" name="T1569.002">\Services\W32Time\FailureCommand</TargetObject>
+				<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\Windows\LoadAppInit_DLLs</TargetObject>
+				<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\WindowsAppInit_DLLs</TargetObject>
+
 			</RegistryEvent>
 		</RuleGroup>
 				

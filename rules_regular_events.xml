@@ -64,7 +64,7 @@
 		<field name="win.eventdata.LogonType">9</field>
 		<field name="win.eventdata.authenticationPackageName">Negotiate</field>
 		<field name="win.eventdata.logonProcessName">seclogo</field>
-		<description>Mitre ATT&CK T1075, Lateral movement, Pass the Hash by user $(win.eventdata.targetUserName)</description>
+		<description>Mitre ATT&CK T1550.002, Lateral movement, Use Alternate Authentication Material: Pass the Hash, Pass the Hash by user $(win.eventdata.targetUserName)</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100207" level="3">
@@ -166,7 +166,7 @@
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, Go2assist/LogMeIn Traffic</description>
 		<options>no_full_log</options>
 	</rule>
-<!--	
+	<!--	
 	<rule id="100246" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^5158$</field>
@@ -175,7 +175,7 @@
 		<description>Mitre ATT&CK T1219, Command and Control, Remote Access Tools, VNC Traffic</description>
 		<options>no_full_log</options>
 	</rule>
--->
+	-->
 
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"4799","version":"0","level":"0","task":"13826","opcode":"0","keywords":"0x8020000000000000","systemTime":"2019-08-05T09:25:03.867961600Z","eventRecordID":"10091","processID":"620","threadID":"1948","channel":"Security","computer":"MSEDGEWIN10","severityValue":"AUDIT_SUCCESS","message":"Se enumeró la pertenencia a grupos locales con seguridad habilitada."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","TargetUserName":"Administrators","TargetDomainName":"Builtin","TargetSid":"S-1-5-32-544","SubjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","SubjectUserName":"IEUser","SubjectDomainName":"MSEDGEWIN10","SubjectLogonId":"0x2e47a","CallerProcessId":"0x5c0","CallerProcessName":"C:\\Windows\\System32\\net1.exe"}}}
@@ -279,10 +279,11 @@
 	<!-- DEFENSE EVASION -->
 
 	<!-- Detailed Directory Service Replication Auditing must be enabled -->
+	<!--Must check that source ip it's allowed for replication of the dc -->
 	<rule id="100280" level="10">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4928$|^4929$</field>
-		<description>Mitre ATT&CK T1207, Defense Evasion, DCShadow, Check if the source of events is not a legitimate domain controller</description>
+		<description>Mitre ATT&CK T1207, Defense Evasion, Rogue Domain Controller, Check if the source of events is not a legitimate domain controller</description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100281" level="10">
@@ -495,7 +496,7 @@
 	<rule id="100313" level="7">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4698$</field>
-		<description>Mitre ATT&CK T1053, Persistence, Scheduled Task, A scheduled task was created</description>
+		<description>Mitre ATT&CK T1053.005, Persistence, Scheduled Task/Job: Scheduled Task , A scheduled task was created</description>
 		<options>no_full_log</options>
 	</rule>
 	 <rule id="100314" level="7">
@@ -519,7 +520,7 @@
 		<options>no_full_log</options>
 	</rule>
 	<rule id="100316" level="7">
-		<if_sid>60100</if_sid>
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4738$</field>
 		<description>Mitre ATT&CK T1098, Persistence, Account Manipulation, User $(win.eventdata.TargetUserName) account changed</description>
 		<options>no_full_log</options>
@@ -531,10 +532,10 @@
 	<!-- INITIAL ACCESS -->
 
 	<!-- The SpecialGroups string must be added first to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\Audit for auditing of Special Groups to take place. -->
-	<rule id="100320" level="7">
+	<rule id="100320" level="5">
 		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4964$</field>
-		<description>Mitre ATT&CK T1078, Initial Access, Special groups have been assigned to a new logon</description>
+		<description>Mitre ATT&CK T1078, Initial Access, Valid Accounts, Special groups have been assigned to a new logon</description>
 		<options>no_full_log</options>
 	</rule>
 
@@ -571,7 +572,7 @@
 		<if_sid>60104</if_sid>
 		<field name="win.system.eventID">^4771$</field>
 		<field name="win.eventdata.Status">0x18</field>
-		<description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, Kerberos pre-authentication failed</description>
+		<description>Mitre ATT&CK T1078.002,  Credential Access, Valid Accounts: Domain Accounts, Kerberos pre-authentication failed</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 	</rule>
@@ -579,7 +580,7 @@
 		<if_sid>60122</if_sid>
 		<field name="win.system.eventID">^4625$</field>
 		<field name="win.eventdata.Status">0xC0000064|0xC000006A|0xc000006d</field>
-		<description>Mitre ATT&CK T1078,  Credential Access, Valid Accounts, An account failed to log on</description>
+		<description>Mitre ATT&CK T1078.003,  Credential Access, Valid Accounts: Local Accounts, An account failed to log on</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 	</rule>
@@ -645,7 +646,7 @@
 		<field name="win.system.eventID">^4769$</field>
 		<field name="win.eventdata.TicketOptions">0x40810000</field>
 		<field name="win.eventdata.TicketEncryptionType">0x1|0x2|0x17</field>
-		<description>Mitre ATT&CK T1208,  Credential Access, Kerberoasting, Kerberos DES or RC4 ticket requested (Low security protocols, must enable 128 or 256 AES)</description>
+		<description>Mitre ATT&CK T1558.003, Credential Access, Steal or Forge Kerberos Tickets: Kerberoasting, Kerberos DES or RC4 ticket requested (Low security protocols, must enable 128 or 256 AES)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!-- If properly enabled Audit Object Access policy on browsers credential databases (enable audit on Event Data ObjectName) we can use event 4663 to monitor atempts to steal 
@@ -695,7 +696,7 @@
 		<field name="win.system.eventID">^5145$</field>
 		<field name="win.eventdata.ShareName">(\.*)(IPC\$)</field>
 		<field name="win.eventdata.RelativeTargetName">atsvc</field>
-		<description>Mitre ATT&CK T1053, Execution, Scheduled Task, Remote Task creation using ATSVC named pipe or the deprecated AT.exe cmdlet</description>
+		<description>Mitre ATT&CK T1053.002, Execution, Scheduled Task/Job: At (Windows), Remote Task creation using ATSVC named pipe or the deprecated AT.exe cmdlet</description>
 		<options>no_full_log</options>
 	</rule>
 
