@@ -60,6 +60,8 @@
 				<Image name="T1218.009 -1" condition="image">regasm.exe</Image>
 				<Image name="T1218.009 -2" condition="image">regsvcs.exe</Image>
 				<Image name="T1087 -1" condition="image">adfind.exe</Image>
+				<Image name="T1546.011 -3" condition="image">sdbinst.exe</Image>
+				<Image name="T1027.002 -1" condition="image">upx.exe</Image>
 									  
 				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
 				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
@@ -287,6 +289,9 @@
 				<TargetFilename condition="end with" name="T1574 -1">\system32\oci.dll</TargetFilename>
 				<TargetFilename condition="end with" name="T1574 -2">\system32\fveapi.dll</TargetFilename>
 				<TargetFilename condition="end with" name="T1547.005">\system32\mimilsa.log</TargetFilename>
+				<TargetFilename condition="contains" name="T1137.006">\Roaming\Microsoft\Word\STARTUP</TargetFilename>
+				<TargetFilename condition="contains" name="T1546.013">\Documents\WindowsPowerShell</TargetFilename>
+				
 			</FileCreate>
 		</RuleGroup>
 		
@@ -323,12 +328,13 @@
 				<TargetObject condition="contains" name="Change of keyboard layout -29">\Keyboard Layout\Substitutes</TargetObject> <!-- https://twitter.com/cyb3rops/status/1183431685402234880 -->
 				<TargetObject condition="contains" name="T1013 -30">*CurrentControlSet*\Control\Print\Monitors\*</TargetObject>
 				<TargetObject condition="contains" name="T1209 -31">*CurrentControlSet\Services\W32Time\TimeProviders\*</TargetObject>
-				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\SCRNSAVE.EXE</TargetObject>
-				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
-				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
-				<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
+				<TargetObject condition="contains" name="T1546.002 -1">\Control Panel\Desktop\SCRNSAVE.EXE</TargetObject>
+				<TargetObject condition="contains" name="T1546.002 -2">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
+				<TargetObject condition="contains" name="T1546.002 -3">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
+				<TargetObject condition="contains" name="T1546.002 -4">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
 				<TargetObject condition="contains" name="T1092 -1">\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
 				<TargetObject condition="contains" name="T1182 -1">\Control\Session Manager\AppCertDLLs\</TargetObject>
+				
 				<TargetObject condition="contains" name="T1546.015 -1">\InprocServer32\scrobj</TargetObject>
 				<TargetObject condition="contains" name="T1547.002 -1">\CurrentControlSet\Control\Lsa\Security Package</TargetObject>
 				<TargetObject condition="contains" name="T1547.002 -2">\CurrentControlSet\Control\Lsa\OSConfig\Security Packages</TargetObject>
@@ -342,6 +348,11 @@
 				<TargetObject condition="contains" name="T1569.002">\Services\W32Time\FailureCommand</TargetObject>
 				<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\Windows\LoadAppInit_DLLs</TargetObject>
 				<TargetObject condition="contains" name="T1546.010">\Windows NT\CurrentVersion\WindowsAppInit_DLLs</TargetObject>
+				<TargetObject condition="contains" name="T1137.002">\Microsoft\Office test\Special</TargetObject>
+				<TargetObject condition="contains" name="T1546.012">\Windows NT\CurrentVersion\Image File Execution Options</TargetObject>
+				<TargetObject condition="contains" name="T1546.012">\Windows NT\CurrentVersion\SilentProcessExit</TargetObject>
+				<TargetObject condition="contains" name="T1547.003">\Services\W32Time\TimeProviders\</TargetObject>
+				<TargetObject condition="contains" name="T1078.001 -1">\SAM\SAM\Domains\Account\Users\000001F5\F</TargetObject>
 
 			</RegistryEvent>
 		</RuleGroup>

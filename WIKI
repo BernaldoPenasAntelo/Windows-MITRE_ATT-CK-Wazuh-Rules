@@ -51,6 +51,32 @@ h2. T1078 - Valid Accounts
 
 ----
 
+h3. - T1078.001, Persistence, Valid Accounts: Default Accounts, Guest RID Hijacking
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1078.001 |\2. Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems or default factory/provider set accounts on other types of systems, software, or devices.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el cambio del "Relative Id." del usuario guest para hacerlo pasar por administrador REF. https://pentestlab.blog/2020/02/12/persistence-rid-hijacking/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **10** |=. Microsoft-Windows-Sysmon/Operational | Sysmon_event 13|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101040" level="10">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\SAM\\\\SAM\\\\Domains\\\\Account\\\\Users\\\\000001F5\\\\F</field>
+		<description>Mitre ATT&CK T1078.001, Persistence, Valid Accounts: Default Accounts, Guest RID Hijacking</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
 h3.  - T1078.002,  Credential Access, Valid Accounts: Domain Accounts, Kerberos pre-authentication failed
 
 ----
@@ -67,13 +93,94 @@ h3.  - T1078.002,  Credential Access, Valid Accounts: Domain Accounts, Kerberos 
 {background:#dddddd}. |\3=. CÓDIGO |
 
  <pre><code class="xml">
-	<rule id="100340" level="5">
+	<rule id="100323" level="5">
 		<if_sid>60104</if_sid>
 		<field name="win.system.eventID">^4771$</field>
 		<field name="win.eventdata.Status">0x18</field>
-		<description>Mitre ATT&CK T1078.002,  Credential Access, Valid Accounts: Domain Accounts, Kerberos pre-authentication failed</description>
+		<description>Mitre ATT&CK T1078.002, Initial Access, Valid Accounts: Domain Accounts, Kerberos pre-authentication failed</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1078.002,  Initial Access, Valid Accounts: Domain Accounts, Account disabled, expired, locked out.
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1078.002 |\2. Adversaries may obtain and abuse credentials of a domain account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. [1] Domain accounts are those managed by Active Directory Domain Services where access and permissions are configured across systems and services that are part of that domain. Domain accounts can cover users, administrators, and services.[|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el evento de windows que indica que el usuario ha sido deshabilitado bloqueado o expirado.|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **7** |=.  Microsoft-Windows-Security-Auditing | Security event 4769|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100325" level="7">
+		<if_sid>60106</if_sid>
+		<field name="win.system.eventID">^4769$</field>
+		<field name="win.eventdata.Status">^0x12$</field>
+		<description>Mitre ATT&CK T1078.002,  Initial Access, Valid Accounts: Domain Accounts, Account $(TargetUserName) disabled, expired, locked out.</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1078.002,  Initial Access, Valid Accounts: Domain Accounts, The user’s password has expired.
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1078.002 |\2. Adversaries may obtain and abuse credentials of a domain account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. [1] Domain accounts are those managed by Active Directory Domain Services where access and permissions are configured across systems and services that are part of that domain. Domain accounts can cover users, administrators, and services.[|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el evento de windows que indica que la password del usuario ha expirado|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#b3b6f8}. **3** |=.  Microsoft-Windows-Security-Auditing | Security event 4769|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100326" level="3">
+		<if_sid>60106</if_sid>
+		<field name="win.system.eventID">^4769$</field>
+		<field name="win.eventdata.Status">^0x17$</field>
+		<description>Mitre ATT&CK T1078.002,  Initial Access, Valid Accounts: Domain Accounts, The user’s $(TargetUserName) password has expired.</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1078.002,  initial Access, Valid Accounts: Domain Accounts, The user’s $(TargetUserName) provided a wrong password.
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1078.002 |\2. Adversaries may obtain and abuse credentials of a domain account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. [1] Domain accounts are those managed by Active Directory Domain Services where access and permissions are configured across systems and services that are part of that domain. Domain accounts can cover users, administrators, and services.[|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el evento de windows que indica que el usuario ha introducido una password erronea|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#b3b6f8}. **3** |=.  Microsoft-Windows-Security-Auditing | Security event 4769|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100327" level="3">
+		<if_sid>60106</if_sid>
+		<field name="win.system.eventID">^4769$</field>
+		<field name="win.eventdata.Status">^0x18$</field>
+		<description>Mitre ATT&CK T1078.002,  initial Access, Valid Accounts: Domain Accounts, The user’s $(TargetUserName) provided a wrong password</description>
+		<options>no_full_log</options>
 	</rule>
 </code></pre>
 
@@ -95,11 +202,11 @@ h3.  - T1078.003,  Credential Access, Valid Accounts: Local Accounts, An account
 {background:#dddddd}. |\3.=. CÓDIGO |
 
  <pre><code class="xml">
-	<rule id="100341" level="5">
-		<if_sid>60122</if_sid>
-		<field name="win.system.eventID">^4625$</field>
-		<field name="win.eventdata.Status">0xC0000064|0xC000006A|0xc000006d</field>
-		<description>Mitre ATT&CK T1078.003,  Credential Access, Valid Accounts: Local Accounts, An account failed to log on</description>
+	<rule id="100323" level="5">
+		<if_sid>60104</if_sid>
+		<field name="win.system.eventID">^4771$</field>
+		<field name="win.eventdata.Status">0x18</field>
+		<description>Mitre ATT&CK T1078.002, Initial Access, Valid Accounts: Domain Accounts, Kerberos pre-authentication failed</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 	</rule>
@@ -1621,16 +1728,16 @@ Since some boot or logon autostart programs run with higher privileges, an adver
 
 ----
 
-h3. - T1547.001, Persistence, Registry Run Keys / Startup Folder
+h3. - T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder
 
 ----
 
 {background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
-| T1547.001 |\2. Adversaries may achieve persistence by adding a program to a startup folder or referencing it with a Registry run key. Adding an entry to the "run keys" in the Registry or startup folder will cause the program referenced to be executed when a user logs in. [1] These programs will be executed under the context of the user and will have the account's associated permissions level. |
+| T1547.001 |\2. Adversaries may achieve persistence by adding a program to a startup folder or referencing it with a Registry run key. Adding an entry to the "run keys" in the Registry or startup folder will cause the program referenced to be executed when a user logs in. [1] These programs will be executed under the context of the user and will have the account's associated permissions level.|
 {background:#dddddd}. |\3=. EXPLICACIÓN |
-|\3. Esta firma monitoriza las modificación de entradas de registro referentes a las aplicaciones de inicio |
+|\3. Esta firma monitoriza la creación de los registros \Windows\CurrentVersion\Run que contienen los programas que se arrancan al inicio del sistema, modificando estas entradas puede generarse persistencia en ls equipos.|
 {background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
-|={background:#f4f491}. **6** |=. Microsoft-Windows-Sysmon/Operational|=. [[Modelo de datos#1.2.Eventos Sysmon|Sysmon 13]] |
+|={background:#f4f491}. **6** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
 {background:#dddddd}. |\3=. Firmas Relacionadas |
 {background:#dddddd}. |=. Dependientes |=. Subordinadas | |
 ||||
@@ -1638,8 +1745,34 @@ h3. - T1547.001, Persistence, Registry Run Keys / Startup Folder
 
 <pre><code class="xml">
 	<rule id="101002" level="6">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows\\\\CurrentVersion\\\\Run</field>
+		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1547.001 |\2. Adversaries may achieve persistence by adding a program to a startup folder or referencing it with a Registry run key. Adding an entry to the "run keys" in the Registry or startup folder will cause the program referenced to be executed when a user logs in. [1] These programs will be executed under the context of the user and will have the account's associated permissions level.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la modificación de los registros \Windows\CurrentVersion\Run que contienen los programas que se arrancan al inicio del sistema, modificando estas entradas puede generarse persistencia en ls equipos.|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **6** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 13 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101024" level="6">
 		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">Windows\\\\CurrentVersion\\\\Run||Windows\\\\CurrentVersion\\\\RunOnce</field>
+		<field name="win.eventdata.TargetObject">\\\\Windows\\\\CurrentVersion\\\\Run</field>
 		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1767,11 +1900,10 @@ h3. - T1547.003, Persistence,  Boot or Logon Autostart Execution: Time Providers
 {background:#dddddd}. |\3=. CÓDIGO |
 
 <pre><code class="xml">
-	<rule id="100308" level="10">
-		<if_sid>60103</if_sid>
-		<field name="win.system.eventID">^4616$</field>
-		<field name="win.eventdata.ProcessName">(\.*)rundll.exe</field>
-		<description>Mitre ATT&CK T1547.003, Persistence, Boot or Logon Autostart Execution: Time Providers, Time change outside the normal Windows Time Service.</description>
+	<rule id="101012" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">CurrentControlSet\\\\Services\\\\W32Time\\\\TimeProviders</field>
+		<description>Mitre ATT&CK T1547.003, Persistence, Boot or Logon Autostart Execution: Time Providers</description>
 		<options>no_full_log</options>
 	</rule>
 </code></pre>
@@ -1908,6 +2040,84 @@ h3. - T1547.005, Persistence, Boot or Logon Autostart Execution: Security Suppor
 
 ----
 
+h3. - T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider III
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1547.005 |\2. Adversaries may abuse security support providers (SSPs) to execute DLLs when the system boots. Windows SSP DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la creación de los registros **\CurrentControlSet\Control\Lsa\OSConfig\Security** donde se cargan DLL's que usa el proceso LSASS de windows modificando el proceso de autenticación. REF. https://pentestlab.blog/2019/10/21/persistence-security-support-provider/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **12** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101025" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider III</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider IV
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1547.005 |\2. Adversaries may abuse security support providers (SSPs) to execute DLLs when the system boots. Windows SSP DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la modificación de los registros **\CurrentControlSet\Control\Lsa\OSConfig\Security** donde se cargan DLL's que usa el proceso LSASS de windows modificando el proceso de autenticación. REF. https://pentestlab.blog/2019/10/21/persistence-security-support-provider/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **12** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 13 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101026" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\Security Package</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider IV</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider, Creation of mimilsa.log
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1547.005 |\2. Adversaries may abuse security support providers (SSPs) to execute DLLs when the system boots. Windows SSP DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la creación del log **mimilsa.log**, con passwords de las cuentas que realizan login en al sistema, en la carpeta system32 es un indicativo de la inyección en memoria por parte de **mimikatz** de la librería **mimilib.dll** en el proceso LSASS. REF. https://pentestlab.blog/2019/10/21/persistence-security-support-provider/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **12** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 11 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101027" level="12">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">mimilsa.log</field>
+		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider, Creation of mimilsa.log that indicates usage of mimikatz to gather credentials</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
 h2. T1023, Persistence, Shortcut Modification
 
 ----
@@ -1975,6 +2185,8 @@ h3. - T1013, Persistence, Port Monitors, Creation of a Local Port Monitor has de
 
 h2.  T1037 Boot or Logon Initialization Scripts 
 
+----
+
 {background:#dddddd}. |=. DESCRIPCIÓN |
 |Adversaries may use scripts automatically executed at boot or logon initialization to establish persistence. Initialization scripts can be used to perform administrative functions, which may often execute other programs or send information to an internal logging server. These scripts can vary based on operating system and whether applied locally or remotely. |
 
@@ -2002,6 +2214,120 @@ h3. - T1037.001, Persistence, Boot or Logon Initialization Scripts: Logon Script
 		<description>Mitre ATT&CK T1037.001, Persistence, Boot or Logon Initialization Scripts: Logon Script</description>
 		<options>no_full_log</options>
 	</rule>
+</code></pre>
+
+----
+
+----
+
+h2. T1137,  Persistence, Office Application Startup
+
+
+{background:#dddddd}. | DESCRIPCIÓN |
+| Adversaries may abuse Microsoft Office templates to obtain persistence on a compromised system. Microsoft Office contains templates that are part of common Office applications and are used to customize styles. The base templates within the application are used each time an application starts.|
+
+----
+
+h3. - T1137.001,  Persistence, Office Application Startup: Office Template Macros, Access to Office Template folder requested
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1137.001 |\2. Adversaries may abuse Microsoft Office templates to obtain persistence on a compromised system. Microsoft Office contains templates that are part of common Office applications and are used to customize styles. The base templates within the application are used each time an application starts.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el acceso a la carpeta de plantillas de office, la modificación de estas añadiendo Macros que ejecuten instrucciones peligrosas pueden generar persistencia. REF. https://pentestlab.blog/2019/12/11/persistence-office-application-startup/ |
+|\3. Para activar esta regla debe configurarse la auditoría de acceso (evento 4663) sobre la carpeta C:\Users\<usuario>\AppData\Roaming\Microsoft\Templates|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#b3b6f8}. **3** |=. Microsoft-Windows-Security-Auditing|=. Windows_event 4663 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100317" level="3">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4663$</field>
+		<field name="win.eventdata.ObjectName">\\AppData\\Roaming\\Microsoft\\Templates</field>
+		<description>Mitre ATT&CK T1137.001,  Persistence, Office Application Startup: Office Template Macros, Access to Office Template folder requested</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1137.002, Persistence, Office Application Startup: Office Test, creation of test dll used for performance evaluations in Office
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1137.002 |\2. Adversaries may abuse the Microsoft Office "Office Test" Registry key to obtain persistence on a compromised system. An Office Test Registry location exists that allows a user to specify an arbitrary DLL that will be executed every time an Office application is started. This Registry key is thought to be used by Microsoft to load DLLs for testing and debugging purposes while developing Office applications. This Registry key is not created by default during an Office installation.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la creación de una entrada de registro usada para la evaluación de rendimineto de productos Office en desarrollo que puede ser usada para generar persistencia en un sistema REF. https://pentestlab.blog/2019/12/11/persistence-office-application-startup/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **12** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101033" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Microsoft\\\\Office test\\\\Special\\\\Perf</field>
+		<description>Mitre ATT&CK T1137.002, Persistence, Office Application Startup: Office Test, creation of test dll used for performance evaluations in Office</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1137.006 |\2. Adversaries may abuse Microsoft Office add-ins to obtain persistence on a compromised system. Office add-ins can be used to add functionality to Office programs. There are different types of add-ins that can be used by the various Office products; including Word/Excel add-in Libraries (WLL/XLL), VBA add-ins, Office Component Object Model (COM) add-ins, automation add-ins, VBA Editor (VBE), Visual Studio Tools for Office (VSTO) add-ins, and Outlook add-ins.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la creación de add-ins de Ofiice que se cargan al inicio de la aplicación pudiendo generar persistencia para adversarios REF. https://pentestlab.blog/2019/12/11/persistence-office-application-startup/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#b3b6f8}. **2** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 11 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+    <rule id="101031" level="2">
+        <if_group>sysmon_event_11</if_group>
+        <field name="win.eventdata.TargetFilename">\\Roaming\\Microsoft\\Word\\STARTUP</field>
+        <description>Mitre ATT&CK T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder</description>
+        <options>no_full_log</options>
+    </rule>
+</code></pre>
+
+----
+
+h3. - T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1137.006 |\2. Adversaries may abuse Microsoft Office add-ins to obtain persistence on a compromised system. Office add-ins can be used to add functionality to Office programs. There are different types of add-ins that can be used by the various Office products; including Word/Excel add-in Libraries (WLL/XLL), VBA add-ins, Office Component Object Model (COM) add-ins, automation add-ins, VBA Editor (VBE), Visual Studio Tools for Office (VSTO) add-ins, and Outlook add-ins.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la creación de add-ins de Ofiice que se cargan al inicio de la aplicación pudiendo generar persistencia para adversarios REF. https://pentestlab.blog/2019/12/11/persistence-office-application-startup/  |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **5** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 11 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+    <rule id="101032" level="5">
+        <if_sid>101031</if_sid>
+        <field name="win.eventdata.TargetFilename">.wll|.xll</field>
+        <description>Mitre ATT&CK T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder</description>
+        <options>no_full_log</options>
+    </rule>
 </code></pre>
 
 ----
@@ -2143,6 +2469,32 @@ h3. - T1197,  Defense Evasion, BITS Jobs, Detects usage of bitsadmin downloading
 		<if_sid>100113</if_sid>
 		<field name="win.eventdata.commandline">Start-BitsTransfer</field>
 		<description>Mitre ATT&CK T1197, Defense Evasion, BITS Jobs, Detects usage of bitsadmin downloading a file</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1197, Persistence, BITS Jobs ,Usual bitsadmin commands to achieve persistence
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1197 |\2. Adversaries may abuse BITS jobs to persistently execute or clean up after malicious payloads. Windows Background Intelligent Transfer Service (BITS) is a low-bandwidth, asynchronous file transfer mechanism exposed through Component Object Model (COM). BITS is commonly used by updaters, messengers, and other applications preferred to operate in the background (using available idle bandwidth) without interrupting other networked applications. File transfer tasks are implemented as BITS jobs, which contain a queue of one or more file operations.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el uso de flags comunes del comando bits jobs de cara a generar persistencia REF. https://pentestlab.blog/2019/10/30/persistence-bits-jobs/|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. N/A |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101038" level="7">
+		<if_sid>100109</if_sid>
+		<field name="win.eventdata.commandLine">/create|/addfile|/SetNotifyCmdLine|/SetMinRetryDelay|/resume</field>
+		<description>Mitre ATT&CK T1197, Persistence, BITS Jobs ,Usual bitsadmin commands to achieve persistence</description>
 		<options>no_full_log</options>
 	</rule>
 </code></pre>
@@ -5135,6 +5487,32 @@ h3. - T546.002, Persistence, Event Triggered Execution: Screensaver
 
 ----
 
+h3. - T1546.002, Persistence, Event Triggered Execution: Screensaver, Modification of screensaver executable
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.002 |\2. Adversaries may establish persistence by executing malicious content triggered by user inactivity. Screensavers are programs that execute after a configurable time of user inactivity and consist of Portable Executable (PE) files with a .scr file extension.[1] The Windows screensaver application scrnsave.scr is located in C:\Windows\System32\, and C:\Windows\sysWOW64\ on 64-bit Windows systems, along with screensavers included with base Windows installations.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la modificación de la entrada de registro que permite a los usuarios ejecutar código después del período de inactividad pudiendo ser usado para generar persistencia REF. https://pentestlab.blog/2019/10/09/persistence-screensaver/|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 13 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101035" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\SCRNSAVE.EXE</field>
+		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver, Modification of screensaver executable</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
 h3. - T1546.008, Persistence, Event Triggered Execution: Accessibility Features
 
 ----
@@ -5213,6 +5591,84 @@ h3. - T1546.010, Persistence, Event Triggered Execution: AppInit DLLs
 
 ----
 
+h3. - T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs I
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.010 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Windows or HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows are loaded by user32.dll into every process that loads user32.dll. In practice this is nearly every program, since user32.dll is a very common library.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza librerias dinámicas (DLLs) que están contenidas en el valor de registro **WindowsAppInit_DLLs**, estas pueden ser malintencionadamente usadas para generar persistencia. REF. https://pentestlab.blog/2020/01/07/persistence-appinit-dlls/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101028" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs I</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs II
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.010 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Windows or HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows are loaded by user32.dll into every process that loads user32.dll. In practice this is nearly every program, since user32.dll is a very common library.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza librerias dinámicas (DLLs) que están contenidas en el valor de registro **WindowsAppInit_DLLs**, estas pueden ser malintencionadamente usadas para generar persistencia. REF. https://pentestlab.blog/2020/01/07/persistence-appinit-dlls/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101029" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs II</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of LoadAppInit_DLLs
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.010 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Windows or HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows are loaded by user32.dll into every process that loads user32.dll. In practice this is nearly every program, since user32.dll is a very common library.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza librerias dinámicas (DLLs) que están contenidas en el valor de registro **LoadAppInit_DLLs**, estas pueden ser malintencionadamente usadas para generar persistencia. REF. https://pentestlab.blog/2020/01/07/persistence-appinit-dlls/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 13 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101030" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\Windows\\\\LoadAppInit_DLLs</field>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
 h3. - T1546.011, Persistence, Event Triggered Execution: Application Shimming, Installed Shim
 
 ----
@@ -5265,6 +5721,110 @@ h3. -  T1546.011, Persistence, Event Triggered Execution: Application Shimming, 
 
 ----
 
+h3. - T1546.011, Persistence, Event Triggered Execution: Application Shimming, use of sdbinst to install a shim
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.011 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by application shims. The Microsoft Windows Application Compatibility Infrastructure/Framework (Application Shim) was created to allow for backward compatibility of software as the operating system codebase changes over time. For example, the application shimming feature allows developers to apply fixes to applications (without rewriting code) that were created for Windows XP so that it will work with Windows 10.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la instalación de shims, las shims permiten la compatibilidad con aplicaciones antiguas y pueden ser modificadas para obtener persistencia, REF. https://pentestlab.blog/2019/12/16/persistence-application-shimming/|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **5** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 1 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101034" level="5">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">sdbinst.exe</field>
+		<description>Mitre ATT&CK T1546.011, Persistence, Event Triggered Execution: Application Shimming, use of sdbinst to install a shim</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry Image File Execution Options
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.012 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by Image File Execution Options (IFEO) debuggers. IFEOs enable a developer to attach a debugger to an application. When a process is created, a debugger present in an application’s IFEO will be prepended to the application’s name, effectively launching the new process under the debugger (e.g., C:\dbg\ntsd.exe -g notepad.exe).|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la posibilidad que windows brinda a los desarrolladores para enlazar un debuger con una aplicación pudiendo ser este "malicioso" de cara a generar persistencia REF. https://pentestlab.blog/2020/01/13/persistence-image-file-execution-options-injection/|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101036" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\Image File Execution Options</field>
+		<description>Mitre ATT&CK T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry Image File Execution Options</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry Image File Execution Options
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.012 |\2. Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by Image File Execution Options (IFEO) debuggers. IFEOs enable a developer to attach a debugger to an application. When a process is created, a debugger present in an application’s IFEO will be prepended to the application’s name, effectively launching the new process under the debugger (e.g., C:\dbg\ntsd.exe -g notepad.exe).|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza la posibilidad que windows brinda a los desarrolladores para enlazar un debuger con una aplicación pudiendo ser este "malicioso" de cara a generar persistencia REF. https://pentestlab.blog/2020/01/13/persistence-image-file-execution-options-injection/|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational|=. Sysmon_event 12 |
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101037" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\SilentProcessExit</field>
+		<description>Mitre ATT&CK T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry SilentProcessExit</description>
+		<options>no_full_log</options>
+	</rule>	
+</code></pre>
+
+----
+
+h3. - T1546.013, Persistence, Event Triggered Execution: PowerShell Profile, Creation of Powershell profile
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1546.013 |\2. Adversaries may gain persistence and elevate privileges by executing malicious content triggered by PowerShell profiles. A PowerShell profile (profile.ps1) is a script that runs when PowerShell starts and can be used as a logon script to customize user environments.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el cambio del perfil de powershell que puede ser usado para generar persistencia, REF. https://pentestlab.blog/2019/11/05/persistence-powershell-profile/ |
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f4f491}. **7** |=. Microsoft-Windows-Sysmon/Operational | Sysmon_event 11|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="101039" level="7">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">\\\\Documents\\\\WindowsPowerShell</field>
+		<description>Mitre ATT&CK T1546.013, Persistence, Event Triggered Execution: PowerShell Profile, Creation of Powershell profile</description>
+		<options>no_full_log</options>
+	</rule>
+</code></pre>
+
+----
+
 h3. - T1546.015, Defense Evasion, Event Triggered Execution: Component Object Model Hijacking
 
 ----
@@ -5297,29 +5857,113 @@ h1. Credential Access
 
 h2.  T1110 - Credential Access, Brute Force
 
+{background:#dddddd}. |=. DESCRIPCIÓN |
+| Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained. Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism. Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes.|
+
+
 ----
 
-h3. - T1110, Credential Access, Brute Force, Multiple Kerberos pre-authentication failed
+h3. - T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed.
 
 ----
 
 {background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
-| T1088 |\2. Adversaries may use brute force techniques to attempt access to accounts when passwords are unknown or when password hashes are obtained. |
+| T1110.001 |\2. Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.|
 {background:#dddddd}. |\3=. EXPLICACIÓN |
-|\3. Esta firma monitoriza el fallo continuado de autenticación kerberos|
+|\3. Esta firma monitoriza el repedito fallo de autenticaciones poor parte de un usuario.|
 {background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
-|={background:#f6bb7f}. **10** |=. Microsoft-Windows-Security-Auditing|=.[[Modelo de datos#1.1.Eventos de windows | 4771]] |
+|={background:#f6bb7f}. **10** |=.  N/A | N/A|
 {background:#dddddd}. |\3=. Firmas Relacionadas |
 {background:#dddddd}. |=. Dependientes |=. Subordinadas | |
-|[[#T1078 - Valid Accounts, Kerberos pre-authentication failed|100340]]|||
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100359" timeframe="60" frequency="6" level="10">
+        <if_matched_sid>100327</if_matched_sid>
+        <same_field>win.eventdata.TargetUserName</same_field>
+        <description>Mitre ATT&CK T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress) posible Kerberos spaying</description>
+        <options>no_full_log</options>
+    </rule>
+</code></pre>
+
+----
+
+h3. - T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed.
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1110.001 |\2. Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el repedito fallo de autenticaciones poor parte de un usuario.|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **10** |=.  N/A | N/A|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100360" timeframe="60" frequency="6" level="10">
+        <if_matched_sid>100327</if_matched_sid>
+        <same_field>win.eventdata.IpAddress</same_field>
+        <description>Mitre ATT&CK T1110.001, Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed from user $(win.eventdata.subjectUserSid)</description>
+        <options>no_full_log</options>
+    </rule>
+</code></pre>
+
+----
+
+h3. - T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed, posible Kerberos spaying
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1110.001 |\2. Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el repedito fallo de autenticaciones poor parte de un usuario.|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **10** |=.  N/A | N/A|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
 {background:#dddddd}. |\3=. CÓDIGO |
 
 <pre><code class="xml">
 	<rule id="100342" timeframe="60" frequency="6" level="10">
-		<if_matched_sid>100340</if_matched_sid>
+		<if_matched_sid>100323</if_matched_sid>
 		<field name="win.system.eventID">^4771$</field>
 		<same_field>win.eventdata.ipAddress</same_field>
-		<description>Mitre ATT&CK T1110, Credential Access, Brute Force, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress) posible Kerberos spaying</description>
+		<description>Mitre ATT&CK T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed from $(win.eventdata.ipAddress) posible Kerberos spaying</description>
+		<options>no_full_log</options>
+		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
+	</rule>
+</code></pre>
+
+----
+
+h3. - T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed.
+
+----
+
+{background:#dddddd}. |=. ID |=. DESCRIPCIÓN ||
+| T1110.001 |\2. Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.|
+{background:#dddddd}. |\3=. EXPLICACIÓN |
+|\3. Esta firma monitoriza el repedito fallo de autenticaciones poor parte de un usuario.|
+{background:#dddddd}. |=. Nivel |=.Origen|=. ID Evento |
+|={background:#f6bb7f}. **10** |=.  N/A | N/A|
+{background:#dddddd}. |\3=. Firmas Relacionadas |
+{background:#dddddd}. |=. Dependientes |=. Subordinadas | |
+||||
+{background:#dddddd}. |\3=. CÓDIGO |
+
+<pre><code class="xml">
+	<rule id="100343" timeframe="60" frequency="6" level="10">
+		<if_matched_sid>100323</if_matched_sid>
+		<field name="win.system.eventID">^4771$</field>
+		<same_field>win.eventdata.subjectUserSid</same_field>
+		<description>Mitre ATT&CK T1110.001,  Credential Access, Brute Force: Password Guessing, Multiple Kerberos pre-authentication failed from user $(win.eventdata.subjectUserSid)</description>
 		<options>no_full_log</options>
 		<group>pci_dss_10.6.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,</group>
 	</rule>

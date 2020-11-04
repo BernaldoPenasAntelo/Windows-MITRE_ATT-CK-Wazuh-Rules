@@ -597,7 +597,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100710" level="0">
 		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">SYSTEM\\\\CurrentControlSet\\\\Enum\\\\USB\\\\</field>
+		<field name="win.eventdata.TargetObject">SYSTEM\\\\CurrentControlSet\\\\Enum\\\\USB</field>
 		<description>Mitre ATT&CK T1092, Command And Control, Communication Through Removable Media, mounted USB</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1042,8 +1042,6 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100924" level="12">
 		<if_group>sysmon_event_15</if_group>
-		<field name="win.system.eventID">^15$</field>
-		<field name="win.system.TargetFilename">\w:\\\.*:\.*$</field>
 		<description>Mitre ATT&CK T1564.004,  Defense Evasion, Hide Artifacts: NTFS File Attributes , Creation of ADS (alternate data stream) $(win.eventdata.targetFilename)</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1195,7 +1193,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="100943" level="12">
 		<if_group>sysmon_event1</if_group>
 		<field name="win.eventdata.Image">\\regsvr32.exe</field>
-		<field name="win.eventdata.CommandLine">\.*regsvr32\.*/i\.*scrobj.dll</field>
+		<field name="win.eventdata.CommandLine">scrobj.dll</field>
 		<description>Mitre ATT&CK T1218.010,  Defense Evasion, Signed Binary Proxy Execution: Regsvr32, Squiblydoo technique</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1405,7 +1403,17 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1574, Defense Evasion, Hijack Execution Flow, MSINFO Hijack by oci.dll creation</description>
 		<options>no_full_log</options>
 	</rule>
-	
+	<!--
+	<ProcessCreate onmatch="include">
+	<Image name="T1027.002 -1" condition="image">upx.exe</Image>
+	</ProcessCreate>
+	--> 
+	<rule id="100968" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">upx.exe</field>
+		<description>Mitre ATT&CK T1027.002, Defense Evasion, Obfuscated Files or Information: Software Packing, use of Ultimate packer for eXecutables</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\cmd.exe","TargetFilename":"C:\\Windows\\system32\\wermgr.exe","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
@@ -1567,9 +1575,9 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<TargetObject condition="contains">*CurrentControlSet\Services\W32Time\TimeProviders\*</TargetObject>
 	</RegistryEvent>
 	-->
-	<rule id="101012" level="12">
+	<rule id="101012" level="7">
 		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">CurrentControlSet\\\\Services\\\\W32Time\\\\TimeProviders\\\\</field>
+		<field name="win.eventdata.TargetObject">CurrentControlSet\\\\Services\\\\W32Time\\\\TimeProviders</field>
 		<description>Mitre ATT&CK T1547.003, Persistence, Boot or Logon Autostart Execution: Time Providers</description>
 		<options>no_full_log</options>
 	</rule>
@@ -1604,16 +1612,15 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	</rule>
 	<!--
 	<RegistryEvent onmatch="include">
-			<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\SCRNSAVE.EXE</TargetObject>
-			<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
-			<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
-			<TargetObject condition="contains" name="T1180 -32">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
+			<TargetObject condition="contains">\Control Panel\Desktop\ScreenSaveActive</TargetObject>
+			<TargetObject condition="contains">\Control Panel\Desktop\ScreenSaverIsSecure</TargetObject>
+			<TargetObject condition="contains">\Control Panel\Desktop\ScreenSaveTimeout</TargetObject>
 	</RegistryEvent>
 	-->
 	<rule id="101016" level="5">
 		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\SCRNSAVE.EXE|\\\\Control Panel\\\\Desktop\\\\ScreenSaveActive|\\\\Control Panel\\\\Desktop\\\\ScreenSaverIsSecure|\\\\Control Panel\\\\Desktop\\\\ScreenSaveTimeout</field>
-		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver </description>
+		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\ScreenSaveActive|\\\\Control Panel\\\\Desktop\\\\ScreenSaverIsSecure|\\\\Control Panel\\\\Desktop\\\\ScreenSaveTimeout</field>
+		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver, Modified screensaver parameters</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1623,7 +1630,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="101017" level="3">
 		<if_group>sysmon_event_13</if_group>
-		<field name="win.eventdata.TargetObject">\\\\Control\\\\Session Manager\\\\AppCertDLLs\\\\</field>
+		<field name="win.eventdata.TargetObject">\\\\Control\\\\Session Manager\\\\AppCertDLLs</field>
 		<description>Mitre ATT&CK T1546.009, Persistence, Event Triggered Execution: AppCert DLLs </description>
 		<options>no_full_log</options>
 	</rule>
@@ -1691,7 +1698,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1547.001, Persistence, Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder</description>
 		<options>no_full_log</options>
 	</rule>
-		<rule id="101025" level="12">
+	<rule id="101025" level="12">
 		<if_group>sysmon_event_12</if_group>
 		<field name="win.eventdata.TargetObject">\\\\CurrentControlSet\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages</field>
 		<description>Mitre ATT&CK T1547.005, Persistence, Boot or Logon Autostart Execution: Security Support Provider III</description>
@@ -1722,13 +1729,13 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	<rule id="101028" level="7">
 		<if_group>sysmon_event_12</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
-		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs I </description>
 		<options>no_full_log</options>
 	</rule>
 	<rule id="101029" level="7">
 		<if_group>sysmon_event_13</if_group>
 		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\WindowsAppInit_DLLs</field>
-		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
+		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs, modification of WindowsAppInit_DLLs II </description>
 		<options>no_full_log</options>
 	</rule>
 	<!--
@@ -1742,6 +1749,102 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1546.010, Persistence, Event Triggered Execution: AppInit DLLs </description>
 		<options>no_full_log</options>
 	</rule>
+	<!--
+	<FileCreate>
+		<TargetFilename condition="contains">\Roaming\Microsoft\Word\STARTUP</TargetFilename>
+	</FileCreate>
+	-->
+    <rule id="101031" level="1">
+        <if_group>sysmon_event_11</if_group>
+        <field name="win.eventdata.TargetFilename">\\\\Roaming\\\\Microsoft\\\\Word\\\\STARTUP</field>
+        <description>Mitre ATT&CK T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder</description>
+        <options>no_full_log</options>
+    </rule>
+    <rule id="101032" level="5">
+        <if_sid>101031</if_sid>
+        <field name="win.eventdata.TargetFilename">.wll|.xll</field>
+        <description>Mitre ATT&CK T1137.006, Persistence, Office Application Startup: Add-ins, new .wll or .xll created in word startup folder</description>
+        <options>no_full_log</options>
+    </rule>
+	<rule id="101033" level="12">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Microsoft\\\\Office test\\\\Special\\\\Perf</field>
+		<description>Mitre ATT&CK T1137.002, Persistence, Office Application Startup: Office Test, creation of test dll used for performance evaluations in Office</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<ProcessCreate onmatch="include">
+		<Image condition="image">sdbinst.exe</Image>
+	</ProcessCreate>
+	-->
+	<rule id="101034" level="5">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">sdbinst.exe</field>
+		<description>Mitre ATT&CK T1546.011, Persistence, Event Triggered Execution: Application Shimming, use of sdbinst to install a shim</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent onmatch="include">
+			<TargetObject condition="contains">\Control Panel\Desktop\SCRNSAVE.EXE</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101035" level="7">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Control Panel\\\\Desktop\\\\SCRNSAVE.EXE</field>
+		<description>Mitre ATT&CK T1546.002, Persistence, Event Triggered Execution: Screensaver, Modification of screensaver executable</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent>
+		<TargetObject condition="contains">\Windows NT\CurrentVersion\Image File Execution Options</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101036" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\Image File Execution Options</field>
+		<description>Mitre ATT&CK T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry Image File Execution Options</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent>
+		<TargetObject condition="contains">\Windows NT\CurrentVersion\SilentProcessExit</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101037" level="7">
+		<if_group>sysmon_event_12</if_group>
+		<field name="win.eventdata.TargetObject">\\\\Windows NT\\\\CurrentVersion\\\\SilentProcessExit</field>
+		<description>Mitre ATT&CK T1546.012, Persistence, Event Triggered Execution: Image File Execution Options Injection, modification of registry SilentProcessExit</description>
+		<options>no_full_log</options>
+	</rule>	
+	<rule id="101038" level="7">
+		<if_sid>100109</if_sid>
+		<field name="win.eventdata.commandLine">/create|/addfile|/SetNotifyCmdLine|/SetMinRetryDelay|/resume</field>
+		<description>Mitre ATT&CK T1197, Persistence, BITS Jobs , Usual bitsadmin commands to achieve persistence</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<FileCreate onmatch="include">
+		<TargetFilename condition="contains">\Documents\WindowsPowerShell</TargetFilename>
+	</FileCreate>
+	-->
+	<rule id="101039" level="7">
+		<if_group>sysmon_event_11</if_group>
+		<field name="win.eventdata.TargetFilename">\\\\Documents\\\\WindowsPowerShell</field>
+		<description>Mitre ATT&CK T1546.013, Persistence, Event Triggered Execution: PowerShell Profile, Creation of Powershell profile</description>
+		<options>no_full_log</options>
+	</rule>
+	<!--
+	<RegistryEvent>
+		<TargetObject condition="contains">\SAM\SAM\Domains\Account\Users\000001F5\F</TargetObject>
+	</RegistryEvent>
+	-->
+	<rule id="101040" level="10">
+		<if_group>sysmon_event_13</if_group>
+		<field name="win.eventdata.TargetObject">\\\\SAM\\\\SAM\\\\Domains\\\\Account\\\\Users\\\\000001F5\\\\F</field>
+		<description>Mitre ATT&CK T1078.001, Persistence, Valid Accounts: Default Accounts, Guest RID Hijacking</description>
+		<options>no_full_log</options>
+	</rule>
+	
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!-- INITIAL ACCESS 101100-->	
 	<!--
@@ -1873,6 +1976,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1552.002, Credential Access, Unsecured Credentials: Credentials in Registry, reg.exe query for passwords in registry</description>
 		<options>no_full_log</options>
 	</rule>
+
 	<!------------------------------------------------------------------------------------------------------------------------------->	
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"11","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"File Created."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-03-17 19:10:02.058","ProcessGuid":"{365abb72-9b85-5c8e-0000-0010c4cc1200}","ProcessId":"3576","Image":"C:\\Windows\\system32\\taskmgr.exe","TargetFilename":"C:\\UsageLogs\\cscript.exe.log","CreationUtcTime":"2019-03-17 19:10:02.058"}}}
