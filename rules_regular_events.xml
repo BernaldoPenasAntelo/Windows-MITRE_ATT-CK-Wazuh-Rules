@@ -76,7 +76,14 @@
 	</rule>
 	<rule id="100208" level="10" timeframe="60" frequency="6">
 		<if_matched_sid>100207</if_matched_sid>
-		<description>Mitre ATT&CK T1021.001, Lateral movement, emote Services: Remote Desktop Protocol, Blocked Inbound packets to known Lateral Movement Ports</description>
+		<description>Mitre ATT&CK T1021.001, Lateral movement, Remote Services: Remote Desktop Protocol, Blocked Inbound packets to known Lateral Movement Ports</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100207" level="3">
+		<if_sid>60104</if_sid>
+		<field name="win.system.eventID">^5156$</field>
+		<field name="win.eventdata.DestPort">^3389$</field>
+		<description>Mitre ATT&CK T1021.001, Lateral movement, Remote Services: Remote Desktop Protocol, RDP connection allowed from $(win.eventdata.SourceAddress)</description>
 		<options>no_full_log</options>
 	</rule>
 	<!--

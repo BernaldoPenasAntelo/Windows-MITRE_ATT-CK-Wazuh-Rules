@@ -161,7 +161,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 	-->
 	<rule id="100113" level="10">
 		<if_group>sysmon_event1</if_group>
-		<field name="win.eventdata.image">\\powershell.exe||\\.ps1||\\.ps2</field>
+		<field name="win.eventdata.Image">\\powershell.exe||\\.ps1||\\.ps2</field>
 		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Powershell or Script Execution: $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
@@ -499,6 +499,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, Manually turned off UAC</description>
 		<options>no_full_log</options>
 	</rule>	
+	<rule id="100612" level="12">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.ParentCommandLine">eventvwr.msc</field>
+		<description>Mitre ATT&CK T1548.002, Privilege Escalation, Abuse Elevation Control Mechanism, Bypass User Access Control, Fileless UAC Bypass Using eventvwr.exe</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"3","version":"2","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-08T02:10:43.487217000","eventRecordID":"202793","processID":"444","threadID":"463","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC1.insecurebank.local","severityValue":"INFORMATION","message":"Network connection detected."},"eventdata":{"subjectUserSid":"S-1-5-21-3461203602-4096304019-2269080069-1000","RuleName":"","UtcTime":"2019-05-02 14:48:51.664","ProcessGuid":"{365abb72-0244-5ccb-0000-00109ae70b00}","ProcessId":"1508","Image":"C:\\Windows\\System32\\svchost.exe","User":"IEWIN7\\IEUser","Protocol":"tcp","Initiated":"true","SourceIsIpv6":"false","SourceIp":"10.0.2.15","SourceHostname":"IEWIN7.home","SourcePort":"3389","SourcePortName":"","DestinationIsIpv6":"false","DestinationIp":"127.0.0.1","DestinationHostname":"","DestinationPort":"443","DestinationPortName":"https"}}}
@@ -750,6 +756,49 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<if_sid>100119</if_sid>
 		<field name="win.eventdata.commandline">group|localgroup</field>
 		<description>Mitre ATT&CK T1069.002, Discovery, Permission Groups Discovery: Domain Groups, use of binary net.exe to discover groups</description>
+		<options>no_full_log</options>
+	</rule>
+	
+	<!--
+	<ProcessCreate onmatch="include">
+		<CommandLine condition="contains" name="T1016">ipconfig</CommandLine>
+		<CommandLine condition="contains" name="T1016">arp -a</CommandLine>
+		<CommandLine condition="contains" name="T1016">netsh interface</CommandLine>
+		<CommandLine condition="contains" name="T1016">nbtstat -n</CommandLine>
+		<CommandLine condition="contains" name="T1016">net config</CommandLine>
+	</ProcessCreate>	
+	-->
+	<rule id="100817" level="3">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.commandline">ipconfig</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use of ipconfig to discover network configuration</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100818" level="3">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">netsh.exe</field>
+		<field name="win.eventdata.CommandLine">interface show interface</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use netsh.exe to discover network configuration</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100819" level="3">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">arp.exe</field>
+		<field name="win.eventdata.CommandLine">-a</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use arp.exe to discover network configuration</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100820" level="3">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.Image">nbtstat.exe</field>
+		<field name="win.eventdata.CommandLine">-n</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use nbtstat.exe to discover network configuration</description>
+		<options>no_full_log</options>
+	</rule>
+	<rule id="100821" level="3">
+		<if_sid>100119</if_sid>
+		<field name="win.eventdata.CommandLine">config</field>
+		<description>Mitre ATT&CK T1016, Discovery, System Network Configuration Discovery, use net.exe to discover network configuration</description>
 		<options>no_full_log</options>
 	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
@@ -1073,7 +1122,7 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1218.007, Defense Evasion, Signed Binary Proxy Execution: Msiexec, Msiexec.exe has executed $(win.eventdata.CommandLine)</description>
 		<options>no_full_log</options>
 	</rule>
-	<rule id="100928" level="12">
+	<rule id="100928" level="7">
 		<if_group>sysmon_event3</if_group>
 		<field name="win.eventdata.SourcePort">^4444$</field>
 		<description>Mitre ATT&CK T1064, Defense Evasion, Scripting, Default Metasploit Reverse shell port</description>
@@ -2222,7 +2271,12 @@ A robust detection can only begin once the data sources (process monitoring, fil
 		<description>Mitre ATT&CK T1569.002, Execution, System Services: Service Execution, Creation of FailureCommand registry hive</description>
 		<options>no_full_log</options>
 	</rule>
-
+	<rule id="101325" level="12">
+		<if_sid>100113</if_sid>
+		<field name="win.eventdata.commandline">IEX</field>
+		<description>Mitre ATT&CK T1059.001, Execution, Command and Scripting Interpreter: PowerShell, Invoke execution call</description>
+		<options>no_full_log</options>
+	</rule>
 	<!------------------------------------------------------------------------------------------------------------------------------->
 	<!--
 	{"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{54849625-5478-4994-a5ba-3e3b0328c30d}","eventID":"1","version":"3","level":"4","task":"11","opcode":"0","keywords":"0x8000000000000000","systemTime":"2019-05-11T17:58:23.340659600Z","eventRecordID":"16111","processID":"2032","threadID":"4092","channel":"Microsoft-Windows-Sysmon/Operational","computer":"IEWIN7","severityValue":"INFORMATION","message":"Process created"},"eventdata":{"subjectUserSid":"S-1-5-21-832578100-2197499271-3753655264-181285","RuleName":"T1562.001","UtcTime":"2020-03-09 13:24:16.460","ProcessGuid":"{3ffeba4e-4380-5e66-0000-00105469dd00}","ProcessId":"62516","Image":"C:\\Windows\\explorer.exe", "FileVersion":"10.0.17763.831 (WinBuild.160101.0800)","Description":"Windows Explorer","Product":"Microsoft® Windows® Operating System","Company":"Microsoft Corporation","OriginalFileName":"EXPLORER.EXE","CommandLine":"C:\\WINDOWS\\explorer.exe shell:appsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App","CurrentDirectory":"C:\\Users\ue05762\\","User":"XUNTA\\ue05762","LogonGuid":"3ffeba4e-1fb3-5e66-0000-002075700c00}","LogonId":"0xc7075","TerminalSessionId":"1", "IntegrityLevel":"Medium","Hashes":"MD5=C25CF941EE6C7927C0A2AB0CB7FABE0B,SHA256=F246E1D1CD5C935C5182CD7F1E0C9FC2C8C08A991F505FCD18BD2027BB4506A4","ParentProcessGuid":"{3ffeba4e-4266-5e66-0000-00109a42d800}","ParentProcessId":"56968","ParentImage":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","ParentCommandLine":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}}}

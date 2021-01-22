@@ -62,6 +62,8 @@
 				<Image name="T1087 -1" condition="image">adfind.exe</Image>
 				<Image name="T1546.011 -3" condition="image">sdbinst.exe</Image>
 				<Image name="T1027.002 -1" condition="image">upx.exe</Image>
+				<Image name="T1016 -1" condition="image">arp.exe</Image>
+				<Image name="T1016 -2" condition="image">nbtstat.exe</Image>
 									  
 				<CommandLine condition="contains" name="T1056 -46">*/stext*</CommandLine>
 				<CommandLine condition="contains" name="T1056 -47">*/scomma*</CommandLine>
@@ -101,6 +103,7 @@
 				<CommandLine condition="contains" name="T1002 -1">Compress-Archive</CommandLine>
 				<CommandLine condition="contains" name="T1002 -2">System.IO.Compression.FileSystem</CommandLine>
 				<CommandLine condition="contains" name="T1059 -105">mimikatz.exe</CommandLine>
+				<CommandLine condition="contains" name="T1016 -3">ipconfig</CommandLine>
 
 				
 
